@@ -2,6 +2,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container, Nav, Navbar } from 'react-bootstrap';
 import { Link, Route, Routes } from 'react-router-dom';
 import styled from 'styled-components';
+import { HomePage } from '../pages/home-page/home-page';
+import { Game } from '../pages/game/game';
 
 const StyledApp = styled.div`
   // Your style here
@@ -19,8 +21,8 @@ export function App() {
             <Nav.Link as={Link} to="/">
               Home
             </Nav.Link>
-            <Nav.Link as={Link} to="/page-2">
-              Page 2
+            <Nav.Link as={Link} to="/game">
+              Game
             </Nav.Link>
           </Nav>
         </Container>
@@ -28,23 +30,8 @@ export function App() {
 
       <Container className="py-3">
         <Routes>
-          <Route
-            path="/"
-            element={
-              <div>
-                This is the generated root route.{' '}
-                <Link to="/page-2">Click here for page 2.</Link>
-              </div>
-            }
-          />
-          <Route
-            path="/page-2"
-            element={
-              <div>
-                <Link to="/">Click here to go back to root page.</Link>
-              </div>
-            }
-          />
+          <Route path="/" element={<HomePage />} />
+          <Route path="/game" element={<Game />} />
         </Routes>
       </Container>
     </StyledApp>
