@@ -6,10 +6,10 @@ export interface GameProps {}
 
 const StyledGame = styled.div``;
 
-export const Game: React.FC = (props: GameProps) => {
+export function Game(props: GameProps) {
   return (
     <StyledGame>
       <Page name="Game" />
     </StyledGame>
   );
-};
+}

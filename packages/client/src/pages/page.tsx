@@ -5,7 +5,7 @@ export interface PageProps extends React.PropsWithChildren {
   name: string;
 }
 
-const StyledPage = styled.div``;
+const StyledPage = styled.main``;
 
 export function Page(props: PageProps) {
   return (
