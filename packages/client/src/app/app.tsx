@@ -26,7 +26,7 @@ export function App() {
         </Container>
       </Navbar>
 
-      <Container>
+      <Container className="py-3">
         <Routes>
           <Route
             path="/"
