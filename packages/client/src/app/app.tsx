@@ -5,10 +5,9 @@ import styled from 'styled-components';
 import { Game } from '../pages/game/game';
 import { NavigationBar } from './navigation-bar/navigation-bar';
 import { Home } from '../pages/home/home';
+import Host from '../pages/host/host';
 
-const StyledApp = styled.div`
-  // Your style here
-`;
+const StyledApp = styled.div``;
 
 export function App() {
   return (
@@ -18,6 +17,7 @@ export function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/game" element={<Game />} />
+          <Route path="/host" element={<Host />} />
         </Routes>
       </Container>
     </StyledApp>

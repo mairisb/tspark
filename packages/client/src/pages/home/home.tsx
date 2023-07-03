@@ -9,7 +9,7 @@ const StyledHome = styled.div``;
 export function Home(props: HomeProps) {
   return (
     <StyledHome>
-      <Page name="Home" />
+      <Page title="Home" />
     </StyledHome>
   );
 }
