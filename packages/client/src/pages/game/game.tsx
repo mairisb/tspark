@@ -9,7 +9,9 @@ export function Game(props: GameProps) {
   return (
     <Page title="The Game">
       <Stack gap={1}>
-        <Button>Browse</Button>
+        <LinkContainer to="/browse">
+          <Button>Browse</Button>
+        </LinkContainer>
         <LinkContainer to="/host">
           <Button>Host</Button>
         </LinkContainer>
