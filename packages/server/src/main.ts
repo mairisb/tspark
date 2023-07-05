@@ -1,9 +1,9 @@
 import express from 'express';
 import * as path from 'path';
 import 'reflect-metadata';
-import { Person } from './Person';
+import { Person } from './person';
 import { AppDataSource } from './data-source';
-import { Game } from './Game';
+import { Game } from './game';
 import cors from 'cors';
 
 const games: Game[] = [
