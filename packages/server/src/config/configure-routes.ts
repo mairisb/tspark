@@ -1,8 +1,8 @@
 import { Application } from 'express';
-import PersonRouter from '../routers/person.router';
+import UserRouter from '../routers/user.router';
 
 const configureRoutes = (app: Application) => {
-  app.use('/api/persons', PersonRouter);
+  app.use('/api/users', UserRouter);
 };
 
 export default configureRoutes;
