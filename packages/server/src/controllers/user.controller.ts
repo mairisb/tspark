@@ -1,7 +1,8 @@
+import { UserDto } from '@thegame/common';
 import { Request, Response } from 'express';
 import UserService from '../services/user.service';
 
-const getAll = async (_: Request, response: Response) => {
+const getAll = (_: Request, response: Response<UserDto[]>) => {
   UserService.getAll().then((users) => {
     response.json(users);
   });

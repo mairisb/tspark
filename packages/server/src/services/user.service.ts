@@ -3,7 +3,7 @@ import User from '../models/user.model';
 
 const userRepository = appDataSource.getRepository(User);
 
-const getAll = async () => {
+const getAll = () => {
   return userRepository.find();
 };
 

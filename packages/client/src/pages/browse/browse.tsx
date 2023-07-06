@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { Page } from '../page';
 import { GameService } from '../../services/game-service';
+import { Page } from '../page';
 
 /* eslint-disable-next-line */
 export interface BrowseProps {}
@@ -13,8 +13,8 @@ export function Browse(props: BrowseProps) {
   }, []);
   return (
     <Page title="Browse">
-      {games.map((game: any) => (
-        <p>{`${game.name} (${game.players})`}</p>
+      {games.map((game: any, i: number) => (
+        <p key={i}>{`${game.name} (${game.players})`}</p>
       ))}
     </Page>
   );
