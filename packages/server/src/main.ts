@@ -2,7 +2,7 @@ import cors from 'cors';
 import express from 'express';
 import * as path from 'path';
 import 'reflect-metadata';
-import { AppDataSource } from './config/app-data-source';
+import AppDataSource from './config/app-data-source';
 import configureRoutes from './config/configure-routes';
 import { Game } from './game';
 

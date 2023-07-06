@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { PersonService } from '../services/person.service';
+import PersonService from '../services/person.service';
 
 const getAll = async (_: Request, response: Response) => {
   PersonService.getAll().then((persons) => {
@@ -7,6 +7,8 @@ const getAll = async (_: Request, response: Response) => {
   });
 };
 
-export const PersonController = {
+const PersonController = {
   getAll,
 };
+
+export default PersonController;
