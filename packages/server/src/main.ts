@@ -4,7 +4,7 @@ import * as path from 'path';
 import 'reflect-metadata';
 import { AppDataSource } from './config/app-data-source';
 import { Game } from './game';
-import { Person } from './person';
+import { Person } from './models/person';
 
 const games: Game[] = [
   { name: 'Room1', players: 3 },
