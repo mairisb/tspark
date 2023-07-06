@@ -1,15 +1,15 @@
 import { UserDto } from '@thegame/common';
 import { Request, Response } from 'express';
-import UserService from '../services/user.service';
+import userService from '../services/user.service';
 
 const getAll = (_: Request, response: Response<UserDto[]>) => {
-  UserService.getAll().then((users) => {
+  userService.getAll().then((users) => {
     response.json(users);
   });
 };
 
-const UserController = {
+const userController = {
   getAll,
 };
 
-export default UserController;
+export default userController;

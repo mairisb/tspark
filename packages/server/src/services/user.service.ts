@@ -7,8 +7,8 @@ const getAll = () => {
   return userRepository.find();
 };
 
-const UserService = {
+const userService = {
   getAll,
 };
 
-export default UserService;
+export default userService;

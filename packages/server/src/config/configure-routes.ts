@@ -1,8 +1,10 @@
 import { Application } from 'express';
-import UserRouter from '../routers/user.router';
+import userRouter from '../routers/user.router';
+import gameRouter from '../routers/game.router';
 
 const configureRoutes = (app: Application) => {
-  app.use('/api/users', UserRouter);
+  app.use('/api/users', userRouter);
+  app.use('/api/games', gameRouter);
 };
 
 export default configureRoutes;
