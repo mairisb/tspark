@@ -3,8 +3,8 @@ import express from 'express';
 import * as path from 'path';
 import 'reflect-metadata';
 import { AppDataSource } from './config/app-data-source';
+import configureRoutes from './config/configure-routes';
 import { Game } from './game';
-import { Person } from './models/person';
 
 const games: Game[] = [
   { name: 'Room1', players: 3 },
@@ -21,14 +21,11 @@ app.get('/api', (_, res) => {
   res.send({ message: 'Welcome to server!' });
 });
 
-app.get('/all', async (_, res) => {
-  const allPersons = await AppDataSource.manager.find(Person);
-  res.send(allPersons);
-});
-
 app.get('/games', async (_, res) => {
   res.send(games);
 });
+
+configureRoutes(app);
 
 const port = process.env.PORT || 3333;
 
