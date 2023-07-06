@@ -2,7 +2,7 @@ import cors from 'cors';
 import express from 'express';
 import * as path from 'path';
 import 'reflect-metadata';
-import AppDataSource from './config/app-data-source';
+import appDataSource from './config/app-data-source';
 import configureRoutes from './config/configure-routes';
 import { Game } from './game';
 
@@ -29,7 +29,8 @@ configureRoutes(app);
 
 const port = process.env.PORT || 3333;
 
-AppDataSource.initialize()
+appDataSource
+  .initialize()
   .then(() => {
     const server = app.listen(port, () => {
       console.log(`Listening at http://localhost:${port}/api`);

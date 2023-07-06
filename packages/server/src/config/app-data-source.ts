@@ -1,7 +1,7 @@
 import { DataSource } from 'typeorm';
 import User from '../models/user.model';
 
-const AppDataSource = new DataSource({
+const appDataSource = new DataSource({
   type: 'sqlite',
   database: 'sqlite.db',
   entities: [User],
@@ -9,4 +9,4 @@ const AppDataSource = new DataSource({
   logging: false,
 });
 
-export default AppDataSource;
+export default appDataSource;

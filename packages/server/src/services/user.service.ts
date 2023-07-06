@@ -1,8 +1,8 @@
-import AppDataSource from '../config/app-data-source';
+import appDataSource from '../config/app-data-source';
 import User from '../models/user.model';
 
 const getAll = async () => {
-  return AppDataSource.manager.find(User);
+  return appDataSource.manager.find(User);
 };
 
 const UserService = {
