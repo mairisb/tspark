@@ -41,3 +41,5 @@ Thumbs.db
 # Other
 *.db
 sql-playground
+.env
+.env.*
