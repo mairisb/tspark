@@ -7,6 +7,7 @@ import { Game } from '../pages/game/game';
 import { Home } from '../pages/home/home';
 import Host from '../pages/host/host';
 import { NavigationBar } from './navigation-bar/navigation-bar';
+import LoginPage from '../pages/login-page/login-page';
 
 const StyledApp = styled.div``;
 
@@ -20,6 +21,7 @@ export function App() {
           <Route path="/game" element={<Game />} />
           <Route path="/host" element={<Host />} />
           <Route path="/browse" element={<Browse />} />
+          <Route path="/login" element={<LoginPage />} />
         </Routes>
       </Container>
     </StyledApp>

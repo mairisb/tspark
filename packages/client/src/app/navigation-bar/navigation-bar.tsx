@@ -14,7 +14,7 @@ export function NavigationBar(props: NavigationBarProps) {
         <Navbar.Brand as={Link} to="/">
           Navbar
         </Navbar.Brand>
-        <Nav className="me-auto">
+        <Nav className="me-auto d-flex">
           <Nav.Link as={Link} to="/">
             Home
           </Nav.Link>
@@ -22,6 +22,11 @@ export function NavigationBar(props: NavigationBarProps) {
             Game
           </Nav.Link>
         </Nav>
+        <Navbar.Collapse className="justify-content-end">
+          <Nav.Link as={Link} to="/login">
+            Login
+          </Nav.Link>
+        </Navbar.Collapse>
       </Container>
     </StyledNavigationBar>
   );
