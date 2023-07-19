@@ -1,7 +1,7 @@
 import { useForm } from 'react-hook-form';
 import { Page } from '../page';
 import { Button, Form, Stack } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import authService from '../../services/auth.service';
 
 interface FormData {
   email: string;
@@ -9,17 +9,20 @@ interface FormData {
 }
 
 /* eslint-disable-next-line */
-export interface LoginPageProps {}
+export interface RegisterPageProps {}
 
-export function LoginPage(props: LoginPageProps) {
+export function RegisterPage(props: RegisterPageProps) {
   const form = useForm<FormData>();
 
-  const onSubmit = form.handleSubmit((data) => {
-    console.log(data);
+  const onSubmit = form.handleSubmit(({ email, password }) => {
+    authService
+      .register(email, password)
+      .then(() => console.log('Registration successful'))
+      .catch((error) => console.error('Registration failed: ', error));
   });
 
   return (
-    <Page title="Login">
+    <Page title="Register">
       <Form onSubmit={onSubmit}>
         <Stack gap={2}>
           <Form.Group controlId="email">
@@ -30,12 +33,11 @@ export function LoginPage(props: LoginPageProps) {
             <Form.Label>Password</Form.Label>
             <Form.Control type="password" {...form.register('password')} />
           </Form.Group>
-          <Button type="submit">Log in</Button>
+          <Button type="submit">Register</Button>
         </Stack>
       </Form>
-      <Link to="/register">Register</Link>
     </Page>
   );
 }
 
-export default LoginPage;
+export default RegisterPage;

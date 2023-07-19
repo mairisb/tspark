@@ -4,11 +4,14 @@ import * as path from 'path';
 import 'reflect-metadata'; // needed for TypeORM
 import appDataSource from './config/app-data-source';
 import configureRoutes from './config/configure-routes';
+import bodyParser from 'body-parser';
 
 const app = express();
 app.use(cors());
 
 app.use('/assets', express.static(path.join(__dirname, 'assets')));
+
+app.use(bodyParser.json());
 
 configureRoutes(app);
 

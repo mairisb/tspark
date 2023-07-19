@@ -6,8 +6,9 @@ import Browse from '../pages/browse/browse';
 import { Game } from '../pages/game/game';
 import { Home } from '../pages/home/home';
 import Host from '../pages/host/host';
-import { NavigationBar } from './navigation-bar/navigation-bar';
 import LoginPage from '../pages/login-page/login-page';
+import RegisterPage from '../pages/register-page/register-page';
+import { NavigationBar } from './navigation-bar/navigation-bar';
 
 const StyledApp = styled.div``;
 
@@ -18,10 +19,11 @@ export function App() {
       <Container className="py-3">
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
           <Route path="/game" element={<Game />} />
           <Route path="/host" element={<Host />} />
           <Route path="/browse" element={<Browse />} />
-          <Route path="/login" element={<LoginPage />} />
         </Routes>
       </Container>
     </StyledApp>
