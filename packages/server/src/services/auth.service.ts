@@ -20,12 +20,19 @@ const register = (userInfo: UserInfo) => {
   );
 };
 
-const login = (userInfo: UserInfo) => {
-  console.log(userInfo);
-};
+const login = (userInfo: UserInfo) =>
+  userRepository
+    .findOneByOrFail({ email: userInfo.email })
+    .then((user) => bcrypt.compare(userInfo.password, user.password))
+    .then((isMatch) => {
+      if (!isMatch) {
+        throw Error('Incorrect password');
+      }
+    });
 
 const authService = {
   register,
+  login,
 };
 
 export default authService;

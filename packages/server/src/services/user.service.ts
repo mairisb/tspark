@@ -7,12 +7,22 @@ const getAll = () => {
   return userRepository.find();
 };
 
+const get = (id: number) => {
+  return userRepository.findOneOrFail({ where: { id } });
+};
+
+const getByEmail = (email: string) => {
+  return userRepository.findOneOrFail({ where: { email } });
+};
+
 const existsByEmail = (email: string) => {
   return userRepository.exist({ where: { email } });
 };
 
 const userService = {
   getAll,
+  get,
+  getByEmail,
   existsByEmail,
 };
 

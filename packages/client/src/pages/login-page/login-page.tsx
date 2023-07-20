@@ -2,6 +2,7 @@ import { useForm } from 'react-hook-form';
 import { Page } from '../page';
 import { Button, Form, Stack } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import authService from '../../services/auth.service';
 
 interface FormData {
   email: string;
@@ -15,7 +16,10 @@ export function LoginPage(props: LoginPageProps) {
   const form = useForm<FormData>();
 
   const onSubmit = form.handleSubmit((data) => {
-    console.log(data);
+    authService
+      .login(data.email, data.password)
+      .then(() => console.log('Login successful'))
+      .catch((error) => console.error('Login failed: ', error));
   });
 
   return (

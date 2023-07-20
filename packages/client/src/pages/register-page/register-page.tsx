@@ -14,9 +14,9 @@ export interface RegisterPageProps {}
 export function RegisterPage(props: RegisterPageProps) {
   const form = useForm<FormData>();
 
-  const onSubmit = form.handleSubmit(({ email, password }) => {
+  const onSubmit = form.handleSubmit((data) => {
     authService
-      .register(email, password)
+      .register(data.email, data.password)
       .then(() => console.log('Registration successful'))
       .catch((error) => console.error('Registration failed: ', error));
   });
