@@ -1,4 +1,4 @@
-import { GameDto } from '@thegame/common';
+import { GameDto } from '@jspark/common';
 import { Request, Response } from 'express';
 import gameServiceMock from '../services/game.service.mock';
 

@@ -1,4 +1,4 @@
-import { UserDto } from '@thegame/common';
+import { UserDto } from '@jspark/common';
 import axios from 'axios';
 
 const getAll = (): Promise<UserDto[]> => {

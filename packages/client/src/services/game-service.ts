@@ -1,4 +1,4 @@
-import { GameDto } from '@thegame/common';
+import { GameDto } from '@jspark/common';
 import axios from 'axios';
 
 export class GameService {
