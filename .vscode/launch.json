@@ -5,7 +5,17 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Debug Server",
+      "name": "Client",
+      "type": "node",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/packages/client",
+      "runtimeExecutable": "nx",
+      "runtimeArgs": ["serve", "client", "--host=0.0.0.0"],
+      "skipFiles": ["<node_internals>/**", "${workspaceFolder}/node_modules/*"],
+      "outFiles": ["${workspaceFolder}/dist/**/*.js"]
+    },
+    {
+      "name": "Server",
       "type": "node",
       "request": "launch",
       "cwd": "${workspaceFolder}/packages/server",
@@ -20,6 +30,13 @@
       "request": "attach",
       "port": 9229,
       "cwd": "${workspaceFolder}/packages/server"
+    }
+  ],
+  "compounds": [
+    {
+      "name": "Server/Client",
+      "configurations": ["Server", "Client"],
+      "stopAll": false
     }
   ]
 }
