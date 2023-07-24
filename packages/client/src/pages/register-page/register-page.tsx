@@ -2,17 +2,28 @@ import { useForm } from 'react-hook-form';
 import { Page } from '../page';
 import { Button, Form, Stack } from 'react-bootstrap';
 import authService from '../../services/auth.service';
+import * as yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
 
 interface FormData {
   email: string;
   password: string;
 }
 
+const formSchema: yup.ObjectSchema<FormData> = yup.object({
+  email: yup.string().email().required(),
+  password: yup.string().min(8).required(),
+});
+
 /* eslint-disable-next-line */
 export interface RegisterPageProps {}
 
 export function RegisterPage(props: RegisterPageProps) {
-  const form = useForm<FormData>();
+  const form = useForm<FormData>({
+    resolver: yupResolver(formSchema),
+    mode: 'onTouched',
+  });
+  const errors = form.formState.errors;
 
   const onSubmit = form.handleSubmit((data) => {
     authService
@@ -27,11 +38,25 @@ export function RegisterPage(props: RegisterPageProps) {
         <Stack gap={2}>
           <Form.Group controlId="email">
             <Form.Label>E-mail</Form.Label>
-            <Form.Control type="text" {...form.register('email')} />
+            <Form.Control
+              type="text"
+              {...form.register('email')}
+              isInvalid={Boolean(errors.email)}
+            />
+            <Form.Control.Feedback type="invalid">
+              {errors.email?.message}
+            </Form.Control.Feedback>
           </Form.Group>
           <Form.Group controlId="password">
             <Form.Label>Password</Form.Label>
-            <Form.Control type="password" {...form.register('password')} />
+            <Form.Control
+              type="password"
+              {...form.register('password')}
+              isInvalid={Boolean(errors.password)}
+            />
+            <Form.Control.Feedback type="invalid">
+              {errors.password?.message}
+            </Form.Control.Feedback>
           </Form.Group>
           <Button type="submit">Register</Button>
         </Stack>
