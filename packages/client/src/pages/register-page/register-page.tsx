@@ -5,22 +5,23 @@ import authService from '../../services/auth.service';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 
-interface FormData {
+interface RegistrationFormData {
   email: string;
   password: string;
 }
 
-const formSchema: yup.ObjectSchema<FormData> = yup.object({
-  email: yup.string().email().required(),
-  password: yup.string().min(8).required(),
-});
+const registrationFormSchema: yup.ObjectSchema<RegistrationFormData> =
+  yup.object({
+    email: yup.string().email().required(),
+    password: yup.string().min(8).required(),
+  });
 
 /* eslint-disable-next-line */
 export interface RegisterPageProps {}
 
 export function RegisterPage(props: RegisterPageProps) {
-  const form = useForm<FormData>({
-    resolver: yupResolver(formSchema),
+  const form = useForm<RegistrationFormData>({
+    resolver: yupResolver(registrationFormSchema),
     mode: 'onTouched',
   });
   const errors = form.formState.errors;
