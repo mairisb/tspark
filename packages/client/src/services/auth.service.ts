@@ -7,12 +7,24 @@ const register = (email: string, password: string): Promise<void> =>
 
 const login = (email: string, password: string): Promise<void> =>
   axios
-    .post('http://localhost:3333/api/auth/login', { email, password })
+    .post(
+      'http://localhost:3333/api/auth/login',
+      { email, password },
+      { withCredentials: true }
+    )
     .then((res) => res.data);
+
+const logout = (): Promise<void> =>
+  axios.post(
+    'http://localhost:3333/api/auth/logout',
+    {},
+    { withCredentials: true }
+  );
 
 const authService = {
   register,
   login,
+  logout,
 };
 
 export default authService;
