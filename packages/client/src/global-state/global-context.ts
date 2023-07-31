@@ -1,12 +1,12 @@
 import { createContext } from 'react';
 import { GlobalState } from './global-state';
 import { initialGlobalState } from './initial-global-state';
+import { GlobalReducerAction } from './global-reducer';
 
 export const GlobalContext = createContext<{
   state: GlobalState;
-  setState: React.Dispatch<React.SetStateAction<GlobalState>>;
+  dispatch: React.Dispatch<GlobalReducerAction>;
 }>({
   state: initialGlobalState,
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  setState: () => {},
+  dispatch: () => null,
 });

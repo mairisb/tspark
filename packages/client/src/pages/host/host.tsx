@@ -22,7 +22,7 @@ export const Host: React.FC = () => {
       <pre>{JSON.stringify(globalContext.state)}</pre>
       <button
         onClick={() => {
-          globalContext.setState({ isLoggedIn: true });
+          globalContext.dispatch({ type: 'IS_AUTHORIZED', payload: true });
         }}
       >
         TEST

@@ -1,8 +1,17 @@
 import { Container, Nav, Navbar } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { authService } from '../../services/auth.service';
+import { useGlobalContext } from '../../global-state/use-global-context';
 
 export const NavigationBar: React.FC = () => {
+  const globalContext = useGlobalContext();
+
+  const handleLogout = () => {
+    authService.logout().then(() => {
+      globalContext.dispatch({ type: 'IS_AUTHORIZED', payload: false });
+    });
+  };
+
   return (
     <Navbar bg="primary" data-bs-theme="dark">
       <Container>
@@ -22,7 +31,7 @@ export const NavigationBar: React.FC = () => {
             <Nav.Link as={Link} to="/login">
               Login
             </Nav.Link>
-            <Nav.Link onClick={() => authService.logout()}>Logout</Nav.Link>
+            <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Container>
