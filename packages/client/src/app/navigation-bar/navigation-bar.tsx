@@ -1,11 +1,8 @@
 import { Container, Nav, Navbar } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import authService from '../../services/auth.service';
+import { authService } from '../../services/auth.service';
 
-/* eslint-disable-next-line */
-export interface NavigationBarProps {}
-
-export function NavigationBar(props: NavigationBarProps) {
+export const NavigationBar: React.FC = () => {
   return (
     <Navbar bg="primary" data-bs-theme="dark">
       <Container>
@@ -31,4 +28,4 @@ export function NavigationBar(props: NavigationBarProps) {
       </Container>
     </Navbar>
   );
-}
+};

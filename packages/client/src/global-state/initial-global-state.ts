@@ -1,7 +1,5 @@
-import GlobalState from './global-state';
+import { GlobalState } from './global-state';
 
-const initialGlobalState: GlobalState = {
+export const initialGlobalState: GlobalState = {
   isLoggedIn: false,
 };
-
-export default initialGlobalState;

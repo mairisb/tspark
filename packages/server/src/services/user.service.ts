@@ -1,5 +1,5 @@
-import appDataSource from '../config/app-data-source';
-import User from '../models/user.model';
+import { appDataSource } from '../config/app-data-source';
+import { User } from '../models/user.model';
 
 const userRepository = appDataSource.getRepository(User);
 
@@ -19,11 +19,9 @@ const existsByEmail = (email: string) => {
   return userRepository.exist({ where: { email } });
 };
 
-const userService = {
+export const userService = {
   getAll,
   get,
   getByEmail,
   existsByEmail,
 };
-
-export default userService;

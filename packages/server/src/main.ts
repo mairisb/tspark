@@ -4,8 +4,8 @@ import cors from 'cors';
 import express from 'express';
 import * as path from 'path';
 import 'reflect-metadata'; // needed for TypeORM
-import appDataSource from './config/app-data-source';
-import configureRoutes from './config/configure-routes';
+import { appDataSource } from './config/app-data-source';
+import { configureRoutes } from './config/configure-routes';
 
 const app = express();
 app.use(

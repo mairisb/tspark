@@ -1,11 +1,9 @@
+import React from 'react';
 import { Button, Stack } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import { Page } from '../page';
 
-/* eslint-disable-next-line */
-export interface GameProps {}
-
-export function Game(props: GameProps) {
+export const Game: React.FC = () => {
   return (
     <Page title="The Game">
       <Stack gap={1}>
@@ -18,4 +16,4 @@ export function Game(props: GameProps) {
       </Stack>
     </Page>
   );
-}
+};

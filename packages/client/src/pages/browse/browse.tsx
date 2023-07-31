@@ -2,10 +2,7 @@ import { useEffect, useState } from 'react';
 import { GameService } from '../../services/game-service';
 import { Page } from '../page';
 
-/* eslint-disable-next-line */
-export interface BrowseProps {}
-
-export function Browse(props: BrowseProps) {
+export const Browse: React.FC = () => {
   const [games, setGames] = useState<any[]>([]);
 
   useEffect(() => {
@@ -18,6 +15,4 @@ export function Browse(props: BrowseProps) {
       ))}
     </Page>
   );
-}
-
-export default Browse;
+};

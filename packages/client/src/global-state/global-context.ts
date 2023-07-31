@@ -1,6 +1,6 @@
 import { createContext } from 'react';
-import GlobalState from './global-state';
-import initialGlobalState from './initial-global-state';
+import { GlobalState } from './global-state';
+import { initialGlobalState } from './initial-global-state';
 
 export const GlobalContext = createContext<{
   state: GlobalState;

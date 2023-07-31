@@ -1,4 +1,4 @@
-import Game from '../models/game.model';
+import { Game } from '../models/game.model';
 
 const getAll = () => {
   const games: Promise<Game[]> = new Promise((resolve) => {
@@ -13,8 +13,6 @@ const getAll = () => {
   return games;
 };
 
-const gameServiceMock = {
+export const gameServiceMock = {
   getAll,
 };
-
-export default gameServiceMock;

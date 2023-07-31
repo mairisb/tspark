@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react';
 
-import Browse from './browse';
+import { Browse } from './browse';
 
 describe('Browse', () => {
   it('should render successfully', () => {

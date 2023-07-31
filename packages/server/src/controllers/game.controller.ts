@@ -1,6 +1,6 @@
 import { GameDto } from '@jspark/common';
 import { Request, Response } from 'express';
-import gameServiceMock from '../services/game.service.mock';
+import { gameServiceMock } from '../services/game.service.mock';
 
 const getAll = (_: Request, response: Response<GameDto[]>) => {
   gameServiceMock.getAll().then((games) => {
@@ -8,8 +8,6 @@ const getAll = (_: Request, response: Response<GameDto[]>) => {
   });
 };
 
-const gameController = {
+export const gameController = {
   getAll,
 };
-
-export default gameController;

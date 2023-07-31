@@ -1,6 +1,6 @@
 import { UserDto } from '@jspark/common';
 import { Request, Response } from 'express';
-import userService from '../services/user.service';
+import { userService } from '../services/user.service';
 
 const getAll = (_: Request, response: Response<UserDto[]>) => {
   userService.getAll().then((users) => {
@@ -8,8 +8,6 @@ const getAll = (_: Request, response: Response<UserDto[]>) => {
   });
 };
 
-const userController = {
+export const userController = {
   getAll,
 };
-
-export default userController;

@@ -1,17 +1,15 @@
 import React, { useState } from 'react';
 import { GlobalContext } from './global-context';
-import initialGlobalState from './initial-global-state';
+import { initialGlobalState } from './initial-global-state';
 
-export function GlobalContextProvider({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export const GlobalContextProvider: React.FC<React.PropsWithChildren> = (
+  props
+) => {
   const [state, setState] = useState(initialGlobalState);
 
   return (
     <GlobalContext.Provider value={{ state, setState }}>
-      {children}
+      {props.children}
     </GlobalContext.Provider>
   );
-}
+};

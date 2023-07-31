@@ -21,10 +21,8 @@ const logout = (): Promise<void> =>
     { withCredentials: true }
   );
 
-const authService = {
+export const authService = {
   register,
   login,
   logout,
 };
-
-export default authService;

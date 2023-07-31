@@ -1,9 +1,9 @@
-import { useForm } from 'react-hook-form';
-import { Page } from '../page';
-import { Button, Form, Stack } from 'react-bootstrap';
-import authService from '../../services/auth.service';
-import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { Button, Form, Stack } from 'react-bootstrap';
+import { useForm } from 'react-hook-form';
+import * as yup from 'yup';
+import { authService } from '../../services/auth.service';
+import { Page } from '../page';
 
 interface RegistrationFormData {
   email: string;
@@ -16,10 +16,7 @@ const registrationFormSchema: yup.ObjectSchema<RegistrationFormData> =
     password: yup.string().min(8).required(),
   });
 
-/* eslint-disable-next-line */
-export interface RegisterPageProps {}
-
-export function RegisterPage(props: RegisterPageProps) {
+export const RegisterPage: React.FC = () => {
   const form = useForm<RegistrationFormData>({
     resolver: yupResolver(registrationFormSchema),
     mode: 'onTouched',
@@ -64,6 +61,4 @@ export function RegisterPage(props: RegisterPageProps) {
       </Form>
     </Page>
   );
-}
-
-export default RegisterPage;
+};

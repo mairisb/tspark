@@ -1,8 +1,8 @@
 import { RegisterRequest } from '@jspark/common';
 import { Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
-import authService, { UserInfo } from '../services/auth.service';
-import userService from '../services/user.service';
+import { UserInfo, authService } from '../services/auth.service';
+import { userService } from '../services/user.service';
 
 const register = (request: Request<RegisterRequest>, response: Response) => {
   userService
@@ -63,10 +63,8 @@ const logout = (_: Request, response: Response) => {
     .json({ message: 'Logout successful' });
 };
 
-const authController = {
+export const authController = {
   register,
   login,
   logout,
 };
-
-export default authController;

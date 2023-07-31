@@ -11,8 +11,6 @@ const getAll = (): Promise<UserDto[]> => {
     });
 };
 
-const userService = {
+export const userService = {
   getAll,
 };
-
-export default userService;

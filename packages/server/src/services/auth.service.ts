@@ -1,6 +1,6 @@
 import bcrypt from 'bcrypt';
-import appDataSource from '../config/app-data-source';
-import User from '../models/user.model';
+import { appDataSource } from '../config/app-data-source';
+import { User } from '../models/user.model';
 
 const userRepository = appDataSource.getRepository(User);
 
@@ -30,9 +30,7 @@ const login = (userInfo: UserInfo) =>
       }
     });
 
-const authService = {
+export const authService = {
   register,
   login,
 };
-
-export default authService;

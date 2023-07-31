@@ -1,6 +1,6 @@
 import { UserDto } from '@jspark/common';
 
-export default interface GlobalState {
+export interface GlobalState {
   isLoggedIn: boolean;
   user?: UserDto;
 }

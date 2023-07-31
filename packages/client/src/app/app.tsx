@@ -1,16 +1,16 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container } from 'react-bootstrap';
 import { Route, Routes } from 'react-router-dom';
-import Browse from '../pages/browse/browse';
+import { GlobalContextProvider } from '../global-state/global-context-provider';
+import { Browse } from '../pages/browse/browse';
 import { Game } from '../pages/game/game';
 import { Home } from '../pages/home/home';
-import Host from '../pages/host/host';
-import LoginPage from '../pages/login-page/login-page';
-import RegisterPage from '../pages/register-page/register-page';
+import { Host } from '../pages/host/host';
+import { LoginPage } from '../pages/login-page/login-page';
+import { RegisterPage } from '../pages/register-page/register-page';
 import { NavigationBar } from './navigation-bar/navigation-bar';
-import { GlobalContextProvider } from '../global-state/global-context-provider';
 
-export function App() {
+export const App: React.FC = () => {
   return (
     <GlobalContextProvider>
       <NavigationBar />
@@ -26,6 +26,4 @@ export function App() {
       </Container>
     </GlobalContextProvider>
   );
-}
-
-export default App;
+};

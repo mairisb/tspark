@@ -1,10 +1,10 @@
-import { useForm } from 'react-hook-form';
-import { Page } from '../page';
-import { Button, Form, Stack } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
-import authService from '../../services/auth.service';
-import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { Button, Form, Stack } from 'react-bootstrap';
+import { useForm } from 'react-hook-form';
+import { Link } from 'react-router-dom';
+import * as yup from 'yup';
+import { authService } from '../../services/auth.service';
+import { Page } from '../page';
 
 interface LoginFormData {
   email: string;
@@ -16,10 +16,7 @@ const loginFormSchema: yup.ObjectSchema<LoginFormData> = yup.object({
   password: yup.string().required(),
 });
 
-/* eslint-disable-next-line */
-export interface LoginPageProps {}
-
-export function LoginPage(props: LoginPageProps) {
+export const LoginPage: React.FC = () => {
   const form = useForm<LoginFormData>({
     resolver: yupResolver(loginFormSchema),
     mode: 'onSubmit',
@@ -66,6 +63,4 @@ export function LoginPage(props: LoginPageProps) {
       <Link to="/register">Register</Link>
     </Page>
   );
-}
-
-export default LoginPage;
+};
