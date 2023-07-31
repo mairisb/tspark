@@ -1,10 +1,10 @@
 import { GameDto } from '@jspark/common';
-import axios from 'axios';
+import { api } from './api';
 
 export class GameService {
   static getGames(): Promise<GameDto[]> {
-    return axios
-      .get('http://localhost:3333/api/games')
+    return api
+      .get('games')
       .then((res) => res.data)
       .catch((err) => {
         console.error(err);

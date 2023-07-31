@@ -1,9 +1,9 @@
 import { UserDto } from '@jspark/common';
-import axios from 'axios';
+import { api } from './api';
 
 const getAll = (): Promise<UserDto[]> => {
-  return axios
-    .get('http://localhost:3333/api/users')
+  return api
+    .get('users')
     .then((res) => res.data)
     .catch((err) => {
       console.error(err);

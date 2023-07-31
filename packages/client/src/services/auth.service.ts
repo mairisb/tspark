@@ -1,25 +1,12 @@
-import axios from 'axios';
+import { api } from './api';
 
 const register = (email: string, password: string): Promise<void> =>
-  axios
-    .post('http://localhost:3333/api/auth/register', { email, password })
-    .then((res) => res.data);
+  api.post('auth/register', { email, password }).then((res) => res.data);
 
 const login = (email: string, password: string): Promise<void> =>
-  axios
-    .post(
-      'http://localhost:3333/api/auth/login',
-      { email, password },
-      { withCredentials: true }
-    )
-    .then((res) => res.data);
+  api.post('auth/login', { email, password }).then((res) => res.data);
 
-const logout = (): Promise<void> =>
-  axios.post(
-    'http://localhost:3333/api/auth/logout',
-    {},
-    { withCredentials: true }
-  );
+const logout = (): Promise<void> => api.post('auth/logout');
 
 export const authService = {
   register,
