@@ -1,7 +1,6 @@
 import { Reducer } from 'react';
-import { GlobalState } from './global-state';
-
-export type GlobalReducerAction = { type: 'IS_AUTHORIZED'; payload: boolean };
+import { GlobalState } from '../global-state';
+import { GlobalReducerAction } from './global-reducer-action';
 
 export const globalReducer: Reducer<GlobalState, GlobalReducerAction> = (
   state,

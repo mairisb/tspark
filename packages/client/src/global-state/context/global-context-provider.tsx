@@ -1,7 +1,7 @@
-import React, { useReducer, useState } from 'react';
+import React, { useReducer } from 'react';
+import { initialGlobalState } from '../initial-global-state';
+import { globalReducer } from '../reducer/global-reducer';
 import { GlobalContext } from './global-context';
-import { initialGlobalState } from './initial-global-state';
-import { globalReducer } from './global-reducer';
 
 export const GlobalContextProvider: React.FC<React.PropsWithChildren> = (
   props

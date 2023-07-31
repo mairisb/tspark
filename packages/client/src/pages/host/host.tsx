@@ -1,7 +1,8 @@
 import { Button, Form, Stack } from 'react-bootstrap';
 import { Page } from '../page';
 import { useForm } from 'react-hook-form';
-import { useGlobalContext } from '../../global-state/use-global-context';
+import { useGlobalContext } from '../../global-state/context/use-global-context';
+import { GlobalReducerActionTypes } from '../../global-state/reducer/global-reducer-action-types';
 
 interface FormData {
   lobbyName: string;
@@ -22,7 +23,10 @@ export const Host: React.FC = () => {
       <pre>{JSON.stringify(globalContext.state)}</pre>
       <button
         onClick={() => {
-          globalContext.dispatch({ type: 'IS_AUTHORIZED', payload: true });
+          globalContext.dispatch({
+            type: GlobalReducerActionTypes.IS_AUTHORIZED,
+            payload: true,
+          });
         }}
       >
         TEST

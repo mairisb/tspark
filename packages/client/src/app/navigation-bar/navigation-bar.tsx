@@ -1,14 +1,18 @@
 import { Container, Nav, Navbar } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { authService } from '../../services/auth.service';
-import { useGlobalContext } from '../../global-state/use-global-context';
+import { useGlobalContext } from '../../global-state/context/use-global-context';
+import { GlobalReducerActionTypes } from '../../global-state/reducer/global-reducer-action-types';
 
 export const NavigationBar: React.FC = () => {
   const globalContext = useGlobalContext();
 
   const handleLogout = () => {
     authService.logout().then(() => {
-      globalContext.dispatch({ type: 'IS_AUTHORIZED', payload: false });
+      globalContext.dispatch({
+        type: GlobalReducerActionTypes.IS_AUTHORIZED,
+        payload: false,
+      });
     });
   };
 

@@ -1,7 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container } from 'react-bootstrap';
 import { Route, Routes } from 'react-router-dom';
-import { GlobalContextProvider } from '../global-state/global-context-provider';
+import { GlobalContextProvider } from '../global-state/context/global-context-provider';
 import { Browse } from '../pages/browse/browse';
 import { Game } from '../pages/game/game';
 import { Home } from '../pages/home/home';
