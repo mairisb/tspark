@@ -1,7 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container } from 'react-bootstrap';
 import { Route, Routes } from 'react-router-dom';
-import styled from 'styled-components';
 import Browse from '../pages/browse/browse';
 import { Game } from '../pages/game/game';
 import { Home } from '../pages/home/home';
@@ -9,12 +8,11 @@ import Host from '../pages/host/host';
 import LoginPage from '../pages/login-page/login-page';
 import RegisterPage from '../pages/register-page/register-page';
 import { NavigationBar } from './navigation-bar/navigation-bar';
-
-const StyledApp = styled.div``;
+import { GlobalContextProvider } from '../global-state/global-context-provider';
 
 export function App() {
   return (
-    <StyledApp>
+    <GlobalContextProvider>
       <NavigationBar />
       <Container className="py-3">
         <Routes>
@@ -26,7 +24,7 @@ export function App() {
           <Route path="/browse" element={<Browse />} />
         </Routes>
       </Container>
-    </StyledApp>
+    </GlobalContextProvider>
   );
 }
 
