@@ -53,14 +53,12 @@ const login = (request: Request<UserInfo>, response: Response) => {
 
 const logout = (_: Request, response: Response) => {
   response
-    .cookie('token', '', {
-      httpOnly: true,
+    .clearCookie('token', {
       sameSite: 'none',
       secure: true,
-      maxAge: -1,
     })
     .status(200)
-    .json({ message: 'Logout successful' });
+    .json({ message: 'Logout successful.' });
 };
 
 export const authController = {
