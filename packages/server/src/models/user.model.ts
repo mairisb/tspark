@@ -1,4 +1,11 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  OneToOne,
+  JoinColumn,
+} from 'typeorm';
+import { Auth } from './auth.model';
 
 @Entity()
 export class User {
@@ -8,6 +15,7 @@ export class User {
   @Column()
   email: string;
 
-  @Column()
-  password: string;
+  @OneToOne(() => Auth, { cascade: true })
+  @JoinColumn()
+  auth: Auth;
 }

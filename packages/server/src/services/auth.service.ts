@@ -1,5 +1,6 @@
 import bcrypt from 'bcrypt';
 import { appDataSource } from '../config/app-data-source';
+import { Auth } from '../models/auth.model';
 import { User } from '../models/user.model';
 
 const userRepository = appDataSource.getRepository(User);
@@ -10,25 +11,33 @@ export interface UserInfo {
   password: string;
 }
 
-const register = (userInfo: UserInfo) => {
+const register = async (userInfo: UserInfo) => {
   const saltRounds = 10;
-  return bcrypt.hash(userInfo.password, saltRounds).then((hashedPassword) =>
-    userRepository.insert({
-      email: userInfo.email,
-      password: hashedPassword,
-    })
-  );
+  const hashedPassword = await bcrypt.hash(userInfo.password, saltRounds);
+
+  const auth = new Auth();
+  auth.hashedPassword = hashedPassword;
+
+  const user = new User();
+  user.email = userInfo.email;
+  user.auth = auth;
+
+  return userRepository.save(user);
 };
 
-const login = (userInfo: UserInfo) =>
-  userRepository
-    .findOneByOrFail({ email: userInfo.email })
-    .then((user) => bcrypt.compare(userInfo.password, user.password))
-    .then((isMatch) => {
-      if (!isMatch) {
-        throw Error('Incorrect password');
-      }
-    });
+const login = async (userInfo: UserInfo) => {
+  const user = await userRepository.findOneOrFail({
+    relations: { auth: true },
+    where: { email: userInfo.email },
+  });
+  const isMatch = await bcrypt.compare(
+    userInfo.password,
+    user.auth.hashedPassword
+  );
+  if (!isMatch) {
+    throw Error('Incorrect password.');
+  }
+};
 
 export const authService = {
   register,
