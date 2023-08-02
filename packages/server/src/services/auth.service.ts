@@ -37,6 +37,7 @@ const login = async (userInfo: UserInfo) => {
   if (!isMatch) {
     throw Error('Incorrect password.');
   }
+  return user;
 };
 
 export const authService = {

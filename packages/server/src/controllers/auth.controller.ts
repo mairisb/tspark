@@ -1,10 +1,13 @@
-import { RegisterRequest } from '@jspark/common';
+import { GenericResponse, LoginRequest, RegisterRequest } from '@jspark/common';
 import { Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
-import { UserInfo, authService } from '../services/auth.service';
+import { authService } from '../services/auth.service';
 import { userService } from '../services/user.service';
 
-const register = (request: Request<RegisterRequest>, response: Response) => {
+const register = (
+  request: Request<RegisterRequest>,
+  response: Response<GenericResponse>
+) => {
   userService
     .existsByEmail(request.body.email)
     .then((userExists) => {
@@ -22,7 +25,10 @@ const register = (request: Request<RegisterRequest>, response: Response) => {
     });
 };
 
-const login = (request: Request<UserInfo>, response: Response) => {
+const login = (
+  request: Request<LoginRequest>,
+  response: Response<GenericResponse>
+) => {
   authService
     .login(request.body)
     .then(() =>
@@ -51,7 +57,7 @@ const login = (request: Request<UserInfo>, response: Response) => {
     });
 };
 
-const logout = (_: Request, response: Response) => {
+const logout = (_: Request, response: Response<GenericResponse>) => {
   response
     .clearCookie('token', {
       sameSite: 'none',
