@@ -8,14 +8,21 @@ const register = (
   request: Request<RegisterRequest>,
   response: Response<GenericResponse>
 ) => {
+  const registerRequest = request.body;
+
   userService
-    .existsByEmail(request.body.email)
+    .existsByEmail(registerRequest.email)
     .then((userExists) => {
       if (userExists) {
         throw new Error('User already exists.');
       }
     })
-    .then(() => authService.register(request.body))
+    .then(() =>
+      authService.register({
+        email: registerRequest.email,
+        password: registerRequest.password,
+      })
+    )
     .then(() => {
       response.status(200).json({ message: 'Registration successful.' });
     })
@@ -29,12 +36,16 @@ const login = (
   request: Request<LoginRequest>,
   response: Response<GenericResponse>
 ) => {
+  const loginRequest = request.body;
   authService
-    .login(request.body)
+    .login({
+      email: loginRequest.email,
+      password: loginRequest.password,
+    })
     .then(() =>
       jwt.sign(
         {
-          email: request.body.email,
+          email: loginRequest.email,
         },
         process.env.JWT_SECRET,
         { expiresIn: '1h' }

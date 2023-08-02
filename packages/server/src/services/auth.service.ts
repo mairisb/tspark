@@ -5,35 +5,26 @@ import { User } from '../models/user.model';
 
 const userRepository = appDataSource.getRepository(User);
 
-export interface UserInfo {
-  id: number;
-  email: string;
-  password: string;
-}
-
-const register = async (userInfo: UserInfo) => {
+const register = async (args: { email: string; password: string }) => {
   const saltRounds = 10;
-  const hashedPassword = await bcrypt.hash(userInfo.password, saltRounds);
+  const hashedPassword = await bcrypt.hash(args.password, saltRounds);
 
   const auth = new Auth();
   auth.hashedPassword = hashedPassword;
 
   const user = new User();
-  user.email = userInfo.email;
+  user.email = args.email;
   user.auth = auth;
 
   return userRepository.save(user);
 };
 
-const login = async (userInfo: UserInfo) => {
+const login = async (args: { email: string; password: string }) => {
   const user = await userRepository.findOneOrFail({
     relations: { auth: true },
-    where: { email: userInfo.email },
+    where: { email: args.email },
   });
-  const isMatch = await bcrypt.compare(
-    userInfo.password,
-    user.auth.hashedPassword
-  );
+  const isMatch = await bcrypt.compare(args.password, user.auth.hashedPassword);
   if (!isMatch) {
     throw Error('Incorrect password.');
   }
