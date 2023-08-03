@@ -1,8 +1,6 @@
 import { Button, Form, Stack } from 'react-bootstrap';
-import { Page } from '../page';
 import { useForm } from 'react-hook-form';
-import { useGlobalContext } from '../../global-state/context/use-global-context';
-import { GlobalReducerActionTypes } from '../../global-state/reducer/global-reducer-action-types';
+import { Page } from '../page';
 
 interface FormData {
   lobbyName: string;
@@ -16,21 +14,8 @@ export const Host: React.FC = () => {
     console.log(data);
   });
 
-  const globalContext = useGlobalContext();
-
   return (
     <Page title="Host a game">
-      <pre>{JSON.stringify(globalContext.state)}</pre>
-      <button
-        onClick={() => {
-          globalContext.dispatch({
-            type: GlobalReducerActionTypes.IS_AUTHORIZED,
-            payload: true,
-          });
-        }}
-      >
-        TEST
-      </button>
       <Form onSubmit={onSubmit}>
         <Stack gap={2}>
           <Form.Group controlId="lobbyName">
