@@ -1,4 +1,4 @@
-# JSpark
+# JSpark (Work in Progress)
 
 JSpark is a full-stack TypeScript base project that empowers developers to quickly prototype and develop scalable React/Express applications.
 
@@ -19,6 +19,8 @@ Key Features:
 <!-- - Deployment-ready configurations -->
 <!-- - Extensible and modular architecture -->
 
+Please note that JSpark is still a work in progress, and additional features and improvements are actively being developed.
+
 ## Getting started
 
 To start the client and server in development mode, use the following command:
@@ -26,10 +28,6 @@ To start the client and server in development mode, use the following command:
 ```
 npx nx run-many --parallel --target=serve --projects=client,server --host=0.0.0.0
 ```
-
-### VSCode launch configuration
-
-For your convenience, we've included a pre-configured launch.json in the project. Enhance your development experience with seamless debugging and code navigation in VSCode.
 
 ### Launching client and server separately
 
@@ -44,3 +42,7 @@ npx nx serve client --host=0.0.0.0
 ```
 npx nx serve server
 ```
+
+### VSCode launch configuration
+
+For your convenience, we've included a pre-configured `launch.json` in the project. Enhance your development experience with seamless debugging and code navigation in VSCode.
