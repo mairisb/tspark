@@ -21,18 +21,19 @@ Key Features:
 
 ## Getting started
 
-Kickstart your development journey with a touch of elegance using this powerful command:
+To start the client and server in development mode, use the following command:
 
 ```
 npx nx run-many --parallel --target=serve --projects=client,server --host=0.0.0.0
 ```
 
+### VSCode launch configuration
 
-### VSCode launch.json
-
-We care about your development comfort. That's why our project comes equipped with a pre-configured launch.json for VSCode. Navigate through your codebase with ease, as you effortlessly debug and fine-tune your project.
+For your convenience, we've included a pre-configured launch.json in the project. Enhance your development experience with seamless debugging and code navigation in VSCode.
 
 ### Launching client and server separately
+
+To launch the client and server separately, use the following commands:
 
 #### Client
 ```
