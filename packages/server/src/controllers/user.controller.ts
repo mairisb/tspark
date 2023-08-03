@@ -2,9 +2,9 @@ import { UserDto } from '@jspark/common';
 import { Request, Response } from 'express';
 import { userService } from '../services/user.service';
 
-const getAll = (_: Request, response: Response<UserDto[]>) => {
-  userService.getAll().then((users) => {
-    response.json(users);
+const getAll = (_req: Request, res: Response<UserDto[]>) => {
+  return userService.getAll().then((users) => {
+    res.json(users);
   });
 };
 

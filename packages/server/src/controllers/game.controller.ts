@@ -2,9 +2,9 @@ import { GameDto } from '@jspark/common';
 import { Request, Response } from 'express';
 import { gameServiceMock } from '../services/game.service.mock';
 
-const getAll = (_: Request, response: Response<GameDto[]>) => {
-  gameServiceMock.getAll().then((games) => {
-    response.json(games);
+const getAll = (_req: Request, res: Response<GameDto[]>) => {
+  return gameServiceMock.getAll().then((games) => {
+    res.json(games);
   });
 };
 
