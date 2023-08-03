@@ -1,13 +1,13 @@
 # JSpark
 
-JSPark is a full-stack TypeScript base project that empowers developers to quickly prototype and develop scalable React/Express applications.
+JSpark is a full-stack TypeScript base project that empowers developers to quickly prototype and develop scalable React/Express applications.
 
 Benefits:
-- **Jumpstart your development:** JSPark provides a solid foundation and best practices for building React/Express projects, saving you valuable time.
-- **Scalable architecture:** Built with scalability in mind, JSPark enables your ideas to grow into fully-fledged applications without major refactoring.
+- **Jumpstart your development:** JSpark provides a solid foundation and best practices for building React/Express projects, saving you valuable time.
+- **Scalable architecture:** Built with scalability in mind, JSpark enables your ideas to grow into fully-fledged applications without major refactoring.
 - **TypeScript support:** Leverage the power of TypeScript for type safety and improved code maintainability.
 <!-- - **Seamless integration:** Easily integrate additional libraries, APIs, and modules into your project to extend functionality. -->
-<!-- - **Community-driven:** Join a thriving community of developers using JSPark, benefiting from ongoing updates and contributions. -->
+<!-- - **Community-driven:** Join a thriving community of developers using JSpark, benefiting from ongoing updates and contributions. -->
 
 Key Features:
 - React and Express integration
