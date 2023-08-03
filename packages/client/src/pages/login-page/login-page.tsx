@@ -26,7 +26,7 @@ export const LoginPage: React.FC = () => {
 
   const onSubmit = form.handleSubmit((data) => {
     authService
-      .login(data.email, data.password)
+      .login({ email: data.email, password: data.password })
       .then(() => console.log('Login successful'))
       .catch((error) => console.error('Login failed: ', error));
   });

@@ -25,7 +25,7 @@ export const RegisterPage: React.FC = () => {
 
   const onSubmit = form.handleSubmit((data) => {
     authService
-      .register(data.email, data.password)
+      .register({ email: data.email, password: data.password })
       .then(() => console.log('Registration successful'))
       .catch((error) => console.error('Registration failed: ', error));
   });
