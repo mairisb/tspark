@@ -36,10 +36,7 @@ const register = async (
   const registerRequest = req.body;
 
   try {
-    const user = await authService.register({
-      email: registerRequest.email,
-      password: registerRequest.password,
-    });
+    const user = await authService.register(registerRequest);
 
     // TODO: use a mapper
     const userDto: UserDto = {
@@ -62,10 +59,7 @@ const login = async (
   const loginRequest = req.body;
 
   try {
-    const user = await authService.login({
-      email: loginRequest.email,
-      password: loginRequest.password,
-    });
+    const user = await authService.login(loginRequest);
 
     // TODO: use a mapper
     const userDto: UserDto = {
