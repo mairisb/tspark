@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { Page } from '../page';
-import { setAuth } from '../../store/actions/auth.actions';
-import { setUser } from '../../store/actions/user.actions';
+import { setAuth } from '../../actions/auth.actions';
+import { setUser } from '../../actions/user.actions';
 import { Button } from 'react-bootstrap';
 import { RootState } from '../../store/state.types';
 

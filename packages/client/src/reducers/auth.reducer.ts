@@ -1,4 +1,4 @@
-import { SET_AUTH } from '../acionTypes';
+import { ActionTypes } from '../store/actionTypes';
 
 const initialState = {
   isLoggedIn: false,
@@ -9,7 +9,7 @@ export const authReducer = (
   action: { type: string; payload: any }
 ) => {
   switch (action.type) {
-    case SET_AUTH:
+    case ActionTypes.SET_AUTH:
       return {
         ...state,
         isLoggedIn: action.payload,

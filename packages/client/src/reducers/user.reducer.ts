@@ -1,4 +1,4 @@
-import { SET_USER } from '../acionTypes';
+import { ActionTypes } from '../store/actionTypes';
 
 const initialState = {
   user: {
@@ -12,7 +12,7 @@ export const userReducer = (
   action: { type: string; payload: any }
 ) => {
   switch (action.type) {
-    case SET_USER:
+    case ActionTypes.SET_USER:
       return {
         ...state,
         user: action.payload,
