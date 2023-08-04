@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import * as yup from 'yup';
-import { authThunks } from '../../features/auth/auth.slice';
+import { authThunks } from '../../features/auth/auth.thunks';
 import { RootState } from '../../store/state.types';
 import { useAppDispatch } from '../../store/store';
 import { Page } from '../page';
@@ -30,10 +30,6 @@ export const LoginPage: React.FC = () => {
   const dispatch = useAppDispatch();
 
   const onSubmit = form.handleSubmit((data) => {
-    // authService
-    //   .login({ email: data.email, password: data.password })
-    //   .then(() => console.log('Login successful'))
-    //   .catch((error) => console.error('Login failed: ', error));
     dispatch(
       authThunks.loginUser({ email: data.email, password: data.password })
     );

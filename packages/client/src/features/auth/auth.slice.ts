@@ -1,25 +1,10 @@
-import { LoginRequest, UserDto } from '@jspark/common';
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { AppThunk } from '../../store/store';
-import { authService } from '../../services/auth.service';
-
-interface AuthState {
-  isLoggedIn: boolean;
-  user: UserDto | null;
-  loading: boolean;
-  error: string | null;
-}
-
-const initialState: AuthState = {
-  isLoggedIn: false,
-  user: null,
-  loading: false,
-  error: null,
-};
+import { UserDto } from '@jspark/common';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { authInitialState } from './auth.initial-state';
 
 const authSlice = createSlice({
   name: 'auth',
-  initialState,
+  initialState: authInitialState,
   reducers: {
     loginStart: (state) => {
       state.loading = true;
@@ -50,33 +35,5 @@ const authSlice = createSlice({
   },
 });
 
-const loginUser =
-  (req: LoginRequest): AppThunk =>
-  async (dispatch) => {
-    dispatch(authActions.loginStart());
-    try {
-      const user = await authService.login(req);
-      dispatch(authActions.loginSuccess(user));
-    } catch (error) {
-      // dispatch(loginFailure(error.toString()));
-      dispatch(authActions.loginFailure('Login failed.'));
-    }
-  };
-
-const logoutUser = (): AppThunk => async (dispatch) => {
-  dispatch(authActions.logoutStart());
-  try {
-    await authService.logout();
-    dispatch(authActions.logoutSuccess());
-  } catch (error) {
-    // dispatch(logoutFailure(error.toString()));
-    dispatch(authActions.logoutFailure('Logout failed.'));
-  }
-};
-
 export const authReducer = authSlice.reducer;
 export const authActions = authSlice.actions;
-export const authThunks = {
-  loginUser,
-  logoutUser,
-};
