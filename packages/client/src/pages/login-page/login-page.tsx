@@ -6,8 +6,8 @@ import { Link } from 'react-router-dom';
 import * as yup from 'yup';
 import { authThunks } from '../../features/auth/auth.thunks';
 import { RootState } from '../../store/state.types';
-import { useAppDispatch } from '../../store/store';
 import { Page } from '../page';
+import { useAppDispatch } from '../../store/use-app-dispatch.hook';
 
 interface LoginFormData {
   email: string;
