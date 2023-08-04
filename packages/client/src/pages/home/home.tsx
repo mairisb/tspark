@@ -1,7 +1,7 @@
 import { Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { authActions } from '../../features/auth/auth.slice';
-import { RootState } from '../../store/state.types';
+import { RootState } from '../../store/store.types';
 import { Page } from '../page';
 
 export const Home: React.FC = () => {
