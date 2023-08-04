@@ -8,7 +8,9 @@ export const Home: React.FC = () => {
   const dispatch = useDispatch();
 
   const handleClick = () => {
-    dispatch(authActions.loginSuccess());
+    dispatch(
+      authActions.loginSuccess({ id: 1, email: 'berzinsmairis@gmail.com' })
+    );
   };
 
   return (

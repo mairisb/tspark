@@ -1,10 +1,15 @@
 import { Container, Nav, Navbar } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { authService } from '../../services/auth.service';
+import { useAppDispatch } from '../../store/store';
+import { authThunks } from '../../features/auth/auth.slice';
 
 export const NavigationBar: React.FC = () => {
+  const dispatch = useAppDispatch();
+
   const handleLogout = () => {
-    authService.logout();
+    // authService.logout();
+    dispatch(authThunks.logoutUser());
   };
 
   return (

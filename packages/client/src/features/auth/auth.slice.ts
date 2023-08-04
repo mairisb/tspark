@@ -1,5 +1,7 @@
-import { UserDto } from '@jspark/common';
+import { LoginRequest, UserDto } from '@jspark/common';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { AppThunk } from '../../store/store';
+import { authService } from '../../services/auth.service';
 
 interface AuthState {
   isLoggedIn: boolean;
@@ -23,51 +25,58 @@ const authSlice = createSlice({
       state.loading = true;
       state.error = null;
     },
-    loginSuccess: (state) => {
-      state.isLoggedIn = true;
+    loginSuccess: (state, action: PayloadAction<UserDto>) => {
       state.loading = false;
+      state.isLoggedIn = true;
+      state.user = action.payload;
     },
     loginFailure: (state, action: PayloadAction<string>) => {
-      state.error = action.payload;
       state.loading = false;
+      state.error = action.payload;
     },
     logoutStart: (state) => {
       state.loading = true;
       state.error = null;
     },
     logoutSuccess: (state) => {
-      state.isLoggedIn = false;
       state.loading = false;
+      state.isLoggedIn = false;
+      state.user = null;
     },
     logoutFailure: (state, action: PayloadAction<string>) => {
-      state.error = action.payload;
       state.loading = false;
+      state.error = action.payload;
     },
   },
 });
 
-export const authActions = authSlice.actions;
+const loginUser =
+  (req: LoginRequest): AppThunk =>
+  async (dispatch) => {
+    dispatch(authActions.loginStart());
+    try {
+      const user = await authService.login(req);
+      dispatch(authActions.loginSuccess(user));
+    } catch (error) {
+      // dispatch(loginFailure(error.toString()));
+      dispatch(authActions.loginFailure('Login failed.'));
+    }
+  };
 
-// export const loginUser =
-//   (payload: LoginPayload): AppThunk =>
-//   async (dispatch) => {
-//     dispatch(loginStart());
-//     try {
-//       await login(payload);
-//       dispatch(loginSuccess());
-//     } catch (error) {
-//       dispatch(loginFailure(error.toString()));
-//     }
-//   };
-
-// export const logoutUser = (): AppThunk => async (dispatch) => {
-//   dispatch(logoutStart());
-//   try {
-//     await logout();
-//     dispatch(logoutSuccess());
-//   } catch (error) {
-//     dispatch(logoutFailure(error.toString()));
-//   }
-// };
+const logoutUser = (): AppThunk => async (dispatch) => {
+  dispatch(authActions.logoutStart());
+  try {
+    await authService.logout();
+    dispatch(authActions.logoutSuccess());
+  } catch (error) {
+    // dispatch(logoutFailure(error.toString()));
+    dispatch(authActions.logoutFailure('Logout failed.'));
+  }
+};
 
 export const authReducer = authSlice.reducer;
+export const authActions = authSlice.actions;
+export const authThunks = {
+  loginUser,
+  logoutUser,
+};

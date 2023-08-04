@@ -1,9 +1,12 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Button, Form, Stack } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import * as yup from 'yup';
-import { authService } from '../../services/auth.service';
+import { authThunks } from '../../features/auth/auth.slice';
+import { RootState } from '../../store/state.types';
+import { useAppDispatch } from '../../store/store';
 import { Page } from '../page';
 
 interface LoginFormData {
@@ -24,15 +27,27 @@ export const LoginPage: React.FC = () => {
   });
   const errors = form.formState.errors;
 
+  const dispatch = useAppDispatch();
+
   const onSubmit = form.handleSubmit((data) => {
-    authService
-      .login({ email: data.email, password: data.password })
-      .then(() => console.log('Login successful'))
-      .catch((error) => console.error('Login failed: ', error));
+    // authService
+    //   .login({ email: data.email, password: data.password })
+    //   .then(() => console.log('Login successful'))
+    //   .catch((error) => console.error('Login failed: ', error));
+    dispatch(
+      authThunks.loginUser({ email: data.email, password: data.password })
+    );
   });
 
   return (
     <Page title="Login">
+      <pre>
+        {JSON.stringify(
+          useSelector((state: RootState) => state),
+          null,
+          '  '
+        )}
+      </pre>
       <Form onSubmit={onSubmit}>
         <Stack gap={2}>
           <Form.Group controlId="email">
