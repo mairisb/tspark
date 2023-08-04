@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { GameService } from '../../services/game-service';
+import { GameService } from '../../services/game.service';
 import { Page } from '../page';
 
 export const Browse: React.FC = () => {
