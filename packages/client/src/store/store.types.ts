@@ -1,5 +1,5 @@
 import { Action, ThunkAction } from '@reduxjs/toolkit';
-import { AuthState } from '../features/auth/auth.types';
+import { AuthState } from '../features/auth';
 
 export interface RootState {
   auth: AuthState;

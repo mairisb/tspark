@@ -8,8 +8,8 @@ import { HomePage } from '../pages/home/home.page';
 import { HostPage } from '../pages/host/host.page';
 import { LoginPage } from '../pages/login/login.page';
 import { RegisterPage } from '../pages/register/register.page';
-import { store } from '../store/store';
 import { NavigationBar } from './navigation-bar/navigation-bar';
+import { store } from '../store';
 
 export const App: React.FC = () => {
   return (

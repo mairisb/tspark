@@ -4,10 +4,9 @@ import { useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import * as yup from 'yup';
-import { authSelectors } from '../../features/auth/auth.selectors';
-import { authThunks } from '../../features/auth/auth.thunks';
-import { useAppDispatch } from '../../store/store.hooks';
+import { useAppDispatch } from '../../store';
 import { Page } from '../page';
+import { authSelectors, authThunks } from '../../features/auth';
 
 interface LoginFormData {
   email: string;
