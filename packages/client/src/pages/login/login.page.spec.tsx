@@ -1,10 +1,10 @@
 import { render } from '@testing-library/react';
 
-import { RegisterPage } from './register-page';
+import { LoginPage } from './login.page';
 
-describe('RegisterPage', () => {
+describe('LoginPage', () => {
   it('should render successfully', () => {
-    const { baseElement } = render(<RegisterPage />);
+    const { baseElement } = render(<LoginPage />);
     expect(baseElement).toBeTruthy();
   });
 });
