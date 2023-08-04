@@ -1,10 +1,10 @@
 import { render } from '@testing-library/react';
 
-import { Browse } from './browse.page';
+import { BrowsePage } from './browse.page';
 
 describe('Browse', () => {
   it('should render successfully', () => {
-    const { baseElement } = render(<Browse />);
+    const { baseElement } = render(<BrowsePage />);
     expect(baseElement).toBeTruthy();
   });
 });

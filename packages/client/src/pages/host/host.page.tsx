@@ -7,7 +7,7 @@ interface FormData {
   lobbyPassword: string;
 }
 
-export const Host: React.FC = () => {
+export const HostPage: React.FC = () => {
   const form = useForm<FormData>();
 
   const onSubmit = form.handleSubmit((data) => {

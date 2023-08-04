@@ -4,7 +4,7 @@ import { authActions } from '../../features/auth/auth.slice';
 import { RootState } from '../../store/store.types';
 import { Page } from '../page';
 
-export const Home: React.FC = () => {
+export const HomePage: React.FC = () => {
   const dispatch = useDispatch();
 
   const handleClick = () => {

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { GameService } from '../../services/game.service';
 import { Page } from '../page';
 
-export const Browse: React.FC = () => {
+export const BrowsePage: React.FC = () => {
   const [games, setGames] = useState<any[]>([]);
 
   useEffect(() => {

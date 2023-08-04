@@ -3,7 +3,7 @@ import { Button, Stack } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import { Page } from '../page';
 
-export const Game: React.FC = () => {
+export const GamePage: React.FC = () => {
   return (
     <Page title="The Game">
       <Stack gap={1}>
