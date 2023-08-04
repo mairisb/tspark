@@ -1,7 +1,7 @@
 import { LoginRequest } from '@jspark/common';
-import { AppThunk } from '../../store/store';
 import { authActions } from './auth.slice';
 import { authService } from '../../services/auth.service';
+import { AppThunk } from '../../store/state.types';
 
 const loginUser =
   (req: LoginRequest): AppThunk =>
