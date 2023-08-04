@@ -7,7 +7,6 @@ export const NavigationBar: React.FC = () => {
   const dispatch = useAppDispatch();
 
   const handleLogout = () => {
-    // authService.logout();
     dispatch(authThunks.logoutUser());
   };
 

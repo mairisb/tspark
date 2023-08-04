@@ -8,6 +8,7 @@ import { authThunks } from '../../features/auth/auth.thunks';
 import { RootState } from '../../store/store.types';
 import { Page } from '../page';
 import { useAppDispatch } from '../../store/store.hooks';
+import { authSelectors } from '../../features/auth/auth.selectors';
 
 interface LoginFormData {
   email: string;
@@ -38,11 +39,7 @@ export const LoginPage: React.FC = () => {
   return (
     <Page title="Login">
       <pre>
-        {JSON.stringify(
-          useSelector((state: RootState) => state),
-          null,
-          '  '
-        )}
+        {JSON.stringify(useSelector(authSelectors.selectAuth), null, '  ')}
       </pre>
       <Form onSubmit={onSubmit}>
         <Stack gap={2}>
