@@ -1,4 +1,5 @@
 import {
+  AuthCheckResponse,
   ErrorResponse,
   GenericResponse,
   LoginRequest,
@@ -80,8 +81,52 @@ const logout = (_req: Request, res: Response<GenericResponse>) => {
   return res.status(200).json({ message: 'Logout successful.' });
 };
 
+const authCheck = async (req: Request, res: Response<AuthCheckResponse>) => {
+  const token = req.cookies.login_token;
+  if (!token) {
+    return res.status(401).json({
+      isAuthenticated: false,
+      error: 'No authentication token provided.',
+    });
+  }
+
+  try {
+    if (!process.env.JWT_SECRET) {
+      throw new Error('JWT_SECRET is not defined');
+    }
+
+    const isTokenValid = jwt.verify(token, process.env.JWT_SECRET);
+    if (!isTokenValid) {
+      clearJwtCookie(res);
+      return res.status(401).json({
+        isAuthenticated: false,
+        error: 'Invalid authentication token.',
+      });
+    }
+
+    const decodedToken = jwt.decode(token, { json: true }) as {
+      user?: UserDto;
+    };
+    if (!decodedToken.user) {
+      throw new Error('User information not found in token');
+    }
+
+    const userDto = decodedToken.user;
+
+    return res.status(200).json({ isAuthenticated: true, user: userDto });
+  } catch (err) {
+    console.error('Auth check failed:', err);
+    clearJwtCookie(res);
+    return res.status(500).json({
+      isAuthenticated: false,
+      error: 'Auth check failed.',
+    });
+  }
+};
+
 export const authController = {
   register,
   login,
   logout,
+  authCheck,
 };

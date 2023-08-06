@@ -32,6 +32,19 @@ const authSlice = createSlice({
       state.loading = false;
       state.error = action.payload;
     },
+    authCheckStart: (state) => {
+      state.loading = true;
+      state.error = null;
+    },
+    authCheckSuccess: (state, action: PayloadAction<UserDto>) => {
+      state.loading = false;
+      state.isLoggedIn = true;
+      state.user = action.payload;
+    },
+    authCheckFailure: (state, action: PayloadAction<string | undefined>) => {
+      state.loading = false;
+      state.error = action.payload || 'Authentication failed.';
+    },
   },
 });
 
