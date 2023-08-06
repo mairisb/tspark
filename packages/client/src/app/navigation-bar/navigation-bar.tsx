@@ -1,8 +1,8 @@
 import { Container, Nav, Navbar } from 'react-bootstrap';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { authSelectors, authThunks } from '../../features/auth';
 import { useAppDispatch } from '../../store';
-import { useSelector } from 'react-redux';
 
 export const NavigationBar: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -29,9 +29,11 @@ export const NavigationBar: React.FC = () => {
         <Navbar.Collapse className="justify-content-end">
           <Nav>
             {isLoggedIn ? (
-              <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
+              <Nav.Link data-testid="logout-btn" onClick={handleLogout}>
+                Logout
+              </Nav.Link>
             ) : (
-              <Nav.Link as={Link} to="/login">
+              <Nav.Link data-testid="login-btn" as={Link} to="/login">
                 Login
               </Nav.Link>
             )}
