@@ -1,10 +1,12 @@
 import { Container, Nav, Navbar } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { authThunks } from '../../features/auth/auth.thunks';
+import { authSelectors, authThunks } from '../../features/auth';
 import { useAppDispatch } from '../../store';
+import { useSelector } from 'react-redux';
 
 export const NavigationBar: React.FC = () => {
   const dispatch = useAppDispatch();
+  const isLoggedIn = useSelector(authSelectors.selectIsLoggedIn);
 
   const handleLogout = () => {
     dispatch(authThunks.logoutUser());
@@ -26,10 +28,13 @@ export const NavigationBar: React.FC = () => {
         </Nav>
         <Navbar.Collapse className="justify-content-end">
           <Nav>
-            <Nav.Link as={Link} to="/login">
-              Login
-            </Nav.Link>
-            <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
+            {isLoggedIn ? (
+              <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
+            ) : (
+              <Nav.Link as={Link} to="/login">
+                Login
+              </Nav.Link>
+            )}
           </Nav>
         </Navbar.Collapse>
       </Container>
