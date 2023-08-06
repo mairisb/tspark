@@ -1,5 +1,5 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { authService } from 'packages/client/src/services/auth.service';
+import { authService } from '../../../../../client/src/features/auth';
 import React from 'react';
 import { Button, Form, Stack } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';

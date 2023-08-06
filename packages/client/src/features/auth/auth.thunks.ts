@@ -1,5 +1,5 @@
 import { LoginRequest } from '@jspark/common';
-import { authService } from '../../services/auth.service';
+import { authService } from './auth.service';
 import { AppThunk } from '../../store';
 import { authActions } from './auth.slice';
 

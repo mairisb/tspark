@@ -4,7 +4,7 @@ import {
   RegisterRequest,
   UserDto,
 } from '@jspark/common';
-import { api } from './api';
+import { api } from '../../core/api';
 
 const register = (req: RegisterRequest): Promise<UserDto> =>
   api.post('auth/register', req).then((res) => res.data);

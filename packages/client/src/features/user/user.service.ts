@@ -1,5 +1,5 @@
 import { UserDto } from '@jspark/common';
-import { api } from './api';
+import { api } from '../../core/api';
 
 const getAll = (): Promise<UserDto[]> => {
   return api

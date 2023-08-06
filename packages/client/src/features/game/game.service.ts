@@ -1,5 +1,5 @@
 import { GameDto } from '@jspark/common';
-import { api } from './api';
+import { api } from '../../core/api';
 
 export class GameService {
   static getGames(): Promise<GameDto[]> {
