@@ -8,4 +8,5 @@ const getEnvVar = (key: string): string => {
 
 export const config = {
   APP_NAME: getEnvVar('NX_APP_NAME'),
+  API_URL: getEnvVar('NX_API_URL'),
 };
