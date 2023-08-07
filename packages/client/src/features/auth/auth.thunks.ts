@@ -2,6 +2,7 @@ import { LoginRequest, RegisterRequest } from '@jspark/common';
 import { AppThunk } from '../../store';
 import { authService } from './auth.service';
 import { authActions } from './auth.slice';
+import { errorHelpers } from '../../core/helpers/error.helpers';
 
 const registerUser =
   (req: RegisterRequest): AppThunk =>
@@ -11,8 +12,8 @@ const registerUser =
       const user = await authService.register(req);
       dispatch(authActions.registerSuccess(user));
     } catch (error) {
-      // dispatch(authActions.registerFailure(error.toString()));
-      dispatch(authActions.registerFailure('Registration failed.'));
+      const errorMsg = errorHelpers.getErrorMessage(error);
+      dispatch(authActions.registerFailure(errorMsg));
     }
   };
 
@@ -24,8 +25,8 @@ const loginUser =
       const user = await authService.login(req);
       dispatch(authActions.loginSuccess(user));
     } catch (error) {
-      // dispatch(authActions.loginFailure(error.toString()));
-      dispatch(authActions.loginFailure('Login failed.'));
+      const errorMsg = errorHelpers.getErrorMessage(error);
+      dispatch(authActions.loginFailure(errorMsg));
     }
   };
 
@@ -35,8 +36,8 @@ const logoutUser = (): AppThunk => async (dispatch) => {
     await authService.logout();
     dispatch(authActions.logoutSuccess());
   } catch (error) {
-    // dispatch(authActions.logoutFailure(error.toString()));
-    dispatch(authActions.logoutFailure('Logout failed.'));
+    const errorMsg = errorHelpers.getErrorMessage(error);
+    dispatch(authActions.logoutFailure(errorMsg));
   }
 };
 
@@ -50,8 +51,8 @@ const authCheck = (): AppThunk => async (dispatch) => {
       dispatch(authActions.authCheckFailure(error));
     }
   } catch (error) {
-    // dispatch(authActions.authCheckFailure(error.toString()));
-    dispatch(authActions.authCheckFailure());
+    const errorMsg = errorHelpers.getErrorMessage(error);
+    dispatch(authActions.authCheckFailure(errorMsg));
   }
 };
 
