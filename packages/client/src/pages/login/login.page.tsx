@@ -1,19 +1,9 @@
-import { useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
-import { authSelectors } from '../../features/auth';
-import { LoginForm } from '../../features/auth/components';
+import { Link } from 'react-router-dom';
+import { LoginForm, useAuthRedirect } from '../../features/auth';
 import { Page } from '../page';
 
 export const LoginPage: React.FC = () => {
-  const navigate = useNavigate();
-  const isLoggedIn = useSelector(authSelectors.selectIsLoggedIn);
-
-  useEffect(() => {
-    if (isLoggedIn) {
-      navigate('/');
-    }
-  }, [isLoggedIn, navigate]);
+  useAuthRedirect();
 
   return (
     <Page title="Login">
