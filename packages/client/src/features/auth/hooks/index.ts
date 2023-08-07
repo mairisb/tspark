@@ -1,1 +1,1 @@
-export * from './auth-redirect.hook';
+export * from './auth-redirect';
