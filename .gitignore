@@ -43,3 +43,4 @@ Thumbs.db
 sql-playground
 .env
 .env.*
+!.env.example
