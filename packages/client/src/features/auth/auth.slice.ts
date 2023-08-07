@@ -6,6 +6,19 @@ const authSlice = createSlice({
   name: 'auth',
   initialState: authInitialState,
   reducers: {
+    registerStart: (state) => {
+      state.loading = true;
+      state.error = null;
+    },
+    registerSuccess: (state, action: PayloadAction<UserDto>) => {
+      state.loading = false;
+      state.isLoggedIn = true;
+      state.user = action.payload;
+    },
+    registerFailure: (state, action: PayloadAction<string>) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
     loginStart: (state) => {
       state.loading = true;
       state.error = null;

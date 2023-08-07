@@ -1,7 +1,20 @@
-import { LoginRequest } from '@jspark/common';
-import { authService } from './auth.service';
+import { LoginRequest, RegisterRequest } from '@jspark/common';
 import { AppThunk } from '../../store';
+import { authService } from './auth.service';
 import { authActions } from './auth.slice';
+
+const registerUser =
+  (req: RegisterRequest): AppThunk =>
+  async (dispatch) => {
+    dispatch(authActions.registerStart());
+    try {
+      const user = await authService.register(req);
+      dispatch(authActions.registerSuccess(user));
+    } catch (error) {
+      // dispatch(authActions.registerFailure(error.toString()));
+      dispatch(authActions.registerFailure('Registration failed.'));
+    }
+  };
 
 const loginUser =
   (req: LoginRequest): AppThunk =>
@@ -43,6 +56,7 @@ const authCheck = (): AppThunk => async (dispatch) => {
 };
 
 export const authThunks = {
+  registerUser,
   loginUser,
   logoutUser,
   authCheck,

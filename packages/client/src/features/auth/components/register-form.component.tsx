@@ -1,33 +1,36 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { authService } from '../../../../../client/src/features/auth';
 import React from 'react';
 import { Button, Form, Stack } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
+import { authThunks } from '../../../features/auth';
+import { useAppDispatch } from '../../../store';
 
-interface RegistrationFormData {
+interface RegisterFormData {
   email: string;
   password: string;
 }
 
-const registrationFormSchema: yup.ObjectSchema<RegistrationFormData> =
-  yup.object({
-    email: yup.string().email().required(),
-    password: yup.string().min(8).required(),
-  });
+const registerFormSchema: yup.ObjectSchema<RegisterFormData> = yup.object({
+  email: yup.string().email().required(),
+  password: yup.string().min(8).required(),
+});
 
 export const RegisterForm: React.FC = () => {
-  const form = useForm<RegistrationFormData>({
-    resolver: yupResolver(registrationFormSchema),
+  const form = useForm<RegisterFormData>({
+    resolver: yupResolver(registerFormSchema),
     mode: 'onTouched',
   });
   const errors = form.formState.errors;
 
+  const dispatch = useAppDispatch();
   const onSubmit = form.handleSubmit((data) => {
-    authService
-      .register({ email: data.email, password: data.password })
-      .then(() => console.log('Registration successful'))
-      .catch((error) => console.error('Registration failed: ', error));
+    dispatch(
+      authThunks.registerUser({
+        email: data.email,
+        password: data.password,
+      })
+    );
   });
 
   return (

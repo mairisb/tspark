@@ -28,7 +28,10 @@ export const LoginForm: React.FC = () => {
 
   const onSubmit = form.handleSubmit((data) => {
     dispatch(
-      authThunks.loginUser({ email: data.email, password: data.password })
+      authThunks.loginUser({
+        email: data.email,
+        password: data.password,
+      })
     );
   });
 
