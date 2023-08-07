@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { config } from '../config/config';
+import { config } from '../core/config';
 
 export interface PageProps extends React.PropsWithChildren {
   title: string;
