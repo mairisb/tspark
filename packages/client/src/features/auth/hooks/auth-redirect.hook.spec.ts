@@ -1,7 +1,7 @@
 import { renderHook } from '@testing-library/react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { useAuthRedirect } from './useAuthRedirect';
+import { useAuthRedirect } from './auth-redirect.hook';
 
 jest.mock('react-redux', () => ({
   useSelector: jest.fn(),
