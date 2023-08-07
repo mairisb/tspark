@@ -1,3 +1,2 @@
 export * from './store';
-export * from './store.hooks';
-export * from './store.types';
+export * from '../core/hooks/app-dispatch/app-dispatch.hook';

@@ -1,4 +1,4 @@
-import { configureStore } from '@reduxjs/toolkit';
+import { Action, ThunkAction, configureStore } from '@reduxjs/toolkit';
 import { authReducer } from '../features/auth';
 
 export const store = configureStore({
@@ -6,3 +6,14 @@ export const store = configureStore({
     auth: authReducer,
   },
 });
+
+export type AppDispatch = typeof store.dispatch;
+
+export type RootState = ReturnType<typeof store.getState>;
+
+export type AppThunk<ReturnType = void> = ThunkAction<
+  ReturnType,
+  RootState,
+  unknown,
+  Action<string>
+>;
