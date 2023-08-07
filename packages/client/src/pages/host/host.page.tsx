@@ -15,7 +15,7 @@ export const HostPage: React.FC = () => {
   });
 
   return (
-    <Page title="Host a game">
+    <Page title="Host a game" authProtected>
       <Form onSubmit={onSubmit}>
         <Stack gap={2}>
           <Form.Group controlId="lobbyName">

@@ -1,18 +1,34 @@
 import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 import { Page } from './page';
+import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
-jest.mock('../config/config', () => ({
+jest.mock('../core/config/config', () => ({
   config: {
     APP_NAME: 'MockAppName',
   },
 }));
 
+jest.mock('react-redux', () => ({
+  useSelector: jest.fn(),
+}));
+
+jest.mock('react-router-dom', () => ({
+  useNavigate: jest.fn(),
+}));
+
 describe('Page', () => {
+  let navigate: jest.Mock;
+
+  beforeEach(() => {
+    navigate = jest.fn();
+    (useNavigate as jest.Mock).mockReturnValue(navigate);
+  });
+
   it('should render page title', () => {
     render(<Page title="Test title" />);
     const pageTitle = screen.getByTestId('page-title');
-
     expect(pageTitle.textContent).toEqual('Test title');
   });
 
@@ -29,7 +45,28 @@ describe('Page', () => {
         <span>Test child</span>
       </Page>
     );
-
     expect(screen.getByText('Test child')).toBeInTheDocument();
+  });
+
+  it('should redirect to /login if the page is auth protected and user is not logged in', () => {
+    (useSelector as jest.Mock).mockReturnValue(false);
+    render(<Page title="Test title" authProtected />);
+    expect(navigate).toHaveBeenCalledWith('/login');
+  });
+
+  it('should not redirect if the page is auth protected and user is logged in', () => {
+    (useSelector as jest.Mock).mockReturnValue(true);
+    render(<Page title="Test title" authProtected />);
+    expect(navigate).not.toHaveBeenCalled();
+  });
+
+  it("should not redirect if the page is not auth protected, irrespective of user's authentication status", () => {
+    (useSelector as jest.Mock).mockReturnValue(false);
+    render(<Page title="Test title" />);
+    expect(navigate).not.toHaveBeenCalled();
+
+    (useSelector as jest.Mock).mockReturnValue(true);
+    render(<Page title="Test title" />);
+    expect(navigate).not.toHaveBeenCalled();
   });
 });
