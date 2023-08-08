@@ -1,9 +1,8 @@
-import { configureStore } from '@reduxjs/toolkit';
 import { render } from '@testing-library/react';
 import * as ReactRedux from 'react-redux';
 import * as ReactRouterDom from 'react-router-dom';
 import { MemoryRouter } from 'react-router-dom';
-import { authReducer } from '../../features/auth';
+import { setupStore } from '../../core/store';
 import { LoginPage } from './login.page';
 
 jest.mock('react-router-dom', () => ({
@@ -12,17 +11,12 @@ jest.mock('react-router-dom', () => ({
 }));
 
 const renderWithStore = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
-  const store = configureStore({
-    reducer: {
-      auth: authReducer,
-    },
-    preloadedState: {
-      auth: {
-        isLoggedIn,
-        user: null,
-        loading: false,
-        error: null,
-      },
+  const store = setupStore({
+    auth: {
+      isLoggedIn,
+      user: null,
+      loading: false,
+      error: null,
     },
   });
 

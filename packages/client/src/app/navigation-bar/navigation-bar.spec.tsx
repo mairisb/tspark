@@ -1,23 +1,17 @@
-import { configureStore } from '@reduxjs/toolkit';
 import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
-import { authReducer } from '../../features/auth';
+import { setupStore } from '../../core/store';
 import { NavigationBar } from './navigation-bar';
 
 const renderWithStore = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
-  const store = configureStore({
-    reducer: {
-      auth: authReducer,
-    },
-    preloadedState: {
-      auth: {
-        isLoggedIn,
-        user: null,
-        loading: false,
-        error: null,
-      },
+  const store = setupStore({
+    auth: {
+      isLoggedIn,
+      user: null,
+      loading: false,
+      error: null,
     },
   });
 
