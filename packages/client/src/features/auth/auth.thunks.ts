@@ -1,8 +1,8 @@
 import { LoginRequest, RegisterRequest } from '@jspark/common';
-import { AppThunk } from '../../store';
+import { errorHelpers } from '../../core/helpers/error.helpers';
+import { AppThunk } from '../../core/store';
 import { authService } from './auth.service';
 import { authActions } from './auth.slice';
-import { errorHelpers } from '../../core/helpers/error.helpers';
 
 const registerUser =
   (req: RegisterRequest): AppThunk =>

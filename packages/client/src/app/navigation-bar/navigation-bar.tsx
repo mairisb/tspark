@@ -1,8 +1,9 @@
 import { Container, Nav, Navbar } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { authSelectors, authThunks } from '../../features/auth';
-import { useAppDispatch } from '../../store';
+import { useAppDispatch } from '../../core/hooks/app-dispatch.hook';
+import { authSelectors } from '../../features/auth/auth.selectors';
+import { authThunks } from '../../features/auth/auth.thunks';
 
 export const NavigationBar: React.FC = () => {
   const dispatch = useAppDispatch();

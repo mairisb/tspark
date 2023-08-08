@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
-import { LoginForm, useAuthRedirect } from '../../features/auth';
+import { LoginForm } from '../../features/auth/components/login-form.component';
 import { Page } from '../page';
+import { useAuthRedirect } from '../../features/auth/hooks/auth-redirect.hook';
 
 export const LoginPage: React.FC = () => {
   useAuthRedirect();

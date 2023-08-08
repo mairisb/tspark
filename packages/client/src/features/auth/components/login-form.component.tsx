@@ -1,9 +1,9 @@
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useAppDispatch } from '../../../core/hooks/app-dispatch.hook';
 import React from 'react';
 import { Button, Form, Stack } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
-import { useAppDispatch } from '../../../store';
 import { authThunks } from '../auth.thunks';
 
 interface LoginFormData {
