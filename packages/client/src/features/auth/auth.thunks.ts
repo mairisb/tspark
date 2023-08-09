@@ -7,52 +7,52 @@ import { authActions } from './auth.slice';
 const registerUser =
   (req: RegisterRequest): AppThunk =>
   async (dispatch) => {
-    dispatch(authActions.registerStart());
+    // dispatch(authActions.registerStart());
     try {
       const user = await authService.register(req);
       dispatch(authActions.registerSuccess(user));
     } catch (error) {
       const errorMsg = errorHelpers.getErrorMessage(error);
-      dispatch(authActions.registerFailure(errorMsg));
+      // dispatch(authActions.registerFailure(errorMsg));
     }
   };
 
 const loginUser =
   (req: LoginRequest): AppThunk =>
   async (dispatch) => {
-    dispatch(authActions.loginStart());
+    // dispatch(authActions.loginStart());
     try {
       const user = await authService.login(req);
       dispatch(authActions.loginSuccess(user));
     } catch (error) {
       const errorMsg = errorHelpers.getErrorMessage(error);
-      dispatch(authActions.loginFailure(errorMsg));
+      // dispatch(authActions.loginFailure(errorMsg));
     }
   };
 
 const logoutUser = (): AppThunk => async (dispatch) => {
-  dispatch(authActions.logoutStart());
+  // dispatch(authActions.logoutStart());
   try {
     await authService.logout();
     dispatch(authActions.logoutSuccess());
   } catch (error) {
     const errorMsg = errorHelpers.getErrorMessage(error);
-    dispatch(authActions.logoutFailure(errorMsg));
+    // dispatch(authActions.logoutFailure(errorMsg));
   }
 };
 
 const authCheck = (): AppThunk => async (dispatch) => {
-  dispatch(authActions.loginStart());
+  // dispatch(authActions.loginStart());
   try {
     const { isAuthenticated, user, error } = await authService.authCheck();
     if (isAuthenticated && user) {
       dispatch(authActions.authCheckSuccess(user));
     } else {
-      dispatch(authActions.authCheckFailure(error));
+      // dispatch(authActions.authCheckFailure(error));
     }
   } catch (error) {
     const errorMsg = errorHelpers.getErrorMessage(error);
-    dispatch(authActions.authCheckFailure(errorMsg));
+    // dispatch(authActions.authCheckFailure(errorMsg));
   }
 };
 

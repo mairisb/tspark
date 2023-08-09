@@ -8,19 +8,10 @@ const selectIsLoggedIn = createSelector(
   (authState) => authState.isLoggedIn
 );
 
-const selectLoading = createSelector(
-  selectAuth,
-  (authState) => authState.loading
-);
-
-const selectError = createSelector(selectAuth, (authState) => authState.error);
-
 const selectUser = createSelector(selectAuth, (authState) => authState.user);
 
 export const authSelectors = {
   selectAuth,
   selectIsLoggedIn,
-  selectLoading,
-  selectError,
   selectUser,
 };
