@@ -15,8 +15,6 @@ const renderWithStore = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
     auth: {
       isLoggedIn,
       user: null,
-      loading: false,
-      error: null,
     },
   });
 
