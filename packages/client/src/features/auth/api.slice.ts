@@ -30,6 +30,9 @@ const axiosBaseQuery =
         params,
         withCredentials: true,
         timeout: 10000,
+        headers: {
+          'Content-Type': 'application/json',
+        },
       });
       return { data: result.data };
     } catch (axiosError) {
@@ -51,14 +54,14 @@ export const apiSlice = createApi({
       query: (req) => ({
         url: '/auth/register',
         method: 'post',
-        body: req,
+        data: req,
       }),
     }),
     login: builder.mutation<UserDto, LoginRequest>({
       query: (req) => ({
         url: '/auth/login',
         method: 'post',
-        body: req,
+        data: req,
       }),
     }),
     logout: builder.mutation<void, void>({

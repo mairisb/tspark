@@ -1,60 +1,71 @@
 import { LoginRequest, RegisterRequest } from '@jspark/common';
-import { errorHelpers } from '../../core/helpers/error.helpers';
-import { AppThunk } from '../../core/store';
-import { authService } from './auth.service';
+import { createAsyncThunk } from '@reduxjs/toolkit';
+import { apiSlice } from './api.slice';
 import { authActions } from './auth.slice';
 
-const registerUser =
-  (req: RegisterRequest): AppThunk =>
-  async (dispatch) => {
-    // dispatch(authActions.registerStart());
+const registerUser = createAsyncThunk(
+  'auth/registerUser',
+  async (req: RegisterRequest, { dispatch, rejectWithValue }) => {
     try {
-      const user = await authService.register(req);
-      dispatch(authActions.registerSuccess(user));
-    } catch (error) {
-      const errorMsg = errorHelpers.getErrorMessage(error);
-      // dispatch(authActions.registerFailure(errorMsg));
+      const user = await dispatch(
+        apiSlice.endpoints.register.initiate(req)
+      ).unwrap();
+      dispatch(authActions.setUser(user));
+      return { success: true, user };
+    } catch (err) {
+      console.error('Registration Error:', err);
+      return rejectWithValue(err);
     }
-  };
+  }
+);
 
-const loginUser =
-  (req: LoginRequest): AppThunk =>
-  async (dispatch) => {
-    // dispatch(authActions.loginStart());
+export const loginUser = createAsyncThunk(
+  'auth/loginUser',
+  async (req: LoginRequest, { dispatch, rejectWithValue }) => {
     try {
-      const user = await authService.login(req);
-      dispatch(authActions.loginSuccess(user));
-    } catch (error) {
-      const errorMsg = errorHelpers.getErrorMessage(error);
-      // dispatch(authActions.loginFailure(errorMsg));
+      const user = await dispatch(
+        apiSlice.endpoints.login.initiate(req)
+      ).unwrap();
+      dispatch(authActions.setUser(user));
+      return { success: true, user };
+    } catch (err) {
+      console.error('Login Error:', err);
+      return rejectWithValue(err);
     }
-  };
-
-const logoutUser = (): AppThunk => async (dispatch) => {
-  // dispatch(authActions.logoutStart());
-  try {
-    await authService.logout();
-    dispatch(authActions.logoutSuccess());
-  } catch (error) {
-    const errorMsg = errorHelpers.getErrorMessage(error);
-    // dispatch(authActions.logoutFailure(errorMsg));
   }
-};
+);
 
-const authCheck = (): AppThunk => async (dispatch) => {
-  // dispatch(authActions.loginStart());
-  try {
-    const { isAuthenticated, user, error } = await authService.authCheck();
-    if (isAuthenticated && user) {
-      dispatch(authActions.authCheckSuccess(user));
-    } else {
-      // dispatch(authActions.authCheckFailure(error));
+export const logoutUser = createAsyncThunk(
+  'auth/logoutUser',
+  async (_, { dispatch, rejectWithValue }) => {
+    try {
+      await dispatch(apiSlice.endpoints.logout.initiate()).unwrap();
+      dispatch(authActions.clearUser());
+      return { success: true };
+    } catch (err) {
+      console.error('Logout Error:', err);
+      return rejectWithValue(err);
     }
-  } catch (error) {
-    const errorMsg = errorHelpers.getErrorMessage(error);
-    // dispatch(authActions.authCheckFailure(errorMsg));
   }
-};
+);
+
+export const authCheck = createAsyncThunk(
+  'auth/authCheck',
+  async (_, { dispatch, rejectWithValue }) => {
+    try {
+      const { isAuthenticated, user } = await dispatch(
+        apiSlice.endpoints.authCheck.initiate()
+      ).unwrap();
+      if (isAuthenticated && user) {
+        dispatch(authActions.setUser(user));
+        return { success: true, user };
+      }
+    } catch (err) {
+      console.error('Auth Check Error:', err);
+      return rejectWithValue(err);
+    }
+  }
+);
 
 export const authThunks = {
   registerUser,

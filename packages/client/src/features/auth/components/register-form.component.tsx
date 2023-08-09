@@ -1,9 +1,9 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useAppDispatch } from '../../../core/hooks/app-dispatch.hook';
 import React from 'react';
 import { Button, Form, Stack } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
+import { useAppDispatch } from '../../../core/hooks/app-dispatch.hook';
 import { authThunks } from '../auth.thunks';
 
 interface RegisterFormData {
@@ -24,13 +24,8 @@ export const RegisterForm: React.FC = () => {
   const errors = form.formState.errors;
 
   const dispatch = useAppDispatch();
-  const onSubmit = form.handleSubmit((data) => {
-    dispatch(
-      authThunks.registerUser({
-        email: data.email,
-        password: data.password,
-      })
-    );
+  const onSubmit = form.handleSubmit((formData) => {
+    dispatch(authThunks.registerUser(formData));
   });
 
   return (
