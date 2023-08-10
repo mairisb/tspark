@@ -1,9 +1,9 @@
-import { UserDto } from '@jspark/common';
-import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { authInitialState } from './auth.initial-state';
+import { UserDto } from "@tspark/common";
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { authInitialState } from "./auth.initial-state";
 
 const authSlice = createSlice({
-  name: 'auth',
+  name: "auth",
   initialState: authInitialState,
   reducers: {
     setUser: (state, action: PayloadAction<UserDto>) => {

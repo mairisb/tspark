@@ -1,4 +1,4 @@
-import { UserDto } from '@jspark/common';
+import { UserDto } from "@tspark/common";
 
 export interface AuthState {
   isLoggedIn: boolean;

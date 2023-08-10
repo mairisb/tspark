@@ -1,10 +1,10 @@
-import { LoginRequest, RegisterRequest } from '@jspark/common';
-import { createAsyncThunk } from '@reduxjs/toolkit';
-import { apiSlice } from './api.slice';
-import { authActions } from './auth.slice';
+import { LoginRequest, RegisterRequest } from "@tspark/common";
+import { createAsyncThunk } from "@reduxjs/toolkit";
+import { apiSlice } from "./api.slice";
+import { authActions } from "./auth.slice";
 
 const registerUser = createAsyncThunk(
-  'auth/registerUser',
+  "auth/registerUser",
   async (req: RegisterRequest, { dispatch, rejectWithValue }) => {
     try {
       const user = await dispatch(
@@ -13,14 +13,14 @@ const registerUser = createAsyncThunk(
       dispatch(authActions.setUser(user));
       return { success: true, user };
     } catch (err) {
-      console.error('Registration Error:', err);
+      console.error("Registration Error:", err);
       return rejectWithValue(err);
     }
   }
 );
 
 export const loginUser = createAsyncThunk(
-  'auth/loginUser',
+  "auth/loginUser",
   async (req: LoginRequest, { dispatch, rejectWithValue }) => {
     try {
       const user = await dispatch(
@@ -29,28 +29,28 @@ export const loginUser = createAsyncThunk(
       dispatch(authActions.setUser(user));
       return { success: true, user };
     } catch (err) {
-      console.error('Login Error:', err);
+      console.error("Login Error:", err);
       return rejectWithValue(err);
     }
   }
 );
 
 export const logoutUser = createAsyncThunk(
-  'auth/logoutUser',
+  "auth/logoutUser",
   async (_, { dispatch, rejectWithValue }) => {
     try {
       await dispatch(apiSlice.endpoints.logout.initiate()).unwrap();
       dispatch(authActions.clearUser());
       return { success: true };
     } catch (err) {
-      console.error('Logout Error:', err);
+      console.error("Logout Error:", err);
       return rejectWithValue(err);
     }
   }
 );
 
 export const authCheck = createAsyncThunk(
-  'auth/authCheck',
+  "auth/authCheck",
   async (_, { dispatch, rejectWithValue }) => {
     try {
       const { isAuthenticated, user } = await dispatch(
@@ -61,7 +61,7 @@ export const authCheck = createAsyncThunk(
         return { success: true, user };
       }
     } catch (err) {
-      console.error('Auth Check Error:', err);
+      console.error("Auth Check Error:", err);
       return rejectWithValue(err);
     }
   }

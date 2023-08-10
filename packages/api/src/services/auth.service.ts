@@ -1,9 +1,9 @@
-import { LoginRequest, RegisterRequest } from '@jspark/common';
-import bcrypt from 'bcrypt';
-import { appDataSource } from '../config/app-data-source';
-import { Auth } from '../models/auth.model';
-import { User } from '../models/user.model';
-import { userService } from './user.service';
+import { LoginRequest, RegisterRequest } from "@tspark/common";
+import bcrypt from "bcrypt";
+import { appDataSource } from "../config/app-data-source";
+import { Auth } from "../models/auth.model";
+import { User } from "../models/user.model";
+import { userService } from "./user.service";
 
 const userRepository = appDataSource.getRepository(User);
 
@@ -12,7 +12,7 @@ const register = async (registerRequest: RegisterRequest) => {
     registerRequest.email
   );
   if (userAlreadyExists) {
-    throw new Error('User already exists.');
+    throw new Error("User already exists.");
   }
 
   const saltRounds = 10;
@@ -41,7 +41,7 @@ const login = async (loginRequest: LoginRequest) => {
     user.auth.hashedPassword
   );
   if (!isMatch) {
-    throw Error('Incorrect password.');
+    throw Error("Incorrect password.");
   }
   return user;
 };

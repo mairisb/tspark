@@ -3,20 +3,20 @@ import {
   LoginRequest,
   RegisterRequest,
   UserDto,
-} from '@jspark/common';
-import { BaseQueryFn, createApi } from '@reduxjs/toolkit/query/react';
-import axios, { AxiosError, AxiosRequestConfig } from 'axios';
-import { config } from '../../core/config';
+} from "@tspark/common";
+import { BaseQueryFn, createApi } from "@reduxjs/toolkit/query/react";
+import axios, { AxiosError, AxiosRequestConfig } from "axios";
+import { config } from "../../core/config";
 
 const axiosBaseQuery =
   (
-    { baseUrl }: { baseUrl: string } = { baseUrl: '' }
+    { baseUrl }: { baseUrl: string } = { baseUrl: "" }
   ): BaseQueryFn<
     {
       url: string;
-      method: AxiosRequestConfig['method'];
-      data?: AxiosRequestConfig['data'];
-      params?: AxiosRequestConfig['params'];
+      method: AxiosRequestConfig["method"];
+      data?: AxiosRequestConfig["data"];
+      params?: AxiosRequestConfig["params"];
     },
     unknown,
     unknown
@@ -31,7 +31,7 @@ const axiosBaseQuery =
         withCredentials: true,
         timeout: 10000,
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
       });
       return { data: result.data };
@@ -47,33 +47,33 @@ const axiosBaseQuery =
   };
 
 export const apiSlice = createApi({
-  reducerPath: 'api',
+  reducerPath: "api",
   baseQuery: axiosBaseQuery({ baseUrl: config.API_URL }),
   endpoints: (builder) => ({
     register: builder.mutation<UserDto, RegisterRequest>({
       query: (req) => ({
-        url: '/auth/register',
-        method: 'post',
+        url: "/auth/register",
+        method: "post",
         data: req,
       }),
     }),
     login: builder.mutation<UserDto, LoginRequest>({
       query: (req) => ({
-        url: '/auth/login',
-        method: 'post',
+        url: "/auth/login",
+        method: "post",
         data: req,
       }),
     }),
     logout: builder.mutation<void, void>({
       query: () => ({
-        url: '/auth/logout',
-        method: 'post',
+        url: "/auth/logout",
+        method: "post",
       }),
     }),
     authCheck: builder.query<AuthCheckResponse, void>({
       query: () => ({
-        url: '/auth/auth-check',
-        method: 'get',
+        url: "/auth/auth-check",
+        method: "get",
       }),
     }),
   }),
