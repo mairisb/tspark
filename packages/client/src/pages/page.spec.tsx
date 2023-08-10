@@ -4,7 +4,7 @@ import { Page } from './page';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
-jest.mock('../core/config/config', () => ({
+jest.mock('../core/config', () => ({
   config: {
     APP_NAME: 'MockAppName',
   },

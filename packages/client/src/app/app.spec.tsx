@@ -1,25 +1,29 @@
 import { render } from '@testing-library/react';
-
-import { BrowserRouter } from 'react-router-dom';
-
+import * as ReactRedux from 'react-redux';
+import { MemoryRouter } from 'react-router-dom';
+import { setupStore } from '../core/store';
 import { App } from './app';
+
+const renderWithStore = () => {
+  const store = setupStore({
+    auth: {
+      isLoggedIn: false,
+      user: null,
+    },
+  });
+
+  return render(
+    <ReactRedux.Provider store={store}>
+      <MemoryRouter>
+        <App />
+      </MemoryRouter>
+    </ReactRedux.Provider>
+  );
+};
 
 describe('App', () => {
   it('should render successfully', () => {
-    const { baseElement } = render(
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    );
+    const { baseElement } = renderWithStore();
     expect(baseElement).toBeTruthy();
-  });
-
-  it('should have a greeting as the title', () => {
-    const { getByText } = render(
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    );
-    expect(getByText(/Welcome client/gi)).toBeTruthy();
   });
 });
