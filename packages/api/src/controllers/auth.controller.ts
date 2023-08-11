@@ -5,28 +5,28 @@ import {
   LoginRequest,
   RegisterRequest,
   UserDto,
-} from "@tspark/common";
-import { Request, Response } from "express";
-import jwt from "jsonwebtoken";
-import { authService } from "../services/auth.service";
+} from '@tspark/common';
+import { Request, Response } from 'express';
+import jwt from 'jsonwebtoken';
+import { authService } from '../services/auth.service';
+import { config } from '../config';
 
 const setJwtCookie = (res: Response, userDto: UserDto) => {
-  // const token = jwt.sign({ user: userDto }, process.env.JWT_SECRET, {
-  const token = jwt.sign({ user: userDto }, "my-very-secret-secret-hush-hush", {
-    expiresIn: "1h",
+  const token = jwt.sign({ user: userDto }, config.JWT_SECRET, {
+    expiresIn: '1h',
   });
 
-  res.cookie("login_token", token, {
+  res.cookie('login_token', token, {
     httpOnly: true,
-    sameSite: "none",
+    sameSite: 'none',
     secure: true,
     maxAge: 3600000,
   });
 };
 
 const clearJwtCookie = (res: Response) => {
-  res.clearCookie("login_token", {
-    sameSite: "none",
+  res.clearCookie('login_token', {
+    sameSite: 'none',
     secure: true,
   });
 };
@@ -49,8 +49,8 @@ const register = async (
     setJwtCookie(res, userDto);
     return res.status(200).json(userDto);
   } catch (err) {
-    console.error("Registration failed.", err);
-    return res.status(500).json({ error: "Registration failed." });
+    console.error('Registration failed.', err);
+    return res.status(500).json({ error: 'Registration failed.' });
   }
 };
 
@@ -72,14 +72,14 @@ const login = async (
     setJwtCookie(res, userDto);
     return res.status(200).json(userDto);
   } catch (err) {
-    console.log("Login failed.", err);
-    return res.status(500).json({ error: "Login failed." });
+    console.log('Login failed.', err);
+    return res.status(500).json({ error: 'Login failed.' });
   }
 };
 
 const logout = (_req: Request, res: Response<GenericResponse>) => {
   clearJwtCookie(res);
-  return res.status(200).json({ message: "Logout successful." });
+  return res.status(200).json({ message: 'Logout successful.' });
 };
 
 const authCheck = async (req: Request, res: Response<AuthCheckResponse>) => {
@@ -87,23 +87,17 @@ const authCheck = async (req: Request, res: Response<AuthCheckResponse>) => {
   if (!token) {
     return res.status(401).json({
       isAuthenticated: false,
-      error: "No authentication token provided.",
+      error: 'No authentication token provided.',
     });
   }
 
   try {
-    // if (!process.env.JWT_SECRET) {
-    if (!"my-very-secret-secret-hush-hush") {
-      throw new Error("JWT_SECRET is not defined");
-    }
-
-    // const isTokenValid = jwt.verify(token, process.env.JWT_SECRET);
-    const isTokenValid = jwt.verify(token, "my-very-secret-secret-hush-hush");
+    const isTokenValid = jwt.verify(token, config.JWT_SECRET);
     if (!isTokenValid) {
       clearJwtCookie(res);
       return res.status(401).json({
         isAuthenticated: false,
-        error: "Invalid authentication token.",
+        error: 'Invalid authentication token.',
       });
     }
 
@@ -111,18 +105,18 @@ const authCheck = async (req: Request, res: Response<AuthCheckResponse>) => {
       user?: UserDto;
     };
     if (!decodedToken.user) {
-      throw new Error("User information not found in token");
+      throw new Error('User information not found in token');
     }
 
     const userDto = decodedToken.user;
 
     return res.status(200).json({ isAuthenticated: true, user: userDto });
   } catch (err) {
-    console.error("Auth check failed:", err);
+    console.error('Auth check failed:', err);
     clearJwtCookie(res);
     return res.status(500).json({
       isAuthenticated: false,
-      error: "Auth check failed.",
+      error: 'Auth check failed.',
     });
   }
 };

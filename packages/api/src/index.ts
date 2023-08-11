@@ -1,8 +1,10 @@
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
+import 'dotenv/config';
 import express from 'express';
 import 'reflect-metadata'; // needed for TypeORM
+import { config } from './config';
 import { appDataSource } from './config/app-data-source';
 import { apiRouter } from './routers/api.router';
 
@@ -19,7 +21,7 @@ app.use(cookieParser());
 
 app.use('/api', apiRouter);
 
-const port = process.env.PORT || 3333;
+const port = config.PORT;
 
 appDataSource
   .initialize()
