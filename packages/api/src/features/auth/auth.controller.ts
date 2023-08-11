@@ -10,9 +10,10 @@ import { Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
 import { authService } from './auth.service';
 import { config } from '../../core/config';
+import { userService } from '../user/user.service';
 
 const setJwtCookie = (res: Response, userDto: UserDto) => {
-  const token = jwt.sign({ user: userDto }, config.JWT_SECRET, {
+  const token = jwt.sign({ sub: userDto.email }, config.JWT_SECRET, {
     expiresIn: '1h',
   });
 
@@ -102,13 +103,19 @@ const authCheck = async (req: Request, res: Response<AuthCheckResponse>) => {
     }
 
     const decodedToken = jwt.decode(token, { json: true }) as {
-      user?: UserDto;
+      sub?: string;
     };
-    if (!decodedToken.user) {
+    if (!decodedToken.sub) {
       throw new Error('User information not found in token');
     }
 
-    const userDto = decodedToken.user;
+    const email = decodedToken.sub;
+    const user = await userService.getByEmail(email);
+    // TODO: use a mapper
+    const userDto: UserDto = {
+      id: user.id,
+      email: user.email,
+    };
 
     return res.status(200).json({ isAuthenticated: true, user: userDto });
   } catch (err) {
