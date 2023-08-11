@@ -7,7 +7,7 @@
     "build": "tsc",
     "watch": "npm run build -- --watch --preserveWatchOutput",
     "start:dev": "nodemon dist/index.js",
-    "start:dev:debug": "npm run start:dev -- --inspect=0.0.0.0",
+    "start:dev:debug": "nodemon --inspect dist/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",

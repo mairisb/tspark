@@ -9,33 +9,34 @@
       "type": "node",
       "request": "launch",
       "cwd": "${workspaceFolder}/packages/client",
-      "runtimeExecutable": "nx",
-      "runtimeArgs": ["serve", "client", "--host=0.0.0.0"],
-      "skipFiles": ["<node_internals>/**", "${workspaceFolder}/node_modules/*"],
-      "outFiles": ["${workspaceFolder}/dist/**/*.js"]
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "start:dev"]
     },
     {
-      "name": "Server",
+      "name": "API",
       "type": "node",
       "request": "launch",
-      "cwd": "${workspaceFolder}/packages/server",
-      "runtimeExecutable": "nx",
-      "runtimeArgs": ["serve", "server", "--inspect"],
+      "cwd": "${workspaceFolder}/packages/api",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "start:dev:debug"],
       "skipFiles": ["<node_internals>/**", "${workspaceFolder}/node_modules/*"],
-      "outFiles": ["${workspaceFolder}/dist/**/*.js"]
+      "outFiles": ["${workspaceFolder}/packages/api/dist/**/*.js"],
+      "sourceMaps": true,
+      "restart": true
     },
     {
-      "name": "Attach to Server",
-      "type": "node",
-      "request": "attach",
+      "name": "Attach to API",
       "port": 9229,
-      "cwd": "${workspaceFolder}/packages/server"
+      "request": "attach",
+      "skipFiles": ["<node_internals>/**"],
+      "type": "node",
+      "restart": true
     }
   ],
   "compounds": [
     {
-      "name": "Server/Client",
-      "configurations": ["Server", "Client"],
+      "name": "API/Client",
+      "configurations": ["API", "Client"],
       "stopAll": false
     }
   ]
