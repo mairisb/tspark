@@ -36,11 +36,10 @@
       "request": "launch",
       "cwd": "${workspaceFolder}/packages/api",
       "runtimeExecutable": "npm",
-      "runtimeArgs": ["run", "start:dev:debug"],
+      "runtimeArgs": ["run", "start:dev"],
       "skipFiles": ["<node_internals>/**", "${workspaceFolder}/node_modules/*"],
       "outFiles": ["${workspaceFolder}/packages/api/dist/**/*.js"],
-      "sourceMaps": true,
-      "restart": true
+      "sourceMaps": true
     },
     {
       "name": "Attach to API",
