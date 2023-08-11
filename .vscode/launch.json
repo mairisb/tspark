@@ -13,6 +13,24 @@
       "runtimeArgs": ["run", "start:dev"]
     },
     {
+      "name": "Watch Common",
+      "type": "node",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/packages/common",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "watch"],
+      "console": "integratedTerminal" // otherwise the tsc --watch output is not visible in DEBUG CONSOLE
+    },
+    {
+      "name": "Watch API",
+      "type": "node",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/packages/api",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "watch"],
+      "console": "integratedTerminal" // otherwise the tsc --watch output is not visible in DEBUG CONSOLE
+    },
+    {
       "name": "API",
       "type": "node",
       "request": "launch",
@@ -35,8 +53,8 @@
   ],
   "compounds": [
     {
-      "name": "API/Client",
-      "configurations": ["API", "Client"],
+      "name": "DEV",
+      "configurations": ["Client", "Watch Common", "Watch API", "API"],
       "stopAll": false
     }
   ]

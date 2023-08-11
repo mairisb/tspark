@@ -5,9 +5,10 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
-    "watch": "npm run build -- --watch --preserveWatchOutput",
+    "watch": "npm run build -- --watch",
     "start:dev": "nodemon dist/index.js",
     "start:dev:debug": "nodemon --inspect dist/index.js",
+    "start:dev:debug2": "concurrently \"npm run watch\" \"npm run start:dev:debug\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
