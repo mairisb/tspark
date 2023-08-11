@@ -5,5 +5,9 @@
     "packages/client",
     "packages/api",
     "packages/common"
-  ]
+  ],
+  "scripts": {
+    "build": "npm run build --workspaces",
+    "test": "npm run test --workspaces --if-present"
+  }
 }
