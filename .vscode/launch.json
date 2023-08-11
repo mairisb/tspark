@@ -38,7 +38,10 @@
       "runtimeExecutable": "npm",
       "runtimeArgs": ["run", "start:dev"],
       "skipFiles": ["<node_internals>/**", "${workspaceFolder}/node_modules/*"],
-      "outFiles": ["${workspaceFolder}/packages/api/dist/**/*.js"],
+      "outFiles": [
+        "${workspaceFolder}/packages/api/dist/**/*.js",
+        "${workspaceFolder}/packages/common/dist/**/*.js"
+      ],
       "sourceMaps": true
     },
     {
