@@ -23,24 +23,36 @@ Please note that JSpark is still a work in progress, and additional features and
 
 ## Getting started
 
-To start the client and server in development mode, use the following command:
+To start the frontend and backend in development mode, use the following command:
 
 ```
-npx nx run-many --parallel --target=serve --projects=client,server --host=0.0.0.0
+npm run start:dev
 ```
 
 ### Launching client and server separately
 
 To launch the client and server separately, use the following commands:
 
-#### Client
+#### Common
+Execute the following commands inside `packages/common`:
 ```
-npx nx serve client --host=0.0.0.0
+npm run watch
 ```
 
-#### Server
+#### Frontend
+
+Execute the following command inside `packages/client`:
 ```
-npx nx serve server
+npm run start:dev
+```
+
+#### Backend
+Execute the following commands inside `packages/api`:
+```
+npm run watch
+```
+```
+npm run start:dev
 ```
 
 ### VSCode launch configuration
