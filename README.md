@@ -34,7 +34,7 @@ npm run start:dev
 To launch the client and server separately, use the following commands:
 
 #### Common
-Execute the following commands inside `packages/common`:
+Execute the following command inside `packages/common`:
 ```
 npm run watch
 ```
