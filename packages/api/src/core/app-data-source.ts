@@ -1,7 +1,7 @@
 import { DataSource } from 'typeorm';
-import { Game } from '../models/game.model';
-import { User } from '../models/user.model';
-import { Auth } from '../models/auth.model';
+import { Game } from '../features/game/game.model';
+import { User } from '../features/user/user.model';
+import { Auth } from '../features/auth/auth.model';
 
 export const appDataSource = new DataSource({
   type: 'sqlite',

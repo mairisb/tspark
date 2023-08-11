@@ -1,7 +1,7 @@
 import express from 'express';
-import { authRouter } from './auth.router';
-import { gameRouter } from './game.router';
-import { userRouter } from './user.router';
+import { authRouter } from '../features/auth/auth.router';
+import { gameRouter } from '../features/game/game.router';
+import { userRouter } from '../features/user/user.router';
 
 export const apiRouter = express.Router();
 

@@ -1,4 +1,4 @@
-import { Game } from '../models/game.model';
+import { Game } from './game.model';
 
 const getAll = () => {
   const games: Promise<Game[]> = new Promise((resolve) => {

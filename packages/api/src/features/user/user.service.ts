@@ -1,5 +1,5 @@
-import { appDataSource } from '../config/app-data-source';
-import { User } from '../models/user.model';
+import { appDataSource } from '../../core/app-data-source';
+import { User } from './user.model';
 
 const userRepository = appDataSource.getRepository(User);
 

@@ -1,5 +1,5 @@
-import { appDataSource } from '../config/app-data-source';
-import { Game } from '../models/game.model';
+import { appDataSource } from '../../core/app-data-source';
+import { Game } from './game.model';
 
 const gameRepository = appDataSource.getRepository(Game);
 

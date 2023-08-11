@@ -4,9 +4,9 @@ import cors from 'cors';
 import 'dotenv/config';
 import express from 'express';
 import 'reflect-metadata'; // needed for TypeORM
-import { config } from './config';
-import { appDataSource } from './config/app-data-source';
-import { apiRouter } from './routers/api.router';
+import { apiRouter } from './core/api.router';
+import { appDataSource } from './core/app-data-source';
+import { config } from './core/config';
 
 const app = express();
 

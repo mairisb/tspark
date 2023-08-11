@@ -8,8 +8,8 @@ import {
 } from '@tspark/common';
 import { Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
-import { authService } from '../services/auth.service';
-import { config } from '../config';
+import { authService } from './auth.service';
+import { config } from '../../core/config';
 
 const setJwtCookie = (res: Response, userDto: UserDto) => {
   const token = jwt.sign({ user: userDto }, config.JWT_SECRET, {

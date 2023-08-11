@@ -5,7 +5,7 @@ import {
   OneToOne,
   JoinColumn,
 } from 'typeorm';
-import { Auth } from './auth.model';
+import { Auth } from '../auth/auth.model';
 
 @Entity()
 export class User {
