@@ -9,16 +9,6 @@ Benefits:
 <!-- - **Seamless integration:** Easily integrate additional libraries, APIs, and modules into your project to extend functionality. -->
 <!-- - **Community-driven:** Join a thriving community of developers using JSpark, benefiting from ongoing updates and contributions. -->
 
-Key Features:
-- React and Express integration
-- TypeScript configuration for client and server
-- Hot reloading for instant code updates during development
-- Ready-to-use folder structure for organized development
-- Sample components and API endpoints for reference
-<!-- - Pre-configured Webpack for efficient bundling -->
-<!-- - Deployment-ready configurations -->
-<!-- - Extensible and modular architecture -->
-
 Please note that JSpark is still a work in progress, and additional features and improvements are actively being developed.
 
 ## Getting started
