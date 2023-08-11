@@ -13,9 +13,7 @@ const rootReducer = combineReducers({
   [apiSlice.reducerPath]: apiSlice.reducer,
 });
 
-export const setupStore = (
-  preloadedState?: PreloadedState<ReturnType<typeof rootReducer>>
-) =>
+export const setupStore = (preloadedState?: PreloadedState<RootState>) =>
   configureStore({
     reducer: rootReducer,
     preloadedState,
@@ -25,7 +23,9 @@ export const setupStore = (
 
 export type RootState = ReturnType<typeof rootReducer>;
 
-export type AppDispatch = ReturnType<typeof setupStore>['dispatch'];
+export type AppStore = ReturnType<typeof setupStore>;
+
+export type AppDispatch = AppStore['dispatch'];
 
 export type AppThunk<ReturnType = void> = ThunkAction<
   ReturnType,

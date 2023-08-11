@@ -1,31 +1,12 @@
-import { render } from '@testing-library/react';
-import * as ReactRedux from 'react-redux';
 import * as ReactRouterDom from 'react-router-dom';
-import { MemoryRouter } from 'react-router-dom';
-import { setupStore } from '../../core/store';
+import { renderWithProviders } from '../../utils/test.utils';
 import { LoginPage } from './login.page';
+import { AuthState } from '../../features/auth/auth.types';
 
 jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),
   useNavigate: jest.fn(),
 }));
-
-const renderWithStore = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
-  const store = setupStore({
-    auth: {
-      isLoggedIn,
-      user: null,
-    },
-  });
-
-  return render(
-    <ReactRedux.Provider store={store}>
-      <MemoryRouter>
-        <LoginPage />
-      </MemoryRouter>
-    </ReactRedux.Provider>
-  );
-};
 
 describe('LoginPage', () => {
   let navigate: jest.Mock;
@@ -36,13 +17,21 @@ describe('LoginPage', () => {
   });
 
   it('should stay in login page if user is not logged in', () => {
-    renderWithStore({ isLoggedIn: false });
+    renderWithProviders(<LoginPage />, {
+      preloadedState: {
+        auth: { isLoggedIn: false } as AuthState,
+      },
+    });
 
     expect(navigate).toHaveBeenCalledTimes(0);
   });
 
   it('should redirect to home if the user is logged in', () => {
-    renderWithStore({ isLoggedIn: true });
+    renderWithProviders(<LoginPage />, {
+      preloadedState: {
+        auth: { isLoggedIn: true } as AuthState,
+      },
+    });
 
     expect(navigate).toHaveBeenCalledWith('/');
   });
