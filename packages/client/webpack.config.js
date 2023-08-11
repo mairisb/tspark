@@ -35,5 +35,6 @@ module.exports = {
   devtool: "inline-source-map",
   devServer: {
     port: 4200,
+    historyApiFallback: true,
   }
 };
