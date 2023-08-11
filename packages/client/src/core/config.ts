@@ -1,10 +1,4 @@
-const getEnvVar = (key: string): string => {
-  const value = process.env[key];
-  if (typeof value === 'undefined') {
-    throw new Error(`Environment variable ${key} is not defined`);
-  }
-  return value;
-};
+import { getEnvVar } from '@tspark/common';
 
 export const config = {
   APP_NAME: getEnvVar('APP_NAME'),
