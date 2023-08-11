@@ -25,6 +25,7 @@ To launch the client and server separately, use the following commands:
 
 #### Common
 Execute the following command inside `packages/common`:
+
 ```
 npm run watch
 ```
@@ -32,15 +33,18 @@ npm run watch
 #### Frontend
 
 Execute the following command inside `packages/client`:
+
 ```
 npm run start:dev
 ```
 
 #### Backend
 Execute the following commands inside `packages/api`:
+
 ```
 npm run watch
 ```
+
 ```
 npm run start:dev
 ```
