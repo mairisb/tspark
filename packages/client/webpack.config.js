@@ -6,7 +6,7 @@ const webpack = require('webpack');
 const env = dotenv.config().parsed;
 
 module.exports = {
-  mode: "development",
+  mode: 'development',
   entry: './src/index.tsx',
   module: {
     rules: [
@@ -24,7 +24,7 @@ module.exports = {
   },
   plugins: [
     new webpack.DefinePlugin({
-      'process.env': JSON.stringify(env)
+      'process.env': JSON.stringify(env),
     }),
     new HtmlWebpackPlugin({
       template: 'src/index.html',
@@ -39,9 +39,9 @@ module.exports = {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist'),
   },
-  devtool: "inline-source-map",
+  devtool: 'inline-source-map',
   devServer: {
     port: 4200,
     historyApiFallback: true,
-  }
+  },
 };

@@ -4,7 +4,7 @@ describe('getErrorMessage', () => {
   it('should return a default message if the error is not an instance of Error and no default message is provided', () => {
     const error = { some: 'object' };
     expect(errorHelpers.getErrorMessage(error)).toBe(
-      'An unexpected error occurred.'
+      'An unexpected error occurred.',
     );
   });
 
@@ -16,16 +16,16 @@ describe('getErrorMessage', () => {
   it('should return the provided default message if the error is not an instance of Error', () => {
     const error = { some: 'object' };
     expect(errorHelpers.getErrorMessage(error, 'Custom default message')).toBe(
-      'Custom default message'
+      'Custom default message',
     );
   });
 
   it('should return the default message if the error is null or undefined', () => {
     expect(errorHelpers.getErrorMessage(null)).toBe(
-      'An unexpected error occurred.'
+      'An unexpected error occurred.',
     );
     expect(errorHelpers.getErrorMessage(undefined)).toBe(
-      'An unexpected error occurred.'
+      'An unexpected error occurred.',
     );
   });
 });

@@ -38,7 +38,7 @@ describe('RegisterPage', () => {
     server.use(
       rest.post('/auth/register', (req, res, ctx) => {
         return res(ctx.status(200), ctx.json([{ id: 1, name: 'John Doe' }]));
-      })
+      }),
     );
 
     renderWithProviders(<RegisterPage />);
@@ -52,7 +52,7 @@ describe('RegisterPage', () => {
     server.use(
       rest.post('/auth/register', (req, res, ctx) => {
         return res(ctx.status(500));
-      })
+      }),
     );
 
     renderWithProviders(<RegisterPage />);

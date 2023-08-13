@@ -38,7 +38,7 @@ describe('LoginPage', () => {
     server.use(
       rest.post('/auth/login', (req, res, ctx) => {
         return res(ctx.status(200), ctx.json([{ id: 1, name: 'John Doe' }]));
-      })
+      }),
     );
 
     renderWithProviders(<LoginPage />);
@@ -52,7 +52,7 @@ describe('LoginPage', () => {
     server.use(
       rest.post('/auth/login', (req, res, ctx) => {
         return res(ctx.status(500));
-      })
+      }),
     );
 
     renderWithProviders(<LoginPage />);

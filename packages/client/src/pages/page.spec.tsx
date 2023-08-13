@@ -43,7 +43,7 @@ describe('Page', () => {
     render(
       <Page title="Test title">
         <span>Test child</span>
-      </Page>
+      </Page>,
     );
     expect(screen.getByText('Test child')).toBeInTheDocument();
   });

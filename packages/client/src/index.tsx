@@ -6,7 +6,7 @@ import { Provider } from 'react-redux';
 import { setupStore } from './core/store';
 
 const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
+  document.getElementById('root') as HTMLElement,
 );
 
 const store = setupStore();
@@ -18,5 +18,5 @@ root.render(
         <App />
       </Provider>
     </BrowserRouter>
-  </StrictMode>
+  </StrictMode>,
 );

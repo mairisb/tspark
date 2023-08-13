@@ -34,7 +34,7 @@ const clearJwtCookie = (res: Response) => {
 
 const register = async (
   req: Request<null, null, RegisterRequest>,
-  res: Response<UserDto | ErrorResponse>
+  res: Response<UserDto | ErrorResponse>,
 ) => {
   const registerRequest = req.body;
 
@@ -57,7 +57,7 @@ const register = async (
 
 const login = async (
   req: Request<null, null, LoginRequest>,
-  res: Response<UserDto | ErrorResponse>
+  res: Response<UserDto | ErrorResponse>,
 ) => {
   const loginRequest = req.body;
 

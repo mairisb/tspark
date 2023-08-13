@@ -1,6 +1,6 @@
 const getErrorMessage = (
   error: unknown,
-  defaultMsg = 'An unexpected error occurred.'
+  defaultMsg = 'An unexpected error occurred.',
 ): string => {
   if (error instanceof Error) {
     return error.message;

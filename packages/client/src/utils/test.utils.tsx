@@ -19,7 +19,7 @@ export const renderWithProviders = (
     preloadedState = {},
     store = setupStore(preloadedState),
     ...renderOptions
-  }: ExtendedRenderOptions = {}
+  }: ExtendedRenderOptions = {},
 ) => {
   const Wrapper = ({ children }: PropsWithChildren<{}>): JSX.Element => {
     return (

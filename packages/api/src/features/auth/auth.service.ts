@@ -9,7 +9,7 @@ const userRepository = appDataSource.getRepository(User);
 
 const register = async (registerRequest: RegisterRequest) => {
   const userAlreadyExists = await userService.existsByEmail(
-    registerRequest.email
+    registerRequest.email,
   );
   if (userAlreadyExists) {
     throw new Error('User already exists.');
@@ -18,7 +18,7 @@ const register = async (registerRequest: RegisterRequest) => {
   const saltRounds = 10;
   const hashedPassword = await bcrypt.hash(
     registerRequest.password,
-    saltRounds
+    saltRounds,
   );
 
   const auth = new Auth();
@@ -38,7 +38,7 @@ const login = async (loginRequest: LoginRequest) => {
   });
   const isMatch = await bcrypt.compare(
     loginRequest.password,
-    user.auth.hashedPassword
+    user.auth.hashedPassword,
   );
   if (!isMatch) {
     throw Error('Incorrect password.');
