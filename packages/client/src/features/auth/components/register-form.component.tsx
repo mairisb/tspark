@@ -3,10 +3,8 @@ import React from 'react';
 import { Button, Form, Stack } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
-import { useAppDispatch } from '../../../core/hooks/app-dispatch.hook';
-import { authThunks } from '../auth.thunks';
 
-interface RegisterFormData {
+export interface RegisterFormData {
   email: string;
   password: string;
 }
@@ -16,16 +14,19 @@ const registerFormSchema: yup.ObjectSchema<RegisterFormData> = yup.object({
   password: yup.string().min(8).required(),
 });
 
-export const RegisterForm: React.FC = () => {
+interface LoginFormProps {
+  onSubmit?: (formData: RegisterFormData) => any;
+}
+
+export const RegisterForm: React.FC<LoginFormProps> = (props) => {
   const form = useForm<RegisterFormData>({
     resolver: yupResolver(registerFormSchema),
     mode: 'onTouched',
   });
   const errors = form.formState.errors;
 
-  const dispatch = useAppDispatch();
   const onSubmit = form.handleSubmit((formData) => {
-    dispatch(authThunks.registerUser(formData));
+    props.onSubmit && props.onSubmit(formData);
   });
 
   return (
