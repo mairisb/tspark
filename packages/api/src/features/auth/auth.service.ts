@@ -1,8 +1,8 @@
 import { LoginRequest, RegisterRequest } from '@tspark/common';
 import bcrypt from 'bcrypt';
 import { appDataSource } from '../../core/app-data-source';
-import { Auth } from './auth.model';
-import { User } from '../user/user.model';
+import { Auth } from './auth.entity';
+import { User } from '../user/user.entity';
 import { userService } from '../user/user.service';
 
 const userRepository = appDataSource.getRepository(User);
