@@ -3,10 +3,8 @@ import React from 'react';
 import { Button, Form, Stack } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
-import { useAppDispatch } from '../../../core/hooks/app-dispatch.hook';
-import { authThunks } from '../auth.thunks';
 
-interface LoginFormData {
+export interface LoginFormData {
   email: string;
   password: string;
 }
@@ -16,7 +14,11 @@ const loginFormSchema: yup.ObjectSchema<LoginFormData> = yup.object({
   password: yup.string().required(),
 });
 
-export const LoginForm: React.FC = () => {
+interface LoginFormProps {
+  onSubmit?: (formData: LoginFormData) => any;
+}
+
+export const LoginForm: React.FC<LoginFormProps> = (props) => {
   const form = useForm<LoginFormData>({
     resolver: yupResolver(loginFormSchema),
     mode: 'onSubmit',
@@ -24,9 +26,8 @@ export const LoginForm: React.FC = () => {
   });
   const errors = form.formState.errors;
 
-  const dispatch = useAppDispatch();
   const onSubmit = form.handleSubmit((formData) => {
-    dispatch(authThunks.loginUser(formData));
+    props.onSubmit && props.onSubmit(formData);
   });
 
   return (
