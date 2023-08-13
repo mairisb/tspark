@@ -11,6 +11,7 @@ import jwt from 'jsonwebtoken';
 import { authService } from './auth.service';
 import { config } from '../../core/config';
 import { userService } from '../user/user.service';
+import { mapUsertoUserDto } from '../user/user.dto.mapper';
 
 const setJwtCookie = (res: Response, userDto: UserDto) => {
   const token = jwt.sign({ sub: userDto.email }, config.JWT_SECRET, {
@@ -41,12 +42,7 @@ const register = async (
   try {
     const user = await authService.register(registerRequest);
 
-    // TODO: use a mapper
-    const userDto: UserDto = {
-      id: user.id,
-      username: user.username,
-      email: user.email,
-    };
+    const userDto = mapUsertoUserDto(user);
 
     setJwtCookie(res, userDto);
     return res.status(200).json(userDto);
@@ -65,12 +61,7 @@ const login = async (
   try {
     const user = await authService.login(loginRequest);
 
-    // TODO: use a mapper
-    const userDto: UserDto = {
-      id: user.id,
-      username: user.username,
-      email: user.email,
-    };
+    const userDto = mapUsertoUserDto(user);
 
     setJwtCookie(res, userDto);
     return res.status(200).json(userDto);
@@ -113,12 +104,7 @@ const authCheck = async (req: Request, res: Response<AuthCheckResponse>) => {
 
     const email = decodedToken.sub;
     const user = await userService.getByEmail(email);
-    // TODO: use a mapper
-    const userDto: UserDto = {
-      id: user.id,
-      username: user.username,
-      email: user.email,
-    };
+    const userDto = mapUsertoUserDto(user);
 
     return res.status(200).json({ isAuthenticated: true, user: userDto });
   } catch (err) {
