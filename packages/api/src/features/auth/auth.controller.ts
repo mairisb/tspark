@@ -44,6 +44,7 @@ const register = async (
     // TODO: use a mapper
     const userDto: UserDto = {
       id: user.id,
+      username: user.username,
       email: user.email,
     };
 
@@ -67,6 +68,7 @@ const login = async (
     // TODO: use a mapper
     const userDto: UserDto = {
       id: user.id,
+      username: user.username,
       email: user.email,
     };
 
@@ -114,6 +116,7 @@ const authCheck = async (req: Request, res: Response<AuthCheckResponse>) => {
     // TODO: use a mapper
     const userDto: UserDto = {
       id: user.id,
+      username: user.username,
       email: user.email,
     };
 

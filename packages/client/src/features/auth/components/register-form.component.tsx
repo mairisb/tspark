@@ -5,11 +5,13 @@ import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 
 export interface RegisterFormData {
+  username: string;
   email: string;
   password: string;
 }
 
 const registerFormSchema: yup.ObjectSchema<RegisterFormData> = yup.object({
+  username: yup.string().min(5).required(),
   email: yup.string().email().required(),
   password: yup.string().min(8).required(),
 });
@@ -32,6 +34,17 @@ export const RegisterForm: React.FC<LoginFormProps> = (props) => {
   return (
     <Form onSubmit={onSubmit}>
       <Stack gap={2}>
+        <Form.Group controlId="username">
+          <Form.Label>Username</Form.Label>
+          <Form.Control
+            type="text"
+            {...form.register('username')}
+            isInvalid={Boolean(errors.username)}
+          />
+          <Form.Control.Feedback type="invalid">
+            {errors.username?.message}
+          </Form.Control.Feedback>
+        </Form.Group>
         <Form.Group controlId="email">
           <Form.Label>E-mail</Form.Label>
           <Form.Control

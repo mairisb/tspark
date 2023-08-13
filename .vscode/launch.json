@@ -10,7 +10,8 @@
       "request": "launch",
       "cwd": "${workspaceFolder}/packages/client",
       "runtimeExecutable": "npm",
-      "runtimeArgs": ["run", "start:dev"]
+      "runtimeArgs": ["run", "start:dev"],
+      "console": "integratedTerminal"
     },
     {
       "name": "Watch Common",
@@ -19,7 +20,7 @@
       "cwd": "${workspaceFolder}/packages/common",
       "runtimeExecutable": "npm",
       "runtimeArgs": ["run", "watch"],
-      "console": "integratedTerminal" // otherwise the tsc --watch output is not visible in DEBUG CONSOLE
+      "console": "integratedTerminal"
     },
     {
       "name": "Watch API",
@@ -28,7 +29,7 @@
       "cwd": "${workspaceFolder}/packages/api",
       "runtimeExecutable": "npm",
       "runtimeArgs": ["run", "watch"],
-      "console": "integratedTerminal" // otherwise the tsc --watch output is not visible in DEBUG CONSOLE
+      "console": "integratedTerminal"
     },
     {
       "name": "API",
@@ -42,7 +43,8 @@
         "${workspaceFolder}/packages/api/dist/**/*.js",
         "${workspaceFolder}/packages/common/dist/**/*.js"
       ],
-      "sourceMaps": true
+      "sourceMaps": true,
+      "console": "integratedTerminal"
     },
     {
       "name": "Attach to API",

@@ -19,11 +19,15 @@ describe('RegisterPage', () => {
   });
 
   const doRegister = async () => {
+    const usernameInput = screen.getByLabelText('Username');
     const emailInput = screen.getByLabelText('E-mail');
     const passwordInput = screen.getByLabelText('Password');
     const registerButton = screen.getByRole('button', { name: 'Register' });
 
     await act(() => {
+      fireEvent.change(usernameInput, {
+        target: { value: 'johnd' },
+      });
       fireEvent.change(emailInput, {
         target: { value: 'john.doe@mail.com' },
       });

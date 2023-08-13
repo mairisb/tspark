@@ -25,6 +25,7 @@ const register = async (registerRequest: RegisterRequest) => {
   auth.hashedPassword = hashedPassword;
 
   const user = new User();
+  user.username = registerRequest.username;
   user.email = registerRequest.email;
   user.auth = auth;
 
