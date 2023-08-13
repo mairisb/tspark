@@ -4,8 +4,21 @@ import { appDataSource } from '../../core/app-data-source';
 import { Auth } from './auth.entity';
 import { User } from '../user/user.entity';
 import { userService } from '../user/user.service';
+import { config } from '../../core/config';
 
 const userRepository = appDataSource.getRepository(User);
+
+const createUser = (request: RegisterRequest, hashedPassword: string): User => {
+  const auth = new Auth();
+  auth.hashedPassword = hashedPassword;
+
+  const user = new User();
+  user.username = request.username;
+  user.email = request.email;
+  user.auth = auth;
+
+  return user;
+};
 
 const register = async (registerRequest: RegisterRequest) => {
   const userAlreadyExists = await userService.existsByEmail(
@@ -15,19 +28,11 @@ const register = async (registerRequest: RegisterRequest) => {
     throw new Error('User already exists.');
   }
 
-  const saltRounds = 10;
   const hashedPassword = await bcrypt.hash(
     registerRequest.password,
-    saltRounds,
+    config.SALT_ROUNDS,
   );
-
-  const auth = new Auth();
-  auth.hashedPassword = hashedPassword;
-
-  const user = new User();
-  user.username = registerRequest.username;
-  user.email = registerRequest.email;
-  user.auth = auth;
+  const user = createUser(registerRequest, hashedPassword);
 
   return userRepository.save(user);
 };
@@ -37,6 +42,7 @@ const login = async (loginRequest: LoginRequest) => {
     relations: { auth: true },
     where: { email: loginRequest.email },
   });
+
   const isMatch = await bcrypt.compare(
     loginRequest.password,
     user.auth.hashedPassword,
@@ -44,6 +50,7 @@ const login = async (loginRequest: LoginRequest) => {
   if (!isMatch) {
     throw Error('Incorrect password.');
   }
+
   return user;
 };
 
