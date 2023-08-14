@@ -1,12 +1,10 @@
 import { LoginRequest, RegisterRequest } from '@tspark/common';
 import bcrypt from 'bcrypt';
-import { appDataSource } from '../../core/app-data-source';
-import { Auth } from './auth.entity';
-import { User } from '../user/user.entity';
-import { userService } from '../user/user.service';
 import { config } from '../../core/config';
-
-const userRepository = appDataSource.getRepository(User);
+import { User } from '../user/user.entity';
+import { userRepository } from '../user/user.repository';
+import { userService } from '../user/user.service';
+import { Auth } from './auth.entity';
 
 const createUser = (request: RegisterRequest, hashedPassword: string): User => {
   const auth = new Auth();

@@ -1,0 +1,6 @@
+process.env = {
+  APP_NAME: 'TSpark',
+  JWT_SECRET: 'this is a very secret secret',
+  PORT: '3333',
+  SALT_ROUNDS: '12',
+};

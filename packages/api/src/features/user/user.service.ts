@@ -1,7 +1,4 @@
-import { appDataSource } from '../../core/app-data-source';
-import { User } from './user.entity';
-
-const userRepository = appDataSource.getRepository(User);
+import { userRepository } from './user.repository';
 
 const getAll = () => {
   return userRepository.find();
