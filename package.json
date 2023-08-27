@@ -9,6 +9,6 @@
   "scripts": {
     "build": "npm run build -w @tspark/common; npm run build -w @tspark/api; npm run build -w @tspark/client",
     "test": "npm run test --workspaces --if-present",
-    "start:dev": "concurrently -n \"common-watch,api-watch,client,api\" \"npm run watch -w=@tspark/common -- --preserveWatchOutput\" \"npm run watch -w=@tspark/api -- --preserveWatchOutput\" \"npm run start:dev -w=@tspark/client\" \"npm run start:dev -w=@tspark/api\""
+    "start:dev": "concurrently -n \"common-watch,api-watch,api,client\" \"npm run watch -w=@tspark/common -- --preserveWatchOutput\" \"npm run watch -w=@tspark/api -- --preserveWatchOutput\" \"npm run start:dev -w=@tspark/api\" \"npm run start:dev -w=@tspark/client\""
   }
 }

@@ -1,0 +1,13 @@
+version: "3"
+name: tspark
+services:
+  api:
+    container_name: tspark-api
+    build: .
+    ports:
+      - "3333:3333"
+    environment:
+      - APP_NAME="TSpark"
+      - JWT_SECRET="this is a very secret secret"
+      - PORT=3333
+      - SALT_ROUNDS=12
