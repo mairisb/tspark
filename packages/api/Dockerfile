@@ -1,7 +1,2 @@
-FROM node:18
-WORKDIR /app
-COPY ../.. .
-RUN rm -rf packages/client
-RUN npm install
-RUN npm run build -w @tspark/common
+FROM tspark-base
 RUN npm run build -w @tspark/api
