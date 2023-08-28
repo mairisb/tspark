@@ -1,8 +1,8 @@
 import { server } from './src/mocks/server';
 
 process.env = {
-  APP_NAME: 'TSpark',
-  API_URL: '',
+  TSPARK_APP_APP_NAME: 'TSpark',
+  TSPARK_APP_API_URL: '',
 };
 
 beforeAll(() => server.listen());

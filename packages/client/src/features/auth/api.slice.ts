@@ -48,7 +48,7 @@ const axiosBaseQuery =
 
 export const apiSlice = createApi({
   reducerPath: 'api',
-  baseQuery: axiosBaseQuery({ baseUrl: config.API_URL }),
+  baseQuery: axiosBaseQuery({ baseUrl: config.TSPARK_APP_API_URL }),
   endpoints: (builder) => ({
     register: builder.mutation<UserDto, RegisterRequest>({
       query: (req) => ({

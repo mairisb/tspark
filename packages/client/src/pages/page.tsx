@@ -24,9 +24,9 @@ export const Page: React.FC<PageProps> = ({
   }, [isAuthRequired, isLoggedIn, navigate]);
 
   useEffect(() => {
-    document.title = `${config.APP_NAME} - ${title}`;
+    document.title = `${config.TSPARK_APP_APP_NAME} - ${title}`;
     return () => {
-      document.title = config.APP_NAME;
+      document.title = config.TSPARK_APP_APP_NAME;
     };
   }, [title]);
 

@@ -1,9 +1,21 @@
 const dotenv = require('dotenv');
+const fs = require('fs');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
 const webpack = require('webpack');
 
-const env = dotenv.config().parsed;
+const envFilePath = './.env';
+const envConfigSrc = fs.existsSync(envFilePath)
+  ? dotenv.config({ path: envFilePath }).parsed
+  : process.env;
+
+const envVarPrefix = 'TSPARK_APP_';
+const envConfig = {};
+Object.keys(envConfigSrc)
+  .filter((key) => key.startsWith(envVarPrefix))
+  .forEach((key) => {
+    envConfig[key] = envConfigSrc[key];
+  });
 
 module.exports = {
   mode: 'development',
@@ -24,7 +36,7 @@ module.exports = {
   },
   plugins: [
     new webpack.DefinePlugin({
-      'process.env': JSON.stringify(env),
+      'process.env': JSON.stringify(envConfig),
     }),
     new HtmlWebpackPlugin({
       template: 'src/index.html',

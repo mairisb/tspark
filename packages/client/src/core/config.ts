@@ -1,6 +1,6 @@
 import { getEnvVar } from '@tspark/common';
 
 export const config = {
-  APP_NAME: getEnvVar('APP_NAME'),
-  API_URL: getEnvVar('API_URL'),
+  TSPARK_APP_APP_NAME: getEnvVar('TSPARK_APP_APP_NAME'),
+  TSPARK_APP_API_URL: getEnvVar('TSPARK_APP_API_URL'),
 };

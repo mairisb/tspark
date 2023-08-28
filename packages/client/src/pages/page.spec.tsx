@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 
 jest.mock('../core/config', () => ({
   config: {
-    APP_NAME: 'MockAppName',
+    TSPARK_APP_APP_NAME: 'MockAppName',
   },
 }));
 
