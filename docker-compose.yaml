@@ -20,9 +20,8 @@ services:
     build:
       context: .
       dockerfile: ./packages/client/Dockerfile
-    command: ['npm', 'run', 'start:dev', '-w', '@tspark/client']
     ports:
-      - '4200:4200'
+      - '8080:80'
     environment:
       - TSPARK_APP_APP_NAME=TSpark
       - TSPARK_APP_API_URL=http://localhost:3333/api
