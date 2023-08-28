@@ -48,10 +48,21 @@
     },
     {
       "name": "Attach to API",
-      "port": 9229,
-      "request": "attach",
-      "skipFiles": ["<node_internals>/**"],
       "type": "node",
+      "request": "attach",
+      "port": 9229,
+      "skipFiles": ["<node_internals>/**"],
+      "restart": true
+    },
+    {
+      "name": "Docker: Attach to API",
+      "type": "node",
+      "request": "attach",
+      "address": "localhost",
+      "port": 9229,
+      "localRoot": "${workspaceFolder}/packages/api",
+      "remoteRoot": "/app/packages/api",
+      "skipFiles": ["<node_internals>/**"],
       "restart": true
     }
   ],

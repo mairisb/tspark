@@ -6,8 +6,10 @@ services:
     build:
       context: .
       dockerfile: ./packages/api/Dockerfile
+    command: ['node', '--inspect=0.0.0.0:9229', 'packages/api/dist/src/index.js']
     ports:
       - '3333:3333'
+      - '9229:9229'
     environment:
       - APP_NAME=TSpark
       - JWT_SECRET=this is a very secret secret
@@ -18,6 +20,7 @@ services:
     build:
       context: .
       dockerfile: ./packages/client/Dockerfile
+    command: ['npm', 'run', 'start:dev', '-w', '@tspark/client']
     ports:
       - '4200:4200'
     environment:
