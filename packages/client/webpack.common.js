@@ -24,7 +24,6 @@ module.exports = {
       {
         test: /\.tsx?$/,
         use: 'ts-loader',
-        // exclude: /node_modules/,
         exclude: [/node_modules/, /\.spec\.tsx?$/],
       },
       {
@@ -49,5 +48,6 @@ module.exports = {
   output: {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist'),
+    clean: true,
   },
 };
