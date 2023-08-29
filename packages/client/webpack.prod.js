@@ -17,4 +17,5 @@ module.exports = merge(common, {
       filename: '[name].[contenthash].css',
     }),
   ],
+  devtool: 'source-map',
 });

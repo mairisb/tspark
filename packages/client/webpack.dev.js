@@ -11,7 +11,7 @@ module.exports = merge(common, {
       },
     ],
   },
-  devtool: 'inline-source-map',
+  devtool: 'eval-source-map',
   devServer: {
     port: 4200,
     historyApiFallback: true,
