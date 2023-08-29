@@ -25,7 +25,7 @@ module.exports = merge(common, {
         vendors: {
           test: /[\\/]node_modules[\\/]/,
           name: 'vendors',
-          reuseExistingChunk: true,
+          chunks: 'all',
         },
       },
     },
