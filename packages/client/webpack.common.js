@@ -26,10 +26,6 @@ module.exports = {
         use: 'ts-loader',
         exclude: [/node_modules/, /\.spec\.tsx?$/],
       },
-      {
-        test: /\.css$/,
-        use: ['style-loader', 'css-loader'],
-      },
     ],
   },
   plugins: [
