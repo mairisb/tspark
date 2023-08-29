@@ -1,6 +1,13 @@
 .git
 .vscode
+
 **/dist
-**/Dockerfile
 **/node_modules
+
+**/Dockerfile
 docker-compose.yaml
+
+**/test.utils.tsx
+**/jest.setup.ts
+**/*.spec.ts
+**/*.spec.tsx
