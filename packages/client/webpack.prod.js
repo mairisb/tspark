@@ -15,12 +15,19 @@ module.exports = merge(common, {
   },
   plugins: [
     new MiniCssExtractPlugin({
-      filename: '[name].[contenthash].css',
+      filename: 'style.[contenthash].css',
     }),
   ],
   optimization: {
     splitChunks: {
       chunks: 'all',
+      cacheGroups: {
+        vendors: {
+          test: /[\\/]node_modules[\\/]/,
+          name: 'vendors',
+          reuseExistingChunk: true,
+        },
+      },
     },
   },
 });
