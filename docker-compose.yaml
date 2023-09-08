@@ -6,7 +6,7 @@ services:
     build:
       context: .
       dockerfile: ./packages/api/Dockerfile
-    command: ['node', '--inspect=0.0.0.0:9229', 'packages/api/dist/src/index.js']
+    command: ['node', '--inspect=0.0.0.0:9229', 'packages/api/dist/index.js']
     ports:
       - '3333:3333'
       - '9229:9229'
