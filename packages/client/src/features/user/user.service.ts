@@ -1,8 +1,8 @@
 import { UserDto } from '@tspark/common';
-import { api } from '../../core/api';
+import { axiosInstance } from '../../core/api/axios.instance';
 
 const getAll = (): Promise<UserDto[]> => {
-  return api
+  return axiosInstance
     .get('users')
     .then((res) => res.data)
     .catch((err) => {

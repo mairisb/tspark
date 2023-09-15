@@ -1,6 +1,6 @@
-import { LoginRequest, RegisterRequest } from '@tspark/common';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { apiSlice } from './api.slice';
+import { LoginRequest, RegisterRequest } from '@tspark/common';
+import { authApi } from './auth.api';
 import { authActions } from './auth.slice';
 
 const registerUser = createAsyncThunk(
@@ -8,7 +8,7 @@ const registerUser = createAsyncThunk(
   async (req: RegisterRequest, { dispatch, rejectWithValue }) => {
     try {
       const user = await dispatch(
-        apiSlice.endpoints.register.initiate(req),
+        authApi.endpoints.register.initiate(req),
       ).unwrap();
       dispatch(authActions.setUser(user));
       return { success: true, user };
@@ -24,7 +24,7 @@ export const loginUser = createAsyncThunk(
   async (req: LoginRequest, { dispatch, rejectWithValue }) => {
     try {
       const user = await dispatch(
-        apiSlice.endpoints.login.initiate(req),
+        authApi.endpoints.login.initiate(req),
       ).unwrap();
       dispatch(authActions.setUser(user));
       return { success: true, user };
@@ -39,7 +39,7 @@ export const logoutUser = createAsyncThunk(
   'auth/logoutUser',
   async (_, { dispatch, rejectWithValue }) => {
     try {
-      await dispatch(apiSlice.endpoints.logout.initiate()).unwrap();
+      await dispatch(authApi.endpoints.logout.initiate()).unwrap();
       dispatch(authActions.clearUser());
       return { success: true };
     } catch (err) {
@@ -54,7 +54,7 @@ export const authCheck = createAsyncThunk(
   async (_, { dispatch, rejectWithValue }) => {
     try {
       const { isAuthenticated, user } = await dispatch(
-        apiSlice.endpoints.authCheck.initiate(),
+        authApi.endpoints.authCheck.initiate(),
       ).unwrap();
       if (isAuthenticated && user) {
         dispatch(authActions.setUser(user));

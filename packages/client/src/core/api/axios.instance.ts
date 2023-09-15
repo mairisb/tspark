@@ -1,7 +1,7 @@
 import axios, { AxiosInstance } from 'axios';
-import { config } from './config';
+import { config } from '../config';
 
-export const api: AxiosInstance = axios.create({
+export const axiosInstance: AxiosInstance = axios.create({
   baseURL: config.TSPARK_APP_API_URL,
   timeout: 10000,
   headers: {

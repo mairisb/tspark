@@ -6,11 +6,11 @@ import {
   configureStore,
 } from '@reduxjs/toolkit';
 import { authReducer } from '../features/auth/auth.slice';
-import { apiSlice } from '../features/auth/api.slice';
+import { api } from './api';
 
 const rootReducer = combineReducers({
   auth: authReducer,
-  [apiSlice.reducerPath]: apiSlice.reducer,
+  [api.reducerPath]: api.reducer,
 });
 
 export const setupStore = (preloadedState?: PreloadedState<RootState>) =>
@@ -18,7 +18,7 @@ export const setupStore = (preloadedState?: PreloadedState<RootState>) =>
     reducer: rootReducer,
     preloadedState,
     middleware: (getDefaultMiddleware) =>
-      getDefaultMiddleware().concat(apiSlice.middleware),
+      getDefaultMiddleware().concat(api.middleware),
   });
 
 export type RootState = ReturnType<typeof rootReducer>;
