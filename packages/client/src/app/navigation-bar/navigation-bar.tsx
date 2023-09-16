@@ -14,7 +14,7 @@ export const NavigationBar: React.FC = () => {
   };
 
   return (
-    <Navbar bg="primary" data-bs-theme="dark">
+    <Navbar bg="primary" data-bs-theme="dark" className="bg-body-tertiary">
       <Container>
         <Navbar.Brand as={Link} to="/">
           Navbar
