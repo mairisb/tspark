@@ -7,6 +7,7 @@
     "build": "tsc",
     "watch": "npm run build -- --watch",
     "start:dev": "nodemon dist/src/index.js",
+    "start:dev:inspect": "nodemon --inspect dist/src/index.js",
     "test": "jest"
   },
   "author": "",
