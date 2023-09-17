@@ -19,6 +19,7 @@ const UserDropdown = () => {
       id="nav-dropdown"
       drop="down"
       align="end"
+      data-testid="user-dropdown"
     >
       <NavDropdown.Item as={Link} to="/profile">
         Profile

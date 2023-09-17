@@ -13,17 +13,20 @@ describe('NavigationBar', () => {
     });
 
     expect(screen.queryByTestId('login-btn')).toBeInTheDocument();
-    expect(screen.queryByTestId('logout-btn')).toBeNull();
+    expect(screen.queryByTestId('user-dropdown')).toBeNull();
   });
 
-  it('should render Logout button when user is logged in', () => {
+  it('should render user dropdown button when user is logged in', () => {
     renderWithProviders(<NavigationBar />, {
       preloadedState: {
-        auth: { isLoggedIn: true } as AuthState,
+        auth: {
+          isLoggedIn: true,
+          user: { username: 'johnsmith' },
+        } as AuthState,
       },
     });
 
     expect(screen.queryByTestId('login-btn')).toBeNull();
-    expect(screen.queryByTestId('logout-btn')).toBeInTheDocument();
+    expect(screen.queryByTestId('user-dropdown')).toBeInTheDocument();
   });
 });
