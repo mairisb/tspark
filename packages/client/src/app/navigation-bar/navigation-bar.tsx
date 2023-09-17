@@ -1,17 +1,37 @@
-import { Container, Nav, Navbar } from 'react-bootstrap';
+import { Container, Nav, NavDropdown, Navbar } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { useAppDispatch } from '../../core/hooks/app-dispatch.hook';
 import { authSelectors } from '../../features/auth/auth.selectors';
 import { authThunks } from '../../features/auth/auth.thunks';
 
-export const NavigationBar: React.FC = () => {
+const UserDropdown = () => {
   const dispatch = useAppDispatch();
-  const isLoggedIn = useSelector(authSelectors.selectIsLoggedIn);
+  const user = useSelector(authSelectors.selectUser);
 
   const handleLogout = () => {
     dispatch(authThunks.logoutUser());
   };
+
+  return (
+    <NavDropdown
+      title={user?.username}
+      id="nav-dropdown"
+      drop="down"
+      align="end"
+    >
+      <NavDropdown.Item as={Link} to="/profile">
+        Profile
+      </NavDropdown.Item>
+      <NavDropdown.Item data-testid="logout-btn" onClick={handleLogout}>
+        Logout
+      </NavDropdown.Item>
+    </NavDropdown>
+  );
+};
+
+export const NavigationBar: React.FC = () => {
+  const isLoggedIn = useSelector(authSelectors.selectIsLoggedIn);
 
   return (
     <Navbar bg="primary" data-bs-theme="dark" className="bg-body-tertiary">
@@ -30,9 +50,7 @@ export const NavigationBar: React.FC = () => {
         <Navbar.Collapse className="justify-content-end">
           <Nav>
             {isLoggedIn ? (
-              <Nav.Link data-testid="logout-btn" onClick={handleLogout}>
-                Logout
-              </Nav.Link>
+              <UserDropdown />
             ) : (
               <Nav.Link data-testid="login-btn" as={Link} to="/login">
                 Login
