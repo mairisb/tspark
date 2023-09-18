@@ -11,3 +11,6 @@ docker-compose.yaml
 **/jest.setup.ts
 **/*.spec.ts
 **/*.spec.tsx
+
+**/.env
+**/.env.*
