@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack --config webpack.prod.js",
-    "start:dev": "webpack server --config webpack.dev.js",
+    "start": "webpack server --config webpack.dev.js",
     "test": "jest",
     "analyze-bundle": "webpack --config webpack.prod.js --profile --json > bundle-stats.json; webpack-bundle-analyzer bundle-stats.json dist/"
   },
