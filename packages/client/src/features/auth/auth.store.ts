@@ -1,7 +1,7 @@
-import { UserDto } from '@tspark/common';
+import { LoginRequest, RegisterRequest, UserDto } from '@tspark/common';
+import { makeAutoObservable } from 'mobx';
 import { RootStore } from '../../core/root.store';
 import { authService } from './auth.service';
-import { action, makeAutoObservable } from 'mobx';
 
 export class AuthStore {
   private rootStore: RootStore;
@@ -34,10 +34,37 @@ export class AuthStore {
     this.authCheck();
   }
 
-  authCheck() {
-    authService.authCheck().then((authCheckResponse) => {
-      this.isAuthenticated = authCheckResponse.isAuthenticated;
-      this.user = authCheckResponse.user;
-    });
-  }
+  register = async (req: RegisterRequest) => {
+    const user = await authService.register(req);
+    if (user) {
+      this.isAuthenticated = true;
+      this.user = user;
+    } else {
+      this.isAuthenticated = false;
+      this.user = undefined;
+    }
+  };
+
+  login = async (req: LoginRequest) => {
+    const user = await authService.login(req);
+    if (user) {
+      this.isAuthenticated = true;
+      this.user = user;
+    } else {
+      this.isAuthenticated = false;
+      this.user = undefined;
+    }
+  };
+
+  logout = async () => {
+    await authService.logout();
+    this.isAuthenticated = false;
+    this.user = undefined;
+  };
+
+  authCheck = async () => {
+    const authCheckResponse = await authService.authCheck();
+    this.isAuthenticated = authCheckResponse.isAuthenticated;
+    this.user = authCheckResponse.user;
+  };
 }

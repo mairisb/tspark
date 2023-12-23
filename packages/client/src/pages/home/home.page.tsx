@@ -2,7 +2,7 @@ import { observer } from 'mobx-react-lite';
 import { useStore } from '../../core/root.store';
 import { Page } from '../page';
 
-export const HomePage: React.FC = observer(function HomePage() {
+export const HomePage: React.FC = observer(() => {
   const { authStore } = useStore();
 
   return (
@@ -10,10 +10,6 @@ export const HomePage: React.FC = observer(function HomePage() {
       <p>{`Hello${
         authStore.isAuthenticated ? `, ${authStore.user?.username}` : ''
       }! :)`}</p>
-
-      <button type="button" onClick={() => authStore.authCheck()}>
-        CLICK ME
-      </button>
     </Page>
   );
 });

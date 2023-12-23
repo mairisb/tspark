@@ -1,13 +1,14 @@
 import { Button, Form, Stack } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import { Page } from '../page';
+import { observer } from 'mobx-react-lite';
 
 interface FormData {
   lobbyName: string;
   lobbyPassword: string;
 }
 
-export const HostPage: React.FC = () => {
+export const HostPage: React.FC = observer(() => {
   const form = useForm<FormData>();
 
   const onSubmit = form.handleSubmit((data) => {
@@ -15,7 +16,7 @@ export const HostPage: React.FC = () => {
   });
 
   return (
-    <Page title="Host a game" authProtected>
+    <Page title="Host a game" isAuthProtected>
       <Form onSubmit={onSubmit}>
         <Stack gap={2}>
           <Form.Group controlId="lobbyName">
@@ -31,4 +32,4 @@ export const HostPage: React.FC = () => {
       </Form>
     </Page>
   );
-};
+});

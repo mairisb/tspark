@@ -1,9 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { useEffect } from 'react';
 import { Container } from 'react-bootstrap';
 import { Route, Routes } from 'react-router-dom';
-import { useAppDispatch } from '../core/hooks/app-dispatch.hook';
-import { authThunks } from '../features/auth/auth.thunks';
 import { BrowsePage } from '../pages/browse/browse.page';
 import { GamePage } from '../pages/game/game.page';
 import { HomePage } from '../pages/home/home.page';
@@ -12,14 +9,9 @@ import { LoginPage } from '../pages/login/login.page';
 import { ProfilePage } from '../pages/profile/profile.page';
 import { RegisterPage } from '../pages/register/register.page';
 import { NavigationBar } from './navigation-bar/navigation-bar';
+import { observer } from 'mobx-react-lite';
 
-export const App: React.FC = () => {
-  const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    dispatch(authThunks.authCheck());
-  }, []);
-
+export const App: React.FC = observer(() => {
   return (
     <div>
       <NavigationBar />
@@ -36,4 +28,4 @@ export const App: React.FC = () => {
       </Container>
     </div>
   );
-};
+});

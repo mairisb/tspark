@@ -1,21 +1,14 @@
+import { observer } from 'mobx-react-lite';
 import { Container, Nav, NavDropdown, Navbar } from 'react-bootstrap';
-import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { useAppDispatch } from '../../core/hooks/app-dispatch.hook';
-import { authSelectors } from '../../features/auth/auth.selectors';
-import { authThunks } from '../../features/auth/auth.thunks';
+import { useStore } from '../../core/root.store';
 
-const UserDropdown = () => {
-  const dispatch = useAppDispatch();
-  const user = useSelector(authSelectors.selectUser);
-
-  const handleLogout = () => {
-    dispatch(authThunks.logoutUser());
-  };
+const UserDropdown = observer(() => {
+  const { authStore } = useStore();
 
   return (
     <NavDropdown
-      title={user?.username}
+      title={authStore.user?.username}
       id="nav-dropdown"
       drop="down"
       align="end"
@@ -24,15 +17,18 @@ const UserDropdown = () => {
       <NavDropdown.Item as={Link} to="/profile">
         Profile
       </NavDropdown.Item>
-      <NavDropdown.Item data-testid="logout-btn" onClick={handleLogout}>
+      <NavDropdown.Item
+        data-testid="logout-btn"
+        onClick={() => authStore.logout()}
+      >
         Logout
       </NavDropdown.Item>
     </NavDropdown>
   );
-};
+});
 
-export const NavigationBar: React.FC = () => {
-  const isLoggedIn = useSelector(authSelectors.selectIsLoggedIn);
+export const NavigationBar: React.FC = observer(() => {
+  const { authStore } = useStore();
 
   return (
     <Navbar bg="primary" data-bs-theme="dark" className="bg-body-tertiary">
@@ -50,7 +46,7 @@ export const NavigationBar: React.FC = () => {
         </Nav>
         <Navbar.Collapse className="justify-content-end">
           <Nav>
-            {isLoggedIn ? (
+            {authStore.isAuthenticated ? (
               <UserDropdown />
             ) : (
               <Nav.Link data-testid="login-btn" as={Link} to="/login">
@@ -62,4 +58,4 @@ export const NavigationBar: React.FC = () => {
       </Container>
     </Navbar>
   );
-};
+});

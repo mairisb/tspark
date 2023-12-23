@@ -1,5 +1,5 @@
-import { useAppDispatch } from '../../core/hooks/app-dispatch.hook';
-import { authThunks } from '../../features/auth/auth.thunks';
+import { observer } from 'mobx-react-lite';
+import { useStore } from '../../core/root.store';
 import {
   RegisterForm,
   RegisterFormData,
@@ -7,12 +7,13 @@ import {
 import { useAuthRedirect } from '../../features/auth/hooks/auth-redirect.hook';
 import { Page } from '../page';
 
-export const RegisterPage: React.FC = () => {
+export const RegisterPage: React.FC = observer(() => {
   useAuthRedirect();
-  const dispatch = useAppDispatch();
+
+  const { authStore } = useStore();
 
   const handleSubmit = (formData: RegisterFormData) => {
-    dispatch(authThunks.registerUser(formData));
+    authStore.register(formData);
   };
 
   return (
@@ -20,4 +21,4 @@ export const RegisterPage: React.FC = () => {
       <RegisterForm onSubmit={handleSubmit} />
     </Page>
   );
-};
+});

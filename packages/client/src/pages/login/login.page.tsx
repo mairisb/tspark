@@ -1,6 +1,6 @@
+import { observer } from 'mobx-react-lite';
 import { Link } from 'react-router-dom';
-import { useAppDispatch } from '../../core/hooks/app-dispatch.hook';
-import { authThunks } from '../../features/auth/auth.thunks';
+import { useStore } from '../../core/root.store';
 import {
   LoginForm,
   LoginFormData,
@@ -8,12 +8,13 @@ import {
 import { useAuthRedirect } from '../../features/auth/hooks/auth-redirect.hook';
 import { Page } from '../page';
 
-export const LoginPage: React.FC = () => {
+export const LoginPage: React.FC = observer(() => {
   useAuthRedirect();
-  const dispatch = useAppDispatch();
+
+  const { authStore } = useStore();
 
   const handleSubmit = (formData: LoginFormData) => {
-    dispatch(authThunks.loginUser(formData));
+    authStore.login(formData);
   };
 
   return (
@@ -22,4 +23,4 @@ export const LoginPage: React.FC = () => {
       <Link to="/register">Register</Link>
     </Page>
   );
-};
+});

@@ -50,13 +50,13 @@ describe('Page', () => {
 
   it('should redirect to /login if the page is auth protected and user is not logged in', () => {
     (useSelector as jest.Mock).mockReturnValue(false);
-    render(<Page title="Test title" authProtected />);
+    render(<Page title="Test title" isAuthProtected />);
     expect(navigate).toHaveBeenCalledWith('/login');
   });
 
   it('should not redirect if the page is auth protected and user is logged in', () => {
     (useSelector as jest.Mock).mockReturnValue(true);
-    render(<Page title="Test title" authProtected />);
+    render(<Page title="Test title" isAuthProtected />);
     expect(navigate).not.toHaveBeenCalled();
   });
 
