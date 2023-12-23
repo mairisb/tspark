@@ -8,4 +8,5 @@ export const axiosInstance: AxiosInstance = axios.create({
     'Content-Type': 'application/json',
   },
   withCredentials: true,
+  validateStatus: (status) => (status >= 200 && status < 300) || status === 401,
 });

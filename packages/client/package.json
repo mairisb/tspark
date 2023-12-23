@@ -15,16 +15,18 @@
     "@hookform/resolvers": "^3.1.1",
     "@reduxjs/toolkit": "^1.9.5",
     "@tspark/common": "^1.0.0",
+    "@types/react": "^18.2.19",
     "@types/react-bootstrap": "^0.32.32",
     "@types/react-dom": "^18.2.7",
     "@types/react-router-bootstrap": "^0.26.0",
-    "@types/react": "^18.2.19",
     "axios": "^1.0.0",
     "bootstrap": "^5.3.0",
     "css-loader": "^6.8.1",
     "dotenv": "^16.3.1",
     "html-webpack-plugin": "^5.5.3",
     "mini-css-extract-plugin": "^2.7.6",
+    "mobx": "^6.12.0",
+    "mobx-react-lite": "^4.0.5",
     "msw": "^1.2.3",
     "react": "^18.2.0",
     "react-bootstrap": "^2.8.0",
@@ -49,7 +51,7 @@
     "jest": "^29.6.2",
     "jest-environment-jsdom": "^29.6.2",
     "prettier": "^3.0.1",
-    "webpack-bundle-analyzer": "^4.9.0",
-    "ts-jest": "^29.1.1"
+    "ts-jest": "^29.1.1",
+    "webpack-bundle-analyzer": "^4.9.0"
   }
 }
