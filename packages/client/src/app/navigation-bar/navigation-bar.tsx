@@ -43,6 +43,9 @@ export const NavigationBar: React.FC = observer(() => {
           <Nav.Link as={Link} to="/game">
             Game
           </Nav.Link>
+          <Nav.Link as={Link} to="/tabs-test">
+            Tabs Test
+          </Nav.Link>
         </Nav>
         <Navbar.Collapse className="justify-content-end">
           <Nav>

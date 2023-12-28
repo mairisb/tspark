@@ -10,6 +10,7 @@ import { ProfilePage } from '../pages/profile/profile.page';
 import { RegisterPage } from '../pages/register/register.page';
 import { NavigationBar } from './navigation-bar/navigation-bar';
 import { observer } from 'mobx-react-lite';
+import { TabsTestPage } from '../pages/tabs-test/tabs-test.page';
 
 export const App: React.FC = observer(() => {
   return (
@@ -24,6 +25,7 @@ export const App: React.FC = observer(() => {
           <Route path="/game" element={<GamePage />} />
           <Route path="/host" element={<HostPage />} />
           <Route path="/browse" element={<BrowsePage />} />
+          <Route path="/tabs-test" element={<TabsTestPage />} />
         </Routes>
       </Container>
     </div>
