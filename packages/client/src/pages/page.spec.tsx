@@ -5,13 +5,10 @@ import { RootStore } from '../core/root.store';
 import { renderWithProviders } from '../utils/test.utils';
 import { Page } from './page';
 
-jest.mock('react-router-dom', () => {
-  const originalModule = jest.requireActual('react-router-dom');
-  return {
-    ...originalModule,
-    useNavigate: jest.fn(),
-  };
-});
+jest.mock('react-router-dom', () => ({
+  ...jest.requireActual('react-router-dom'),
+  useNavigate: jest.fn(),
+}));
 
 describe('Page', () => {
   let navigate: jest.Mock;
