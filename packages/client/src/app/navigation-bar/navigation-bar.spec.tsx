@@ -11,21 +11,12 @@ describe('NavigationBar', () => {
     rootStore.authStore.isAuthenticated = false;
 
     renderWithProviders(<NavigationBar />, { rootStore });
-    const rootStore = new RootStore();
-    rootStore.authStore.isAuthenticated = false;
-
-    renderWithProviders(<NavigationBar />, { rootStore });
 
     expect(screen.queryByTestId('login-btn')).toBeInTheDocument();
     expect(screen.queryByTestId('user-dropdown')).toBeNull();
   });
 
   it('should render user dropdown button when user is logged in', () => {
-    const rootStore = new RootStore();
-    rootStore.authStore.isAuthenticated = true;
-    rootStore.authStore.user = { username: 'johnsmith' } as UserDto;
-
-    renderWithProviders(<NavigationBar />, { rootStore });
     const rootStore = new RootStore();
     rootStore.authStore.isAuthenticated = true;
     rootStore.authStore.user = { username: 'johnsmith' } as UserDto;
