@@ -16,4 +16,4 @@ export class RootStore {
 }
 
 export const RootStoreContext = createContext<RootStore>(null as any);
-export const useStore = () => useContext(RootStoreContext);
+export const useRootStore = () => useContext(RootStoreContext);

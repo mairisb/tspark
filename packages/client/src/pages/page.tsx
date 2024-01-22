@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { config } from '../core/config';
-import { useStore } from '../core/root.store';
+import { useRootStore } from '../core/root.store';
 import { observer } from 'mobx-react-lite';
 
 export interface PageProps extends React.PropsWithChildren {
@@ -11,7 +11,7 @@ export interface PageProps extends React.PropsWithChildren {
 
 export const Page: React.FC<PageProps> = observer(
   ({ isAuthProtected = false, title, children }) => {
-    const { authStore } = useStore();
+    const { authStore } = useRootStore();
 
     const navigate = useNavigate();
 

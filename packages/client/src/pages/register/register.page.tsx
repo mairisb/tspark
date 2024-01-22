@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react-lite';
-import { useStore } from '../../core/root.store';
+import { useRootStore } from '../../core/root.store';
 import {
   RegisterForm,
   RegisterFormData,
@@ -10,7 +10,7 @@ import { Page } from '../page';
 export const RegisterPage: React.FC = observer(() => {
   useAuthRedirect();
 
-  const { authStore } = useStore();
+  const { authStore } = useRootStore();
 
   const handleSubmit = (formData: RegisterFormData) => {
     authStore.register(formData);

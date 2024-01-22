@@ -1,10 +1,10 @@
 import { observer } from 'mobx-react-lite';
 import { Container, Nav, NavDropdown, Navbar } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { useStore } from '../../core/root.store';
+import { useRootStore } from '../../core/root.store';
 
 const UserDropdown = observer(() => {
-  const { authStore } = useStore();
+  const { authStore } = useRootStore();
 
   return (
     <NavDropdown
@@ -28,7 +28,7 @@ const UserDropdown = observer(() => {
 });
 
 export const NavigationBar: React.FC = observer(() => {
-  const { authStore } = useStore();
+  const { authStore } = useRootStore();
 
   return (
     <Navbar bg="primary" data-bs-theme="dark" className="bg-body-tertiary">

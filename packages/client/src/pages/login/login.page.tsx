@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite';
 import { Link } from 'react-router-dom';
-import { useStore } from '../../core/root.store';
+import { useRootStore } from '../../core/root.store';
 import {
   LoginForm,
   LoginFormData,
@@ -11,7 +11,7 @@ import { Page } from '../page';
 export const LoginPage: React.FC = observer(() => {
   useAuthRedirect();
 
-  const { authStore } = useStore();
+  const { authStore } = useRootStore();
 
   const handleSubmit = (formData: LoginFormData) => {
     authStore.login(formData);
