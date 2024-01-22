@@ -1,7 +1,5 @@
 import { act, fireEvent, screen } from '@testing-library/react';
-import { rest } from 'msw';
 import { useNavigate } from 'react-router-dom';
-import { server } from '../../mocks/server';
 import { renderWithProviders } from '../../utils/test.utils';
 import { RegisterPage } from './register.page';
 
@@ -39,12 +37,6 @@ describe('RegisterPage', () => {
   };
 
   it('should redirect to home page after successful registration', async () => {
-    server.use(
-      rest.post('/auth/register', (req, res, ctx) => {
-        return res(ctx.status(200), ctx.json([{ id: 1, name: 'John Doe' }]));
-      }),
-    );
-
     renderWithProviders(<RegisterPage />);
 
     await doRegister();
@@ -53,12 +45,6 @@ describe('RegisterPage', () => {
   });
 
   it('should stay in register page after unsuccessful registration', async () => {
-    server.use(
-      rest.post('/auth/register', (req, res, ctx) => {
-        return res(ctx.status(500));
-      }),
-    );
-
     renderWithProviders(<RegisterPage />);
 
     await doRegister();

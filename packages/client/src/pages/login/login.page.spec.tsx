@@ -1,7 +1,5 @@
 import { act, fireEvent, screen } from '@testing-library/react';
-import { rest } from 'msw';
 import { useNavigate } from 'react-router-dom';
-import { server } from '../../mocks/server';
 import { renderWithProviders } from '../../utils/test.utils';
 import { LoginPage } from './login.page';
 
@@ -35,12 +33,6 @@ describe('LoginPage', () => {
   };
 
   it('should redirect to home page after a successful login', async () => {
-    server.use(
-      rest.post('/auth/login', (req, res, ctx) => {
-        return res(ctx.status(200), ctx.json([{ id: 1, name: 'John Doe' }]));
-      }),
-    );
-
     renderWithProviders(<LoginPage />);
 
     await doLogin();
@@ -49,12 +41,6 @@ describe('LoginPage', () => {
   });
 
   it('should stay in login page after an unsuccessful login', async () => {
-    server.use(
-      rest.post('/auth/login', (req, res, ctx) => {
-        return res(ctx.status(500));
-      }),
-    );
-
     renderWithProviders(<LoginPage />);
 
     await doLogin();
