@@ -30,9 +30,9 @@ export class AuthStore {
     this._user = user;
   }
 
-  init() {
-    this.authCheck();
-  }
+  init = async () => {
+    await this.authCheck();
+  };
 
   register = async (req: RegisterRequest) => {
     const user = await authService.register(req);

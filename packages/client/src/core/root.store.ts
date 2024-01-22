@@ -6,13 +6,11 @@ export class RootStore {
 
   constructor() {
     this.authStore = new AuthStore(this);
-
-    this._init();
   }
 
-  private _init() {
-    this.authStore.init();
-  }
+  init = async () => {
+    await this.authStore.init();
+  };
 }
 
 export const RootStoreContext = createContext<RootStore>(null as any);

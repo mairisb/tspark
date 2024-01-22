@@ -9,6 +9,7 @@ const root = ReactDOM.createRoot(
 );
 
 const rootStore = new RootStore();
+rootStore.init();
 
 root.render(
   <StrictMode>
