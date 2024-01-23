@@ -6,9 +6,11 @@ import {
 } from '@tspark/common';
 import { axiosInstance } from '../../core/api/axios.instance';
 
+// TODO: handle register failure
 const register = (req: RegisterRequest): Promise<UserDto> =>
   axiosInstance.post('/auth/register', req).then((response) => response.data);
 
+// TODO: handle login failure
 const login = (req: LoginRequest): Promise<UserDto> =>
   axiosInstance.post('/auth/login', req).then((response) => response.data);
 
