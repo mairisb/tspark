@@ -66,15 +66,21 @@ describe('Page', () => {
     expect(navigate).not.toHaveBeenCalled();
   });
 
-  it("should not redirect if the page is not auth protected, irrespective of user's authentication status", () => {
+  it('should not redirect if the page is not auth protected and the user is logged in', () => {
     const rootStore = new RootStore();
-
-    rootStore.authStore.isAuthenticated = false;
-    renderWithProviders(<Page title="Test title" />, { rootStore });
-    expect(navigate).not.toHaveBeenCalled();
-
     rootStore.authStore.isAuthenticated = true;
+
     renderWithProviders(<Page title="Test title" />, { rootStore });
+
+    expect(navigate).not.toHaveBeenCalled();
+  });
+
+  it('should not redirect if the page is not auth protected and the user is not logged in', () => {
+    const rootStore = new RootStore();
+    rootStore.authStore.isAuthenticated = false;
+
+    renderWithProviders(<Page title="Test title" />, { rootStore });
+
     expect(navigate).not.toHaveBeenCalled();
   });
 });
