@@ -95,10 +95,8 @@ const authCheck = async (req: Request, res: Response<AuthCheckResponse>) => {
       });
     }
 
-    const decodedToken = jwt.decode(token, { json: true }) as {
-      sub?: string;
-    };
-    if (!decodedToken.sub) {
+    const decodedToken = jwt.decode(token, { json: true });
+    if (!decodedToken?.sub) {
       throw new Error('User information not found in token');
     }
 
