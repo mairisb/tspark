@@ -1,16 +1,20 @@
-import { GameDto } from '@tspark/common';
-import { Request, Response } from 'express';
 import { inject } from 'inversify';
-import { controller, httpGet } from 'inversify-express-utils';
+import {
+  BaseHttpController,
+  controller,
+  httpGet,
+} from 'inversify-express-utils';
 import { IGameService } from './game.service.type';
 
 @controller('/game')
-export class GameController {
-  constructor(@inject('IGameService') private gameService: IGameService) {}
+export class GameController extends BaseHttpController {
+  constructor(@inject('IGameService') private gameService: IGameService) {
+    super();
+  }
 
-  @httpGet('/all')
-  async getAll(_req: Request, res: Response<GameDto[]>) {
+  @httpGet('/')
+  async getAll() {
     const games = await this.gameService.findAll();
-    return res.json(games);
+    return this.json(games);
   }
 }

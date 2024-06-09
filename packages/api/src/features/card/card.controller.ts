@@ -1,29 +1,31 @@
-import { CardDto, ErrorResponse } from '@tspark/common';
-import { Request, Response } from 'express';
-import { controller, httpGet, httpPost } from 'inversify-express-utils';
-import { CardService } from './card.service';
+import { CardDto } from '@tspark/common';
+import { Request } from 'express';
+import {
+  BaseHttpController,
+  controller,
+  httpGet,
+  httpPost,
+} from 'inversify-express-utils';
 import { authMiddleware } from '../auth/auth.middleware';
+import { CardService } from './card.service';
 
 @controller('/card', authMiddleware.isAuthenticated)
-export class CardController {
+export class CardController extends BaseHttpController {
   private cardService = new CardService();
 
   @httpGet('/')
-  public async getAll(_req: Request, res: Response<CardDto[]>) {
+  public async getAll() {
     const cards = await this.cardService.getAll();
-    return res.status(200).json(cards);
+    return this.json(cards);
   }
 
   @httpPost('/')
-  public async create(
-    req: Request<CardDto>,
-    res: Response<CardDto | ErrorResponse>,
-  ) {
+  public async create(req: Request<CardDto>) {
     try {
       await this.cardService.save(req.body);
-      return res.status(200).send();
+      return this.ok();
     } catch (e) {
-      return res.status(500).json({ error: 'User creation failed' });
+      return this.json({ error: 'User creation failed' }, 500);
     }
   }
 }
