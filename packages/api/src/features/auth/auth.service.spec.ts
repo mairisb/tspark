@@ -9,8 +9,8 @@ jest.mock('../user/user.repository');
 jest.mock('bcrypt');
 
 describe('authService', () => {
-  const authService = new AuthService();
   const userService = new UserService();
+  const authService = new AuthService(userService);
 
   beforeEach(() => {
     jest.resetAllMocks();

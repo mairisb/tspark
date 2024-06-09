@@ -7,20 +7,33 @@ import {
   UserDto,
 } from '@tspark/common';
 import { Request, Response } from 'express';
+import { inject } from 'inversify';
+import {
+  BaseHttpController,
+  controller,
+  httpGet,
+  httpPost,
+} from 'inversify-express-utils';
 import jwt from 'jsonwebtoken';
 import { config } from '../../core/config';
 import { mapUserToUserDto } from '../user/user.dto.mapper';
-import { UserService } from '../user/user.service';
-import { AuthService } from './auth.service';
+import { IUserService } from '../user/user.service.type';
+import { IAuthService } from './auth.service.type';
 
-export class AuthController {
-  private authService = new AuthService();
-  private userService = new UserService();
+@controller('/auth')
+export class AuthController extends BaseHttpController {
+  constructor(
+    @inject('IAuthService') private authService: IAuthService,
+    @inject('IUserService') private userService: IUserService,
+  ) {
+    super();
+  }
 
-  public register = async (
+  @httpPost('/register')
+  public async register(
     req: Request<null, null, RegisterRequest>,
     res: Response<UserDto | ErrorResponse>,
-  ) => {
+  ) {
     const registerRequest = req.body;
 
     try {
@@ -34,12 +47,13 @@ export class AuthController {
       console.error('Registration failed.', err);
       return res.status(500).json({ error: 'Registration failed.' });
     }
-  };
+  }
 
-  public login = async (
+  @httpPost('/login')
+  public async login(
     req: Request<null, null, LoginRequest>,
     res: Response<UserDto | ErrorResponse>,
-  ) => {
+  ) {
     const loginRequest = req.body;
 
     try {
@@ -53,14 +67,16 @@ export class AuthController {
       console.log('Login failed.', err);
       return res.status(500).json({ error: 'Login failed.' });
     }
-  };
+  }
 
-  public logout = (_req: Request, res: Response<GenericResponse>) => {
+  @httpPost('/logout')
+  public logout(_req: Request, res: Response<GenericResponse>) {
     this.clearJwtCookie(res);
     return res.status(200).json({ message: 'Logout successful.' });
-  };
+  }
 
-  public authCheck = async (req: Request, res: Response<AuthCheckResponse>) => {
+  @httpGet('/auth-check')
+  public async authCheck(req: Request, res: Response<AuthCheckResponse>) {
     const token = req.cookies.login_token;
     if (!token) {
       return res.status(401).json({
@@ -97,7 +113,7 @@ export class AuthController {
         error: 'Auth check failed.',
       });
     }
-  };
+  }
 
   private setJwtCookie = (res: Response, userDto: UserDto) => {
     const token = jwt.sign({ sub: userDto.email }, config.JWT_SECRET, {

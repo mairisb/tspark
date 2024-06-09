@@ -1,30 +1,18 @@
 import { LoginRequest, RegisterRequest } from '@tspark/common';
 import bcrypt from 'bcrypt';
+import { inject, injectable } from 'inversify';
 import { config } from '../../core/config';
 import { User } from '../user/user.entity';
 import { userRepository } from '../user/user.repository';
+import { IUserService } from '../user/user.service.type';
 import { Auth } from './auth.entity';
-import { UserService } from '../user/user.service';
+import { IAuthService } from './auth.service.type';
 
-export class AuthService {
-  private userService = new UserService();
+@injectable()
+export class AuthService implements IAuthService {
+  constructor(@inject('IUserService') private userService: IUserService) {}
 
-  public createUser = (
-    request: RegisterRequest,
-    hashedPassword: string,
-  ): User => {
-    const auth = new Auth();
-    auth.hashedPassword = hashedPassword;
-
-    const user = new User();
-    user.username = request.username;
-    user.email = request.email;
-    user.auth = auth;
-
-    return user;
-  };
-
-  public register = async (registerRequest: RegisterRequest) => {
+  public async register(registerRequest: RegisterRequest) {
     const userAlreadyExists = await this.userService.existsByEmail(
       registerRequest.email,
     );
@@ -39,9 +27,9 @@ export class AuthService {
     const user = this.createUser(registerRequest, hashedPassword);
 
     return userRepository.save(user);
-  };
+  }
 
-  public login = async (loginRequest: LoginRequest) => {
+  public async login(loginRequest: LoginRequest) {
     const user = await userRepository.findOneOrFail({
       relations: { auth: true },
       where: { email: loginRequest.email },
@@ -56,5 +44,17 @@ export class AuthService {
     }
 
     return user;
-  };
+  }
+
+  private createUser(request: RegisterRequest, hashedPassword: string): User {
+    const auth = new Auth();
+    auth.hashedPassword = hashedPassword;
+
+    const user = new User();
+    user.username = request.username;
+    user.email = request.email;
+    user.auth = auth;
+
+    return user;
+  }
 }

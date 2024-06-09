@@ -8,7 +8,6 @@ import { InversifyExpressServer } from 'inversify-express-utils';
 import { appDataSource } from './core/app-data-source';
 import { config } from './core/config';
 import { container } from './core/inversify.config';
-import { apiRouter } from './core/api.router';
 
 const port = config.PORT;
 
@@ -33,7 +32,6 @@ server.setConfig((app) => {
   );
   app.use(bodyParser.json());
   app.use(cookieParser());
-  app.use('/api', apiRouter); // legacy routes
 });
 
 const app = server.build();
