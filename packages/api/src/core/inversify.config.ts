@@ -1,4 +1,5 @@
 import '../features/game/game.controller';
+import '../features/card/card.controller';
 
 import { Container } from 'inversify';
 import { GameServiceMock } from '../features/game/game.service.mock';
