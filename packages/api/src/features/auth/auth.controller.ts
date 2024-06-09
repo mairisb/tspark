@@ -1,12 +1,4 @@
-import {
-  AuthCheckResponse,
-  ErrorResponse,
-  GenericResponse,
-  LoginRequest,
-  RegisterRequest,
-  UserDto,
-} from '@tspark/common';
-import { Request, Response } from 'express';
+import { UserDto } from '@tspark/common';
 import { inject } from 'inversify';
 import {
   BaseHttpController,
@@ -30,69 +22,67 @@ export class AuthController extends BaseHttpController {
   }
 
   @httpPost('/register')
-  public async register(
-    req: Request<null, null, RegisterRequest>,
-    res: Response<UserDto | ErrorResponse>,
-  ) {
-    const registerRequest = req.body;
-
+  public async register() {
     try {
-      const user = await this.authService.register(registerRequest);
+      const user = await this.authService.register(
+        this.httpContext.request.body,
+      );
 
       const userDto = mapUserToUserDto(user);
 
-      this.setJwtCookie(res, userDto);
-      return res.status(200).json(userDto);
+      this.setJwtCookie(userDto);
+      return this.json(userDto);
     } catch (err) {
       console.error('Registration failed.', err);
-      return res.status(500).json({ error: 'Registration failed.' });
+      return this.json({ error: 'Registration failed.' }, 500);
     }
   }
 
   @httpPost('/login')
-  public async login(
-    req: Request<null, null, LoginRequest>,
-    res: Response<UserDto | ErrorResponse>,
-  ) {
-    const loginRequest = req.body;
-
+  public async login() {
     try {
-      const user = await this.authService.login(loginRequest);
+      const user = await this.authService.login(this.httpContext.request.body);
 
       const userDto = mapUserToUserDto(user);
 
-      this.setJwtCookie(res, userDto);
-      return res.status(200).json(userDto);
+      this.setJwtCookie(userDto);
+      return this.json(userDto);
     } catch (err) {
       console.log('Login failed.', err);
-      return res.status(500).json({ error: 'Login failed.' });
+      return this.json({ error: 'Login failed.' }, 500);
     }
   }
 
   @httpPost('/logout')
-  public logout(_req: Request, res: Response<GenericResponse>) {
-    this.clearJwtCookie(res);
-    return res.status(200).json({ message: 'Logout successful.' });
+  public logout() {
+    this.clearJwtCookie();
+    return this.json({ message: 'Logout successful.' });
   }
 
   @httpGet('/auth-check')
-  public async authCheck(req: Request, res: Response<AuthCheckResponse>) {
-    const token = req.cookies.login_token;
+  public async authCheck() {
+    const token = this.httpContext.request.cookies.login_token;
     if (!token) {
-      return res.status(401).json({
-        isAuthenticated: false,
-        error: 'No authentication token provided.',
-      });
+      return this.json(
+        {
+          isAuthenticated: false,
+          error: 'No authentication token provided.',
+        },
+        401,
+      );
     }
 
     try {
       const isTokenValid = jwt.verify(token, config.JWT_SECRET);
       if (!isTokenValid) {
-        this.clearJwtCookie(res);
-        return res.status(401).json({
-          isAuthenticated: false,
-          error: 'Invalid authentication token.',
-        });
+        this.clearJwtCookie();
+        return this.json(
+          {
+            isAuthenticated: false,
+            error: 'Invalid authentication token.',
+          },
+          401,
+        );
       }
 
       const decodedToken = jwt.decode(token, { json: true });
@@ -104,23 +94,26 @@ export class AuthController extends BaseHttpController {
       const user = await this.userService.getByEmail(email);
       const userDto = mapUserToUserDto(user);
 
-      return res.status(200).json({ isAuthenticated: true, user: userDto });
+      return this.json({ isAuthenticated: true, user: userDto });
     } catch (err) {
       console.error('Auth check failed:', err);
-      this.clearJwtCookie(res);
-      return res.status(500).json({
-        isAuthenticated: false,
-        error: 'Auth check failed.',
-      });
+      this.clearJwtCookie();
+      return this.json(
+        {
+          isAuthenticated: false,
+          error: 'Auth check failed.',
+        },
+        500,
+      );
     }
   }
 
-  private setJwtCookie = (res: Response, userDto: UserDto) => {
+  private setJwtCookie = (userDto: UserDto) => {
     const token = jwt.sign({ sub: userDto.email }, config.JWT_SECRET, {
       expiresIn: '1h',
     });
 
-    res.cookie('login_token', token, {
+    this.httpContext.response.cookie('login_token', token, {
       httpOnly: true,
       sameSite: 'none',
       secure: true,
@@ -128,8 +121,8 @@ export class AuthController extends BaseHttpController {
     });
   };
 
-  private clearJwtCookie = (res: Response) => {
-    res.clearCookie('login_token', {
+  private clearJwtCookie = () => {
+    this.httpContext.response.clearCookie('login_token', {
       sameSite: 'none',
       secure: true,
     });

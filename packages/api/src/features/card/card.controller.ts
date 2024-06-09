@@ -1,5 +1,3 @@
-import { CardDto } from '@tspark/common';
-import { Request } from 'express';
 import { inject } from 'inversify';
 import {
   BaseHttpController,
@@ -23,9 +21,9 @@ export class CardController extends BaseHttpController {
   }
 
   @httpPost('/')
-  public async create(req: Request<CardDto>) {
+  public async create() {
     try {
-      await this.cardService.save(req.body);
+      await this.cardService.save(this.httpContext.request.body);
       return this.ok();
     } catch (e) {
       return this.json({ error: 'User creation failed' }, 500);
