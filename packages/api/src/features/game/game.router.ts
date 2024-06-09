@@ -1,6 +1,8 @@
 import express from 'express';
-import { gameController } from './game.controller';
+import { GameController } from './game.controller';
 
 export const gameRouter = express.Router();
+
+const gameController = new GameController();
 
 gameRouter.get('/', gameController.getAll);

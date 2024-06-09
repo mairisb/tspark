@@ -1,6 +1,8 @@
 import express from 'express';
-import { userController } from './user.controller';
+import { UserController } from './user.controller';
 
 export const userRouter = express.Router();
+
+const userController = new UserController();
 
 userRouter.get('/', userController.getAll);

@@ -2,14 +2,16 @@ import { LoginRequest, RegisterRequest } from '@tspark/common';
 import bcrypt from 'bcrypt';
 import { User } from '../user/user.entity';
 import { userRepository } from '../user/user.repository';
-import { userService } from '../user/user.service';
-import { authService } from './auth.service';
+import { UserService } from '../user/user.service';
+import { AuthService } from './auth.service';
 
 jest.mock('../user/user.repository');
-jest.mock('../user/user.service');
 jest.mock('bcrypt');
 
 describe('authService', () => {
+  const authService = new AuthService();
+  const userService = new UserService();
+
   beforeEach(() => {
     jest.resetAllMocks();
   });

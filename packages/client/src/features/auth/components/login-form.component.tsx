@@ -1,6 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
+import { Button, Stack, TextField } from '@mui/material';
 import React from 'react';
-import { Button, Form, Stack } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 
@@ -31,32 +31,25 @@ export const LoginForm: React.FC<LoginFormProps> = (props) => {
   });
 
   return (
-    <Form onSubmit={onSubmit}>
+    <Stack component="form" onSubmit={onSubmit} gap={4}>
       <Stack gap={2}>
-        <Form.Group controlId="email">
-          <Form.Label>E-mail</Form.Label>
-          <Form.Control
-            type="text"
-            {...form.register('email')}
-            isInvalid={Boolean(errors.email)}
-          />
-          <Form.Control.Feedback type="invalid">
-            {errors.email?.message}
-          </Form.Control.Feedback>
-        </Form.Group>
-        <Form.Group controlId="password">
-          <Form.Label>Password</Form.Label>
-          <Form.Control
-            type="password"
-            {...form.register('password')}
-            isInvalid={Boolean(errors.password)}
-          />
-          <Form.Control.Feedback type="invalid">
-            {errors.password?.message}
-          </Form.Control.Feedback>
-        </Form.Group>
-        <Button type="submit">Log in</Button>
+        <TextField
+          label="E-mail"
+          {...form.register('email')}
+          error={!!errors.email}
+          helperText={errors.email?.message}
+        />
+        <TextField
+          type="password"
+          label="Passowrd"
+          {...form.register('password')}
+          error={!!errors.password}
+          helperText={errors.password?.message}
+        />
       </Stack>
-    </Form>
+      <Button type="submit" variant="contained">
+        Log in
+      </Button>
+    </Stack>
   );
 };

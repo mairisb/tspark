@@ -3,56 +3,58 @@ import bcrypt from 'bcrypt';
 import { config } from '../../core/config';
 import { User } from '../user/user.entity';
 import { userRepository } from '../user/user.repository';
-import { userService } from '../user/user.service';
 import { Auth } from './auth.entity';
+import { UserService } from '../user/user.service';
 
-const createUser = (request: RegisterRequest, hashedPassword: string): User => {
-  const auth = new Auth();
-  auth.hashedPassword = hashedPassword;
+export class AuthService {
+  private userService = new UserService();
 
-  const user = new User();
-  user.username = request.username;
-  user.email = request.email;
-  user.auth = auth;
+  public createUser = (
+    request: RegisterRequest,
+    hashedPassword: string,
+  ): User => {
+    const auth = new Auth();
+    auth.hashedPassword = hashedPassword;
 
-  return user;
-};
+    const user = new User();
+    user.username = request.username;
+    user.email = request.email;
+    user.auth = auth;
 
-const register = async (registerRequest: RegisterRequest) => {
-  const userAlreadyExists = await userService.existsByEmail(
-    registerRequest.email,
-  );
-  if (userAlreadyExists) {
-    throw new Error('User already exists.');
-  }
+    return user;
+  };
 
-  const hashedPassword = await bcrypt.hash(
-    registerRequest.password,
-    config.SALT_ROUNDS,
-  );
-  const user = createUser(registerRequest, hashedPassword);
+  public register = async (registerRequest: RegisterRequest) => {
+    const userAlreadyExists = await this.userService.existsByEmail(
+      registerRequest.email,
+    );
+    if (userAlreadyExists) {
+      throw new Error('User already exists.');
+    }
 
-  return userRepository.save(user);
-};
+    const hashedPassword = await bcrypt.hash(
+      registerRequest.password,
+      config.SALT_ROUNDS,
+    );
+    const user = this.createUser(registerRequest, hashedPassword);
 
-const login = async (loginRequest: LoginRequest) => {
-  const user = await userRepository.findOneOrFail({
-    relations: { auth: true },
-    where: { email: loginRequest.email },
-  });
+    return userRepository.save(user);
+  };
 
-  const isMatch = await bcrypt.compare(
-    loginRequest.password,
-    user.auth.hashedPassword,
-  );
-  if (!isMatch) {
-    throw Error('Incorrect password.');
-  }
+  public login = async (loginRequest: LoginRequest) => {
+    const user = await userRepository.findOneOrFail({
+      relations: { auth: true },
+      where: { email: loginRequest.email },
+    });
 
-  return user;
-};
+    const isMatch = await bcrypt.compare(
+      loginRequest.password,
+      user.auth.hashedPassword,
+    );
+    if (!isMatch) {
+      throw Error('Incorrect password.');
+    }
 
-export const authService = {
-  register,
-  login,
-};
+    return user;
+  };
+}
