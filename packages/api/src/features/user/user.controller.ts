@@ -1,13 +1,20 @@
-import { UserDto } from '@tspark/common';
-import { Request, Response } from 'express';
-import { UserService } from './user.service';
+import { inject } from 'inversify';
+import {
+  BaseHttpController,
+  controller,
+  httpGet,
+} from 'inversify-express-utils';
+import { IUserService } from './user.service.type';
 
-export class UserController {
-  private userService = new UserService();
+@controller('/user')
+export class UserController extends BaseHttpController {
+  constructor(@inject('IUserService') private userService: IUserService) {
+    super();
+  }
 
-  public getAll = async (_req: Request, res: Response<UserDto[]>) => {
-    return this.userService.getAll().then((users) => {
-      res.json(users);
-    });
-  };
+  @httpGet('/')
+  public async getAll() {
+    const users = this.userService.getAll();
+    return this.json(users);
+  }
 }

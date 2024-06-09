@@ -1,19 +1,22 @@
+import { injectable } from 'inversify';
 import { userRepository } from './user.repository';
+import { IUserService } from './user.service.type';
 
-export class UserService {
-  getAll = () => {
+@injectable()
+export class UserService implements IUserService {
+  getAll() {
     return userRepository.find();
-  };
+  }
 
-  get = (id: number) => {
+  get(id: number) {
     return userRepository.findOneOrFail({ where: { id } });
-  };
+  }
 
-  getByEmail = (email: string) => {
+  getByEmail(email: string) {
     return userRepository.findOneOrFail({ where: { email } });
-  };
+  }
 
-  existsByEmail = (email: string) => {
+  existsByEmail(email: string) {
     return userRepository.exist({ where: { email } });
-  };
+  }
 }

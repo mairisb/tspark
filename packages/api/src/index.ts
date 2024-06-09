@@ -5,10 +5,10 @@ import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import { InversifyExpressServer } from 'inversify-express-utils';
-import { apiRouter } from './core/api.router';
 import { appDataSource } from './core/app-data-source';
 import { config } from './core/config';
 import { container } from './core/inversify.config';
+import { apiRouter } from './core/api.router';
 
 const port = config.PORT;
 
