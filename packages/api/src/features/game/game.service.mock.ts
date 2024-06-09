@@ -1,7 +1,10 @@
+import { injectable } from 'inversify';
 import { Game } from './game.entity';
+import { IGameService } from './game.service.type';
 
-export class GameServiceMock {
-  getAll = () => {
+@injectable()
+export class GameServiceMock implements IGameService {
+  findAll(): Promise<Game[]> {
     const games: Promise<Game[]> = new Promise((resolve) => {
       setTimeout(() => {
         resolve([
@@ -12,5 +15,5 @@ export class GameServiceMock {
       }, 300);
     });
     return games;
-  };
+  }
 }
