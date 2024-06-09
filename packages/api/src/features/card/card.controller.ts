@@ -1,5 +1,6 @@
 import { CardDto } from '@tspark/common';
 import { Request } from 'express';
+import { inject } from 'inversify';
 import {
   BaseHttpController,
   controller,
@@ -7,11 +8,13 @@ import {
   httpPost,
 } from 'inversify-express-utils';
 import { authMiddleware } from '../auth/auth.middleware';
-import { CardService } from './card.service';
+import { ICardService } from './card.service.type';
 
 @controller('/card', authMiddleware.isAuthenticated)
 export class CardController extends BaseHttpController {
-  private cardService = new CardService();
+  constructor(@inject('ICardService') private cardService: ICardService) {
+    super();
+  }
 
   @httpGet('/')
   public async getAll() {
