@@ -18,8 +18,6 @@ export class AuthProvider implements IAuthProvider {
   private userService: IUserService;
 
   public async getUser(req: Request): Promise<Principal> {
-    console.log('AuthProvider.getUser was called!!!');
-
     const principal = new Principal();
 
     try {
