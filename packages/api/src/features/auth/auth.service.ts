@@ -1,6 +1,7 @@
 import { LoginRequest, RegisterRequest } from '@tspark/common';
 import bcrypt from 'bcrypt';
 import { inject, injectable } from 'inversify';
+import jwt, { JwtPayload } from 'jsonwebtoken';
 import { config } from '../../core/config';
 import { User } from '../user/user.entity';
 import { userRepository } from '../user/user.repository';
@@ -11,6 +12,15 @@ import { IAuthService } from './auth.service.type';
 @injectable()
 export class AuthService implements IAuthService {
   constructor(@inject('IUserService') private userService: IUserService) {}
+
+  public decodeToken(token: string): JwtPayload | null {
+    const isTokenValid = jwt.verify(token, config.JWT_SECRET);
+    if (!isTokenValid) {
+      throw new Error('Invalid authentication token.');
+    }
+
+    return jwt.decode(token, { json: true });
+  }
 
   public async register(registerRequest: RegisterRequest) {
     const userAlreadyExists = await this.userService.existsByEmail(

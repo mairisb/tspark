@@ -108,7 +108,7 @@ export class AuthController extends BaseHttpController {
     }
   }
 
-  private setJwtCookie = (userDto: UserDto) => {
+  private setJwtCookie(userDto: UserDto) {
     const token = jwt.sign({ sub: userDto.email }, config.JWT_SECRET, {
       expiresIn: '1h',
     });
@@ -119,12 +119,12 @@ export class AuthController extends BaseHttpController {
       secure: true,
       maxAge: 3600000,
     });
-  };
+  }
 
-  private clearJwtCookie = () => {
+  private clearJwtCookie() {
     this.httpContext.response.clearCookie('login_token', {
       sameSite: 'none',
       secure: true,
     });
-  };
+  }
 }

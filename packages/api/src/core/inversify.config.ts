@@ -4,6 +4,8 @@ import '../features/game/game.controller';
 import '../features/user/user.controller';
 
 import { Container } from 'inversify';
+import { BaseMiddleware } from 'inversify-express-utils';
+import { AuthMiddleware } from '../features/auth/auth.middleware';
 import { AuthService } from '../features/auth/auth.service';
 import { IAuthService } from '../features/auth/auth.service.type';
 import { CardService } from '../features/card/card.service';
@@ -14,6 +16,8 @@ import { UserService } from '../features/user/user.service';
 import { IUserService } from '../features/user/user.service.type';
 
 const container = new Container();
+
+container.bind<BaseMiddleware>('AuthMiddleware').to(AuthMiddleware);
 
 container.bind<IAuthService>('IAuthService').to(AuthService);
 container.bind<ICardService>('ICardService').to(CardService);

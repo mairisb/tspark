@@ -5,10 +5,9 @@ import {
   httpGet,
   httpPost,
 } from 'inversify-express-utils';
-import { authMiddleware } from '../auth/auth.middleware';
 import { ICardService } from './card.service.type';
 
-@controller('/card', authMiddleware.isAuthenticated)
+@controller('/card', 'AuthMiddleware')
 export class CardController extends BaseHttpController {
   constructor(@inject('ICardService') private cardService: ICardService) {
     super();

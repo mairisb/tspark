@@ -1,7 +1,9 @@
 import { LoginRequest, RegisterRequest } from '@tspark/common';
+import { JwtPayload } from 'jsonwebtoken';
 import { User } from '../user/user.entity';
 
 export interface IAuthService {
-  register(registerRequest: RegisterRequest): Promise<User>;
+  decodeToken(token: string): JwtPayload | null;
   login(loginRequest: LoginRequest): Promise<User>;
+  register(registerRequest: RegisterRequest): Promise<User>;
 }
