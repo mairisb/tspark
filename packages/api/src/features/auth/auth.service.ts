@@ -3,6 +3,7 @@ import bcrypt from 'bcrypt';
 import { inject, injectable } from 'inversify';
 import jwt, { JwtPayload } from 'jsonwebtoken';
 import { config } from '../../core/config';
+import { Services } from '../../core/inversify.identifiers';
 import { User } from '../user/user.entity';
 import { userRepository } from '../user/user.repository';
 import { IUserService } from '../user/user.service.type';
@@ -11,7 +12,7 @@ import { IAuthService } from './auth.service.type';
 
 @injectable()
 export class AuthService implements IAuthService {
-  constructor(@inject('IUserService') private userService: IUserService) {}
+  constructor(@inject(Services.User) private userService: IUserService) {}
 
   public decodeToken(token: string): JwtPayload | null {
     const isTokenValid = jwt.verify(token, config.JWT_SECRET);

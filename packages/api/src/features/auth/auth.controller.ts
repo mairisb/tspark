@@ -8,6 +8,7 @@ import {
 } from 'inversify-express-utils';
 import jwt from 'jsonwebtoken';
 import { config } from '../../core/config';
+import { Services } from '../../core/inversify.identifiers';
 import { mapUserToUserDto } from '../user/user.dto.mapper';
 import { IUserService } from '../user/user.service.type';
 import { IAuthService } from './auth.service.type';
@@ -15,8 +16,8 @@ import { IAuthService } from './auth.service.type';
 @controller('/auth')
 export class AuthController extends BaseHttpController {
   constructor(
-    @inject('IAuthService') private authService: IAuthService,
-    @inject('IUserService') private userService: IUserService,
+    @inject(Services.Auth) private authService: IAuthService,
+    @inject(Services.User) private userService: IUserService,
   ) {
     super();
   }

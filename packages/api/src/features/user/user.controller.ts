@@ -5,10 +5,11 @@ import {
   httpGet,
 } from 'inversify-express-utils';
 import { IUserService } from './user.service.type';
+import { Services } from '../../core/inversify.identifiers';
 
 @controller('/user')
 export class UserController extends BaseHttpController {
-  constructor(@inject('IUserService') private userService: IUserService) {
+  constructor(@inject(Services.User) private userService: IUserService) {
     super();
   }
 

@@ -1,19 +1,20 @@
 import { Request } from 'express';
 import { inject, injectable } from 'inversify';
+import jwt from 'jsonwebtoken';
+import { config } from '../../core/config';
+import { Services } from '../../core/inversify.identifiers';
 import { mapUserToUserDto } from '../user/user.dto.mapper';
 import { IUserService } from '../user/user.service.type';
 import { IAuthProvider } from './auth.provider.type';
 import { IAuthService } from './auth.service.type';
 import { Principal } from './principal';
-import jwt from 'jsonwebtoken';
-import { config } from '../../core/config';
 
 @injectable()
 export class AuthProvider implements IAuthProvider {
-  @inject('IAuthService')
+  @inject(Services.Auth)
   private readonly authService: IAuthService;
 
-  @inject('IUserService')
+  @inject(Services.User)
   private userService: IUserService;
 
   public async getUser(req: Request): Promise<Principal> {

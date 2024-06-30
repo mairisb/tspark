@@ -14,14 +14,15 @@ import { GameServiceMock } from '../features/game/game.service.mock';
 import { IGameService } from '../features/game/game.service.type';
 import { UserService } from '../features/user/user.service';
 import { IUserService } from '../features/user/user.service.type';
+import { Middleware, Services } from './inversify.identifiers';
 
 const container = new Container();
 
-container.bind<BaseMiddleware>('AuthMiddleware').to(AuthMiddleware);
+container.bind<BaseMiddleware>(Middleware.Auth).to(AuthMiddleware);
 
-container.bind<IAuthService>('IAuthService').to(AuthService);
-container.bind<ICardService>('ICardService').to(CardService);
-container.bind<IGameService>('IGameService').to(GameServiceMock);
-container.bind<IUserService>('IUserService').to(UserService);
+container.bind<IAuthService>(Services.Auth).to(AuthService);
+container.bind<ICardService>(Services.Card).to(CardService);
+container.bind<IGameService>(Services.Game).to(GameServiceMock);
+container.bind<IUserService>(Services.User).to(UserService);
 
 export { container };

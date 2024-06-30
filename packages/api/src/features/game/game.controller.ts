@@ -5,10 +5,11 @@ import {
   httpGet,
 } from 'inversify-express-utils';
 import { IGameService } from './game.service.type';
+import { Services } from '../../core/inversify.identifiers';
 
 @controller('/game')
 export class GameController extends BaseHttpController {
-  constructor(@inject('IGameService') private gameService: IGameService) {
+  constructor(@inject(Services.Game) private gameService: IGameService) {
     super();
   }
 
