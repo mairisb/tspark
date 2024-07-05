@@ -1,4 +1,4 @@
-import { UserDto } from '@tspark/common';
+import { AuthCheckResponse, UserDto } from '@tspark/common';
 import { inject } from 'inversify';
 import {
   BaseHttpController,
@@ -10,15 +10,11 @@ import jwt from 'jsonwebtoken';
 import { config } from '../../core/config';
 import { Services } from '../../core/inversify.identifiers';
 import { mapUserToUserDto } from '../user/user.dto.mapper';
-import { IUserService } from '../user/user.service.type';
 import { IAuthService } from './auth.service.type';
 
 @controller('/auth')
 export class AuthController extends BaseHttpController {
-  constructor(
-    @inject(Services.Auth) private authService: IAuthService,
-    @inject(Services.User) private userService: IUserService,
-  ) {
+  constructor(@inject(Services.Auth) private authService: IAuthService) {
     super();
   }
 
@@ -63,50 +59,19 @@ export class AuthController extends BaseHttpController {
   @httpGet('/auth-check')
   public async authCheck() {
     const token = this.httpContext.request.cookies.login_token;
-    if (!token) {
-      return this.json(
-        {
-          isAuthenticated: false,
-          error: 'No authentication token provided.',
-        },
-        401,
-      );
-    }
 
-    try {
-      const isTokenValid = jwt.verify(token, config.JWT_SECRET);
-      if (!isTokenValid) {
-        this.clearJwtCookie();
-        return this.json(
-          {
-            isAuthenticated: false,
-            error: 'Invalid authentication token.',
-          },
-          401,
-        );
-      }
-
-      const decodedToken = jwt.decode(token, { json: true });
-      if (!decodedToken?.sub) {
-        throw new Error('User information not found in token');
-      }
-
-      const email = decodedToken.sub;
-      const user = await this.userService.getByEmail(email);
-      const userDto = mapUserToUserDto(user);
-
-      return this.json({ isAuthenticated: true, user: userDto });
-    } catch (err) {
-      console.error('Auth check failed:', err);
+    const user = await this.authService.getUser(token);
+    if (!user) {
       this.clearJwtCookie();
-      return this.json(
-        {
-          isAuthenticated: false,
-          error: 'Auth check failed.',
-        },
-        500,
-      );
+      return this.json({ isAuthenticated: false });
     }
+
+    const userDto = mapUserToUserDto(user);
+
+    return this.json({
+      isAuthenticated: true,
+      user: userDto,
+    } as AuthCheckResponse);
   }
 
   private setJwtCookie(userDto: UserDto) {

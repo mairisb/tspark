@@ -13,7 +13,7 @@ export class UserService implements IUserService {
   }
 
   getByEmail(email: string) {
-    return userRepository.findOneOrFail({ where: { email } });
+    return userRepository.findOne({ where: { email } });
   }
 
   existsByEmail(email: string) {

@@ -6,4 +6,5 @@ export interface IAuthService {
   decodeToken(token: string): JwtPayload | null;
   login(loginRequest: LoginRequest): Promise<User>;
   register(registerRequest: RegisterRequest): Promise<User>;
+  getUser(token: string): Promise<User | null>;
 }

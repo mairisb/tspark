@@ -57,6 +57,32 @@ export class AuthService implements IAuthService {
     return user;
   }
 
+  public async getUser(token: string) {
+    if (!token) {
+      return null;
+    }
+
+    try {
+      const isTokenValid = jwt.verify(token, config.JWT_SECRET);
+      if (!isTokenValid) {
+        return null;
+      }
+
+      const decodedToken = jwt.decode(token, { json: true });
+
+      const email = decodedToken?.sub;
+      if (!email) {
+        return null;
+      }
+
+      const user = await this.userService.getByEmail(email);
+
+      return user;
+    } catch (err) {
+      return null;
+    }
+  }
+
   private createUser(request: RegisterRequest, hashedPassword: string): User {
     const auth = new Auth();
     auth.hashedPassword = hashedPassword;
