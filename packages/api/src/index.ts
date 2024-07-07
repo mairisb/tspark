@@ -8,6 +8,8 @@ import express from 'express';
 import { InversifyExpressServer } from 'inversify-express-utils';
 import { appDataSource } from './core/app-data-source';
 import { config } from './core/config';
+import { configFn } from './core/configFn';
+import { errorConfigFn } from './core/errorConfigFn';
 import { container } from './core/inversify.config';
 import { AuthProvider } from './features/auth/auth.provider';
 
@@ -42,9 +44,8 @@ const server = new InversifyExpressServer(
   AuthProvider,
 );
 
-server.setConfig((_app) => {
-  // _app.use(stuff);
-});
+server.setConfig(configFn);
+server.setErrorConfig(errorConfigFn);
 
 appDataSource
   .initialize()
