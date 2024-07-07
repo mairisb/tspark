@@ -2,7 +2,7 @@ import { AuthCheckResponse, CookieKeys, UserDto } from '@tspark/common';
 import { inject } from 'inversify';
 import { controller, httpGet, httpPost } from 'inversify-express-utils';
 import jwt from 'jsonwebtoken';
-import { BaseController } from '../../core/BaseController';
+import { BaseController } from '../../core/base.controller';
 import { config } from '../../core/config';
 import { Services } from '../../core/inversify.identifiers';
 import { mapUserToUserDto } from '../user/user.dto.mapper';
