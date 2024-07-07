@@ -1,19 +1,15 @@
 import { AuthCheckResponse, UserDto } from '@tspark/common';
 import { inject } from 'inversify';
-import {
-  BaseHttpController,
-  controller,
-  httpGet,
-  httpPost,
-} from 'inversify-express-utils';
+import { controller, httpGet, httpPost } from 'inversify-express-utils';
 import jwt from 'jsonwebtoken';
+import { BaseController } from '../../core/BaseController';
 import { config } from '../../core/config';
 import { Services } from '../../core/inversify.identifiers';
 import { mapUserToUserDto } from '../user/user.dto.mapper';
 import { IAuthService } from './auth.service.type';
 
 @controller('/auth')
-export class AuthController extends BaseHttpController {
+export class AuthController extends BaseController {
   constructor(@inject(Services.Auth) private authService: IAuthService) {
     super();
   }
