@@ -1,4 +1,4 @@
-import { AuthCheckResponse, UserDto } from '@tspark/common';
+import { AuthCheckResponse, CookieKeys, UserDto } from '@tspark/common';
 import { inject } from 'inversify';
 import { controller, httpGet, httpPost } from 'inversify-express-utils';
 import jwt from 'jsonwebtoken';
@@ -54,7 +54,7 @@ export class AuthController extends BaseController {
 
   @httpGet('/auth-check')
   public async authCheck() {
-    const token = this.cookies.login_token;
+    const token = this.cookies.auth_token;
 
     const user = await this.authService.getUser(token);
     if (!user) {
@@ -75,7 +75,7 @@ export class AuthController extends BaseController {
       expiresIn: '1h',
     });
 
-    this.httpContext.response.cookie('login_token', token, {
+    this.httpContext.response.cookie(CookieKeys.AuthToken, token, {
       httpOnly: true,
       sameSite: 'none',
       secure: true,
@@ -84,7 +84,7 @@ export class AuthController extends BaseController {
   }
 
   private clearJwtCookie() {
-    this.httpContext.response.clearCookie('login_token', {
+    this.httpContext.response.clearCookie(CookieKeys.AuthToken, {
       sameSite: 'none',
       secure: true,
     });

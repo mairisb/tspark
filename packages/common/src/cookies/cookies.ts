@@ -1,3 +1,5 @@
+import { CookieKeys } from './cookie-keys.enum';
+
 export interface ICookies {
-  login_token: string;
+  [CookieKeys.AuthToken]: string;
 }

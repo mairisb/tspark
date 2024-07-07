@@ -16,7 +16,7 @@ export class AuthProvider extends BaseController implements IAuthProvider {
   public async getUser(req: Request): Promise<Principal> {
     const principal = new Principal();
 
-    const token = (req.cookies as ICookies).login_token;
+    const token = (req.cookies as ICookies).auth_token;
 
     const user = await this.authService.getUser(token);
     if (!user) {
