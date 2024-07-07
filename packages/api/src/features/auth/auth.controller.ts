@@ -58,7 +58,7 @@ export class AuthController extends BaseHttpController {
 
   @httpGet('/auth-check')
   public async authCheck() {
-    const token = this.httpContext.request.cookies.login_token;
+    const token = this.cookies.login_token;
 
     const user = await this.authService.getUser(token);
     if (!user) {
