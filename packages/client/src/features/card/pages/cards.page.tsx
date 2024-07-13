@@ -1,13 +1,17 @@
 import { Card, CardContent, CardMedia, Stack, Typography } from '@mui/material';
 import Button from '@mui/material/Button';
 import { CardDto, ErrorResponse } from '@tspark/common';
+import { useInjection } from 'inversify-react';
 import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Page } from '../../../app/pages/page';
-import { cardService } from '../card.service';
+import { Services } from '../../../core/inversify.identifiers';
+import { ICardService } from '../card.service.type';
 
 export const CardsPage: React.FC = observer(() => {
+  const cardService = useInjection<ICardService>(Services.Card);
+
   const [cards, setCards] = React.useState<CardDto[]>([]);
 
   React.useEffect(() => {
