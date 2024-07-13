@@ -1,1 +1,7 @@
-export interface ICardStore {}
+import { CardDto } from '@tspark/common';
+
+export interface ICardStore {
+  cards: CardDto[];
+
+  fetchAll(): Promise<void>;
+}

@@ -1,32 +1,25 @@
 import { Card, CardContent, CardMedia, Stack, Typography } from '@mui/material';
 import Button from '@mui/material/Button';
-import { CardDto, ErrorResponse } from '@tspark/common';
 import { useInjection } from 'inversify-react';
 import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Page } from '../../../app/pages/page';
-import { Services } from '../../../core/inversify.identifiers';
-import { ICardService } from '../card.service.type';
+import { Stores } from '../../../core/inversify.identifiers';
+import { ICardStore } from '../card.store.type';
 
 export const CardsPage: React.FC = observer(() => {
-  const cardService = useInjection<ICardService>(Services.Card);
-
-  const [cards, setCards] = React.useState<CardDto[]>([]);
+  const cardStore = useInjection<ICardStore>(Stores.Card);
 
   React.useEffect(() => {
-    cardService.getAll().then((response) => {
-      if (!(response as unknown as ErrorResponse).error) {
-        setCards(response);
-      }
-    });
+    cardStore.fetchAll();
   }, []);
 
   return (
     <Page title="Your Cards" isAuthProtected>
       <Stack spacing={4}>
         <Stack spacing={2}>
-          {cards.map((card) => (
+          {cardStore.cards.map((card) => (
             <Card key={card.id} sx={{ display: 'flex' }}>
               <CardMedia
                 component="img"
