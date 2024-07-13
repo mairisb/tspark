@@ -1,5 +1,5 @@
 import { UserDto } from '@tspark/common';
-import { apiClient } from '../../core/api/api.client';
+import { apiClient } from '../../core/api-client/api.client';
 
 const getAll = (): Promise<UserDto[]> => {
   return apiClient

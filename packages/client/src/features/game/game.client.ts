@@ -1,5 +1,5 @@
 import { GameDto } from '@tspark/common';
-import { apiClient } from '../../core/api/api.client';
+import { apiClient } from '../../core/api-client/api.client';
 
 export class GameClient {
   static getGames(): Promise<GameDto[]> {

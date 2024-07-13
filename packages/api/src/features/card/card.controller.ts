@@ -4,6 +4,7 @@ import {
   controller,
   httpGet,
   httpPost,
+  requestParam,
 } from 'inversify-express-utils';
 import { Middleware, Services } from '../../core/inversify.identifiers';
 import { ICardService } from './card.service.type';
@@ -14,14 +15,20 @@ export class CardController extends BaseHttpController {
     super();
   }
 
+  @httpGet('/:id')
+  async index(@requestParam('id') id: number) {
+    const cards = await this.cardService.getById(id);
+    return this.json(cards);
+  }
+
   @httpGet('/')
-  public async getAll() {
+  async list() {
     const cards = await this.cardService.getAll();
     return this.json(cards);
   }
 
   @httpPost('/')
-  public async create() {
+  async create() {
     try {
       await this.cardService.save(this.httpContext.request.body);
       return this.ok();

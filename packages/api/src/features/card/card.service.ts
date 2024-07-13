@@ -6,11 +6,15 @@ import { ICardService } from './card.service.type';
 
 @injectable()
 export class CardService implements ICardService {
-  public getAll() {
+  getById(id: number) {
+    return cardRepository.findOneBy({ id });
+  }
+
+  getAll() {
     return cardRepository.find();
   }
 
-  public save(cardDto: CardDto) {
+  save(cardDto: CardDto) {
     const card = new Card();
     card.name = cardDto.name;
     return cardRepository.save(card);

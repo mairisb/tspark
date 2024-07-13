@@ -4,7 +4,7 @@ import {
   RegisterRequest,
   UserDto,
 } from '@tspark/common';
-import { apiClient } from '../../core/api/api.client';
+import { apiClient } from '../../core/api-client/api.client';
 
 // TODO: handle register failure
 const register = (req: RegisterRequest): Promise<UserDto> =>
