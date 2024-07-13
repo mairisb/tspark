@@ -15,7 +15,7 @@ export class AuthService implements IAuthService {
   constructor(@inject(Services.User) private userService: IUserService) {}
 
   public decodeToken(token: string): JwtPayload | null {
-    const isTokenValid = jwt.verify(token, config.JWT_SECRET);
+    const isTokenValid = jwt.verify(token, config.jwtSecret);
     if (!isTokenValid) {
       throw new Error('Invalid authentication token.');
     }
@@ -33,7 +33,7 @@ export class AuthService implements IAuthService {
 
     const hashedPassword = await bcrypt.hash(
       registerRequest.password,
-      config.SALT_ROUNDS,
+      config.saltRounds,
     );
     const user = this.createUser(registerRequest, hashedPassword);
 
@@ -63,7 +63,7 @@ export class AuthService implements IAuthService {
     }
 
     try {
-      const isTokenValid = jwt.verify(token, config.JWT_SECRET);
+      const isTokenValid = jwt.verify(token, config.jwtSecret);
       if (!isTokenValid) {
         return null;
       }

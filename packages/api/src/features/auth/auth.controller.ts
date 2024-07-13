@@ -71,7 +71,7 @@ export class AuthController extends BaseController {
   }
 
   private setJwtCookie(userDto: UserDto) {
-    const token = jwt.sign({ sub: userDto.email }, config.JWT_SECRET, {
+    const token = jwt.sign({ sub: userDto.email }, config.jwtSecret, {
       expiresIn: '1h',
     });
 

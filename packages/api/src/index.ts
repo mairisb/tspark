@@ -13,7 +13,7 @@ import { errorConfigFn } from './core/errorConfigFn';
 import { container } from './core/inversify.config';
 import { AuthProvider } from './features/auth/auth.provider';
 
-const port = config.PORT;
+const port = config.port;
 const rootPath = '/api';
 
 const app = express();

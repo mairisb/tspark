@@ -22,9 +22,9 @@ export const Page: React.FC<PageProps> = observer(
     }, [isAuthProtected, authStore.isAuthenticated, navigate]);
 
     useEffect(() => {
-      document.title = `${config.TSPARK_APP_APP_NAME} - ${title}`;
+      document.title = `${config.appName} - ${title}`;
       return () => {
-        document.title = config.TSPARK_APP_APP_NAME;
+        document.title = config.appName;
       };
     }, [title]);
 
