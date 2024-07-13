@@ -1,7 +1,7 @@
 import { act, fireEvent, screen } from '@testing-library/react';
 import { UserDto } from '@tspark/common';
 import { useNavigate } from 'react-router-dom';
-import { authService } from '../../auth.service';
+import { authClient } from '../../auth.client';
 import { renderWithProviders } from '../../../../utils/test.utils';
 import { RegisterPage } from './register.page';
 
@@ -45,7 +45,7 @@ describe('RegisterPage', () => {
   };
 
   it('should redirect to home page after successful registration', async () => {
-    (authService.register as jest.Mock).mockResolvedValue({
+    (authClient.register as jest.Mock).mockResolvedValue({
       id: 1,
       username: 'johnd',
       email: 'john.doe@mail.com',

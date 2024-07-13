@@ -1,13 +1,13 @@
 import { CardDto } from '@tspark/common';
 import { injectable } from 'inversify';
-import { axiosInstance } from '../../core/api/axios.instance';
-import { ICardService } from './card.service.type';
+import { apiClient } from '../../core/api/api.client';
+import { ICardClient } from './card.client.type';
 
 @injectable()
-export class CardService implements ICardService {
+export class CardClient implements ICardClient {
   async getAll(): Promise<CardDto[]> {
     try {
-      const res = await axiosInstance.get('card');
+      const res = await apiClient.get('card');
       return res.data;
     } catch (err) {
       console.error(err);
@@ -17,7 +17,7 @@ export class CardService implements ICardService {
 
   async create(card: CardDto): Promise<void> {
     try {
-      const res = await axiosInstance.post('card', card);
+      const res = await apiClient.post('card', card);
       return res.data;
     } catch (err) {
       console.error(err);

@@ -1,5 +1,5 @@
-export const Services = {
-  Card: Symbol.for('ICardService'),
+export const Clients = {
+  Card: Symbol.for('ICardClient'),
 };
 
 export const Stores = {

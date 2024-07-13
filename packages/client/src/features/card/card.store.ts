@@ -1,13 +1,13 @@
 import { CardDto } from '@tspark/common';
 import { inject, injectable } from 'inversify';
 import { makeAutoObservable } from 'mobx';
-import { Services } from '../../core/inversify.identifiers';
-import { ICardService } from './card.service.type';
+import { Clients } from '../../core/inversify.identifiers';
+import { ICardClient } from './card.client.type';
 import { ICardStore } from './card.store.type';
 
 @injectable()
 export class CardStore implements ICardStore {
-  @inject(Services.Card) private cardService!: ICardService;
+  @inject(Clients.Card) private cardClient!: ICardClient;
 
   cards: CardDto[] = [];
 
@@ -16,11 +16,11 @@ export class CardStore implements ICardStore {
   }
 
   async fetchAll() {
-    this.cards = await this.cardService.getAll();
+    this.cards = await this.cardClient.getAll();
   }
 
   async create(cardDto: CardDto) {
-    await this.cardService.create(cardDto);
+    await this.cardClient.create(cardDto);
     this.cards.push(cardDto);
   }
 }

@@ -1,7 +1,7 @@
 import axios, { AxiosInstance } from 'axios';
 import { config } from '../config';
 
-export const axiosInstance: AxiosInstance = axios.create({
+export const apiClient: AxiosInstance = axios.create({
   baseURL: config.apiUrl,
   timeout: 10000,
   headers: {

@@ -1,9 +1,9 @@
 import { GameDto } from '@tspark/common';
-import { axiosInstance } from '../../core/api/axios.instance';
+import { apiClient } from '../../core/api/api.client';
 
-export class GameService {
+export class GameClient {
   static getGames(): Promise<GameDto[]> {
-    return axiosInstance
+    return apiClient
       .get('games')
       .then((res) => res.data)
       .catch((err) => {
