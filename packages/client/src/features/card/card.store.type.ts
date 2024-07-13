@@ -4,4 +4,5 @@ export interface ICardStore {
   cards: CardDto[];
 
   fetchAll(): Promise<void>;
+  create(cardDto: CardDto): Promise<void>;
 }

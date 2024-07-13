@@ -7,13 +7,20 @@ import { ICardStore } from './card.store.type';
 
 @injectable()
 export class CardStore implements ICardStore {
+  @inject(Services.Card) private cardService!: ICardService;
+
   cards: CardDto[] = [];
 
-  constructor(@inject(Services.Card) private cardService: ICardService) {
+  constructor() {
     makeAutoObservable(this);
   }
 
   async fetchAll() {
     this.cards = await this.cardService.getAll();
+  }
+
+  async create(cardDto: CardDto) {
+    await this.cardService.create(cardDto);
+    this.cards.push(cardDto);
   }
 }

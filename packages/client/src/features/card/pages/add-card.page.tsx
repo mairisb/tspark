@@ -4,11 +4,11 @@ import { useInjection } from 'inversify-react';
 import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { Page } from '../../../app/pages/page';
-import { Services } from '../../../core/inversify.identifiers';
-import { ICardService } from '../card.service.type';
+import { Stores } from '../../../core/inversify.identifiers';
+import { ICardStore } from '../card.store.type';
 
 export const AddCardPage: React.FC = observer(() => {
-  const cardService = useInjection<ICardService>(Services.Card);
+  const cardStore = useInjection<ICardStore>(Stores.Card);
 
   const [cardName, setCardName] = React.useState('');
 
@@ -16,7 +16,7 @@ export const AddCardPage: React.FC = observer(() => {
     e.preventDefault();
 
     try {
-      await cardService.create({
+      await cardStore.create({
         name: cardName,
       } as CardDto);
 
