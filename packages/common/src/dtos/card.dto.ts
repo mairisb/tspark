@@ -1,4 +1,4 @@
-export interface CardDto {
+export class CardDto {
   id: number;
   name: string;
 }
