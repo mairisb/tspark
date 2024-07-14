@@ -4,8 +4,8 @@ import {
   controller,
   httpGet,
 } from 'inversify-express-utils';
+import { Services } from '../../core/inversify/identifiers';
 import { IGameService } from './game.service.type';
-import { Services } from '../../core/inversify.identifiers';
 
 @controller('/game')
 export class GameController extends BaseHttpController {

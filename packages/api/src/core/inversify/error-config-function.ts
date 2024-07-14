@@ -2,7 +2,7 @@ import { ErrorResponse } from '@tspark/common';
 import { NextFunction, Request, Response } from 'express';
 import { ConfigFunction } from 'inversify-express-utils';
 
-export const errorConfigFn: ConfigFunction = (app) => {
+export const errorConfigFunction: ConfigFunction = (app) => {
   app.use(
     (
       err: Error,

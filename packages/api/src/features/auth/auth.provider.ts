@@ -1,9 +1,9 @@
 import { ICookies, UserDto } from '@tspark/common';
 import { Request } from 'express';
 import { inject, injectable } from 'inversify';
-import { BaseController } from '../../core/base.controller';
-import { Services } from '../../core/inversify.identifiers';
-import { mapper } from '../../core/mapper';
+import { mapper } from '../../core/auto-mapper/mapper';
+import { BaseController } from '../../core/controllers/base.controller';
+import { Services } from '../../core/inversify/identifiers';
 import { User } from '../user/user.entity';
 import { IAuthProvider } from './auth.provider.type';
 import { IAuthService } from './auth.service.type';

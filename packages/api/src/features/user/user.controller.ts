@@ -4,8 +4,8 @@ import {
   controller,
   httpGet,
 } from 'inversify-express-utils';
+import { Services } from '../../core/inversify/identifiers';
 import { IUserService } from './user.service.type';
-import { Services } from '../../core/inversify.identifiers';
 
 @controller('/user')
 export class UserController extends BaseHttpController {

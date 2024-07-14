@@ -6,12 +6,12 @@ import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import express from 'express';
 import { InversifyExpressServer } from 'inversify-express-utils';
-import { appDataSource } from './core/app-data-source';
-import { config } from './core/config';
-import { configFn } from './core/configFn';
-import { errorConfigFn } from './core/errorConfigFn';
-import { container } from './core/inversify.config';
-import { createMaps } from './core/mapper';
+import { createMaps } from './core/auto-mapper/mapper';
+import { config } from './core/config/config';
+import { appDataSource } from './core/db/app-data-source';
+import { configFunction } from './core/inversify/config-function';
+import { container } from './core/inversify/container';
+import { errorConfigFunction } from './core/inversify/error-config-function';
 import { AuthProvider } from './features/auth/auth.provider';
 
 createMaps();
@@ -47,8 +47,8 @@ const server = new InversifyExpressServer(
   AuthProvider,
 );
 
-server.setConfig(configFn);
-server.setErrorConfig(errorConfigFn);
+server.setConfig(configFunction);
+server.setErrorConfig(errorConfigFunction);
 
 appDataSource
   .initialize()

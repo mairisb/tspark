@@ -1,8 +1,8 @@
 import { injectable } from 'inversify';
 import { FindOptionsWhere, ObjectLiteral, Repository } from 'typeorm';
-import { IBaseEntity } from './base.entity.type';
+import { mapper } from '../auto-mapper/mapper';
+import { IBaseEntity } from '../db/base.entity.type';
 import { ICrudService } from './crud.service.type';
-import { mapper } from './mapper';
 
 @injectable()
 export abstract class CrudService<E extends IBaseEntity & ObjectLiteral, EDto>

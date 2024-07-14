@@ -2,12 +2,12 @@ import { AuthCheckResponse, CookieKeys, UserDto } from '@tspark/common';
 import { inject } from 'inversify';
 import { controller, httpGet, httpPost } from 'inversify-express-utils';
 import jwt from 'jsonwebtoken';
-import { BaseController } from '../../core/base.controller';
-import { config } from '../../core/config';
-import { Services } from '../../core/inversify.identifiers';
-import { IAuthService } from './auth.service.type';
-import { mapper } from '../../core/mapper';
+import { mapper } from '../../core/auto-mapper/mapper';
+import { config } from '../../core/config/config';
+import { BaseController } from '../../core/controllers/base.controller';
+import { Services } from '../../core/inversify/identifiers';
 import { User } from '../user/user.entity';
+import { IAuthService } from './auth.service.type';
 
 @controller('/auth')
 export class AuthController extends BaseController {
