@@ -13,13 +13,15 @@ export abstract class CrudService<E extends IBaseEntity & ObjectLiteral, EDto>
   protected abstract getEntityClass(): new () => E;
   protected abstract getEntityDtoClass(): new () => EDto;
 
-  async getById(id: number) {
+  async findById(id: number) {
     const entity = await this.repository.findOneBy({
       id,
     } as FindOptionsWhere<E>);
+
     if (!entity) {
       return null;
     }
+
     const entityDto = mapper.map(
       entity,
       this.getEntityClass(),
@@ -29,7 +31,7 @@ export abstract class CrudService<E extends IBaseEntity & ObjectLiteral, EDto>
     return entityDto;
   }
 
-  async getAll() {
+  async findAll() {
     const entities = await this.repository.find();
 
     const entityDtos = entities.map((entity) =>
@@ -39,21 +41,23 @@ export abstract class CrudService<E extends IBaseEntity & ObjectLiteral, EDto>
     return entityDtos;
   }
 
-  async save(entityDto: EDto) {
+  async create(entityDto: EDto) {
     const entity = mapper.map(
       entityDto,
       this.getEntityDtoClass(),
       this.getEntityClass(),
     );
 
-    const savedEntity = await this.repository.save(entity);
+    return await this.repository.insert(entity);
+  }
 
-    const savedEntityDto = mapper.map(
-      savedEntity,
-      this.getEntityClass(),
+  async update(id: number, entityDto: EDto) {
+    const entity = mapper.map(
+      entityDto,
       this.getEntityDtoClass(),
+      this.getEntityClass(),
     );
 
-    return savedEntityDto;
+    return await this.repository.update(id, entity);
   }
 }

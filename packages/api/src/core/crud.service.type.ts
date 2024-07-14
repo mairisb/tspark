@@ -1,5 +1,8 @@
+import { InsertResult, UpdateResult } from 'typeorm';
+
 export interface ICrudService<EDto> {
-  getById(id: number): Promise<EDto | null>;
-  getAll(): Promise<EDto[]>;
-  save(entityDto: EDto): Promise<EDto>;
+  findById(id: number): Promise<EDto | null>;
+  findAll(): Promise<EDto[]>;
+  create(entityDto: EDto): Promise<InsertResult>;
+  update(id: number, entityDto: EDto): Promise<UpdateResult>;
 }

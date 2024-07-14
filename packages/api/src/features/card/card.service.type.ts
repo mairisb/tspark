@@ -1,7 +1,4 @@
 import { CardDto } from '@tspark/common';
+import { ICrudService } from '../../core/crud.service.type';
 
-export interface ICardService {
-  getById(id: number): Promise<CardDto | null>;
-  getAll(): Promise<CardDto[]>;
-  save(cardDto: CardDto): Promise<CardDto>;
-}
+export interface ICardService extends ICrudService<CardDto> {}
