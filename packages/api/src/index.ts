@@ -11,7 +11,10 @@ import { config } from './core/config';
 import { configFn } from './core/configFn';
 import { errorConfigFn } from './core/errorConfigFn';
 import { container } from './core/inversify.config';
+import { createMaps } from './core/mapper';
 import { AuthProvider } from './features/auth/auth.provider';
+
+createMaps();
 
 const port = config.port;
 const rootPath = '/api';

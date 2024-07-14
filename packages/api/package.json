@@ -13,6 +13,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@automapper/classes": "^8.8.1",
+    "@automapper/core": "^8.8.1",
     "@tspark/common": "^1.0.0",
     "@types/bcrypt": "^5.0.0",
     "@types/body-parser": "^1.19.2",

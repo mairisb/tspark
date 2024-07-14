@@ -1,9 +1,10 @@
-import { ICookies } from '@tspark/common';
+import { ICookies, UserDto } from '@tspark/common';
 import { Request } from 'express';
 import { inject, injectable } from 'inversify';
 import { BaseController } from '../../core/base.controller';
 import { Services } from '../../core/inversify.identifiers';
-import { mapUserToUserDto } from '../user/user.dto.mapper';
+import { mapper } from '../../core/mapper';
+import { User } from '../user/user.entity';
 import { IAuthProvider } from './auth.provider.type';
 import { IAuthService } from './auth.service.type';
 import { Principal } from './principal';
@@ -23,7 +24,7 @@ export class AuthProvider extends BaseController implements IAuthProvider {
       return principal;
     }
 
-    const userDto = mapUserToUserDto(user);
+    const userDto = mapper.map(user, User, UserDto);
 
     principal.details = userDto;
     return principal;

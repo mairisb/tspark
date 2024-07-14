@@ -5,8 +5,9 @@ import jwt from 'jsonwebtoken';
 import { BaseController } from '../../core/base.controller';
 import { config } from '../../core/config';
 import { Services } from '../../core/inversify.identifiers';
-import { mapUserToUserDto } from '../user/user.dto.mapper';
 import { IAuthService } from './auth.service.type';
+import { mapper } from '../../core/mapper';
+import { User } from '../user/user.entity';
 
 @controller('/auth')
 export class AuthController extends BaseController {
@@ -21,7 +22,7 @@ export class AuthController extends BaseController {
         this.httpContext.request.body,
       );
 
-      const userDto = mapUserToUserDto(user);
+      const userDto = mapper.map(user, User, UserDto);
 
       this.setJwtCookie(userDto);
       return this.json(userDto);
@@ -36,7 +37,7 @@ export class AuthController extends BaseController {
     try {
       const user = await this.authService.login(this.httpContext.request.body);
 
-      const userDto = mapUserToUserDto(user);
+      const userDto = mapper.map(user, User, UserDto);
 
       this.setJwtCookie(userDto);
       return this.json(userDto);
@@ -62,7 +63,7 @@ export class AuthController extends BaseController {
       return this.json({ isAuthenticated: false });
     }
 
-    const userDto = mapUserToUserDto(user);
+    const userDto = mapper.map(user, User, UserDto);
 
     return this.json({
       isAuthenticated: true,
