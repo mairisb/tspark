@@ -1,23 +1,23 @@
 import { CardDto } from '@tspark/common';
-import { cardRepository } from './card.repository';
-import { Card } from './card.entity';
 import { injectable } from 'inversify';
+import { Repository } from 'typeorm';
+import { CrudService } from '../../core/crud.service';
+import { Card } from './card.entity';
+import { cardRepository } from './card.repository';
 import { ICardService } from './card.service.type';
-import { mapper } from '../../core/mapper';
 
 @injectable()
-export class CardService implements ICardService {
-  getById(id: number) {
-    return cardRepository.findOneBy({ id });
+export class CardService
+  extends CrudService<Card, CardDto>
+  implements ICardService
+{
+  repository: Repository<Card> = cardRepository;
+
+  protected getEntityClass(): new () => Card {
+    return Card;
   }
 
-  getAll() {
-    return cardRepository.find();
-  }
-
-  save(cardDto: CardDto) {
-    const card = mapper.map(cardDto, CardDto, Card);
-
-    return cardRepository.save(card);
+  protected getEntityDtoClass(): new () => CardDto {
+    return CardDto;
   }
 }
