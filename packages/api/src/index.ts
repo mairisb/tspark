@@ -9,9 +9,9 @@ import { InversifyExpressServer } from 'inversify-express-utils';
 import { createMaps } from './core/auto-mapper/mapper';
 import { config } from './core/config/config';
 import { appDataSource } from './core/db/app-data-source';
-import { configFunction } from './core/inversify/config-function';
-import { container } from './core/inversify/container';
-import { errorConfigFunction } from './core/inversify/error-config-function';
+import { container } from './core/di/di.container';
+import { serverConfigFn } from './core/server/server-config-fn';
+import { serverErorConfigFn } from './core/server/server-error-config-fn';
 import { AuthProvider } from './features/auth/auth.provider';
 
 createMaps();
@@ -47,8 +47,8 @@ const server = new InversifyExpressServer(
   AuthProvider,
 );
 
-server.setConfig(configFunction);
-server.setErrorConfig(errorConfigFunction);
+server.setConfig(serverConfigFn);
+server.setErrorConfig(serverErorConfigFn);
 
 appDataSource
   .initialize()

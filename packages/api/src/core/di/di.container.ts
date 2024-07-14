@@ -14,15 +14,15 @@ import { GameServiceMock } from '../../features/game/game.service.mock';
 import { IGameService } from '../../features/game/game.service.type';
 import { UserService } from '../../features/user/user.service';
 import { IUserService } from '../../features/user/user.service.type';
-import { Middleware, Services } from './identifiers';
+import { Middleware, Services } from './di.identifiers';
 
-const container = new Container();
+const diContainer = new Container();
 
-container.bind<BaseMiddleware>(Middleware.Auth).to(AuthMiddleware);
+diContainer.bind<BaseMiddleware>(Middleware.Auth).to(AuthMiddleware);
 
-container.bind<IAuthService>(Services.Auth).to(AuthService);
-container.bind<ICardService>(Services.Card).to(CardService);
-container.bind<IGameService>(Services.Game).to(GameServiceMock);
-container.bind<IUserService>(Services.User).to(UserService);
+diContainer.bind<IAuthService>(Services.Auth).to(AuthService);
+diContainer.bind<ICardService>(Services.Card).to(CardService);
+diContainer.bind<IGameService>(Services.Game).to(GameServiceMock);
+diContainer.bind<IUserService>(Services.User).to(UserService);
 
-export { container };
+export { diContainer as container };

@@ -12,7 +12,7 @@ import {
   requestParam,
   response,
 } from 'inversify-express-utils';
-import { Middleware, Services } from '../../core/inversify/identifiers';
+import { Middleware, Services } from '../../core/di/di.identifiers';
 import { ICardService } from './card.service.type';
 
 @controller('/card', Middleware.Auth)

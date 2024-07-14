@@ -5,7 +5,7 @@ import jwt from 'jsonwebtoken';
 import { mapper } from '../../core/auto-mapper/mapper';
 import { config } from '../../core/config/config';
 import { BaseController } from '../../core/controllers/base.controller';
-import { Services } from '../../core/inversify/identifiers';
+import { Services } from '../../core/di/di.identifiers';
 import { User } from '../user/user.entity';
 import { IAuthService } from './auth.service.type';
 

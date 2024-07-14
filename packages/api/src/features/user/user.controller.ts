@@ -4,7 +4,7 @@ import {
   controller,
   httpGet,
 } from 'inversify-express-utils';
-import { Services } from '../../core/inversify/identifiers';
+import { Services } from '../../core/di/di.identifiers';
 import { IUserService } from './user.service.type';
 
 @controller('/user')

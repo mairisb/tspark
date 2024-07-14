@@ -3,7 +3,7 @@ import bcrypt from 'bcrypt';
 import { inject, injectable } from 'inversify';
 import jwt, { JwtPayload } from 'jsonwebtoken';
 import { config } from '../../core/config/config';
-import { Services } from '../../core/inversify/identifiers';
+import { Services } from '../../core/di/di.identifiers';
 import { User } from '../user/user.entity';
 import { userRepository } from '../user/user.repository';
 import { IUserService } from '../user/user.service.type';
