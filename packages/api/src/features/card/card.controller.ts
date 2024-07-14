@@ -4,6 +4,7 @@ import { inject } from 'inversify';
 import {
   BaseHttpController,
   controller,
+  httpDelete,
   httpGet,
   httpPost,
   httpPut,
@@ -25,7 +26,7 @@ export class CardController extends BaseHttpController {
     @requestParam('id') id: number,
     @response() res: Response<CardDto | null | ErrorResponse>,
   ) {
-    const card = await this.cardService.findById(id);
+    const card = await this.cardService.find(id);
 
     if (!card) {
       return res.status(404).json({
@@ -63,6 +64,7 @@ export class CardController extends BaseHttpController {
       const updateResult = await this.cardService.update(id, cardDto);
 
       if (!updateResult.affected) {
+        console.error(`Card update failed. No card found with id: ${id}`);
         return res.status(404).json({
           error: `Card update failed. No card found with id: ${id}`,
         });
@@ -72,6 +74,28 @@ export class CardController extends BaseHttpController {
     } catch (e) {
       console.error('Card update failed:', e);
       return res.status(400).json({ error: 'Card update failed' });
+    }
+  }
+
+  @httpDelete('/:id')
+  async delete(
+    @requestParam('id') id: number,
+    @response() res: Response<ErrorResponse>,
+  ) {
+    try {
+      const deleteResult = await this.cardService.delete(id);
+
+      if (!deleteResult.affected) {
+        console.error(`Card delete failed. No card found with id: ${id}`);
+        return res.status(404).json({
+          error: `Card delete failed. No card found with id: ${id}`,
+        });
+      }
+
+      return res.status(200).send();
+    } catch (e) {
+      console.error('Card delete failed:', e);
+      return res.status(400).json({ error: 'Card delete failed' });
     }
   }
 }

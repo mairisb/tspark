@@ -13,7 +13,7 @@ export abstract class CrudService<E extends IBaseEntity & ObjectLiteral, EDto>
   protected abstract getEntityClass(): new () => E;
   protected abstract getEntityDtoClass(): new () => EDto;
 
-  async findById(id: number) {
+  async find(id: number) {
     const entity = await this.repository.findOneBy({
       id,
     } as FindOptionsWhere<E>);
@@ -34,8 +34,10 @@ export abstract class CrudService<E extends IBaseEntity & ObjectLiteral, EDto>
   async findAll() {
     const entities = await this.repository.find();
 
-    const entityDtos = entities.map((entity) =>
-      mapper.map(entity, this.getEntityClass(), this.getEntityDtoClass()),
+    const entityDtos = mapper.mapArray(
+      entities,
+      this.getEntityClass(),
+      this.getEntityDtoClass(),
     );
 
     return entityDtos;
@@ -59,5 +61,9 @@ export abstract class CrudService<E extends IBaseEntity & ObjectLiteral, EDto>
     );
 
     return await this.repository.update(id, entity);
+  }
+
+  async delete(id: number) {
+    return await this.repository.delete(id);
   }
 }
