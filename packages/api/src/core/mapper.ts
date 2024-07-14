@@ -10,7 +10,12 @@ export const mapper = createMapper({
 });
 
 export const createMaps = () => {
-  createMap(mapper, User, UserDto);
-  createMap(mapper, Game, GameDto);
   createMap(mapper, Card, CardDto);
+  createMap(mapper, CardDto, Card);
+
+  createMap(mapper, Game, GameDto);
+  createMap(mapper, GameDto, Game);
+
+  createMap(mapper, User, UserDto);
+  createMap(mapper, UserDto, User);
 };

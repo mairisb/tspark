@@ -3,6 +3,7 @@ import { cardRepository } from './card.repository';
 import { Card } from './card.entity';
 import { injectable } from 'inversify';
 import { ICardService } from './card.service.type';
+import { mapper } from '../../core/mapper';
 
 @injectable()
 export class CardService implements ICardService {
@@ -15,8 +16,8 @@ export class CardService implements ICardService {
   }
 
   save(cardDto: CardDto) {
-    const card = new Card();
-    card.name = cardDto.name;
+    const card = mapper.map(cardDto, CardDto, Card);
+
     return cardRepository.save(card);
   }
 }
