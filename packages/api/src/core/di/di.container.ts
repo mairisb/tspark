@@ -16,13 +16,13 @@ import { UserService } from '../../features/user/user.service';
 import { IUserService } from '../../features/user/user.service.type';
 import { Middleware, Services } from './di.identifiers';
 
-const diContainer = new Container();
+const container = new Container();
 
-diContainer.bind<BaseMiddleware>(Middleware.Auth).to(AuthMiddleware);
+container.bind<BaseMiddleware>(Middleware.Auth).to(AuthMiddleware);
 
-diContainer.bind<IAuthService>(Services.Auth).to(AuthService);
-diContainer.bind<ICardService>(Services.Card).to(CardService);
-diContainer.bind<IGameService>(Services.Game).to(GameServiceMock);
-diContainer.bind<IUserService>(Services.User).to(UserService);
+container.bind<IAuthService>(Services.Auth).to(AuthService);
+container.bind<ICardService>(Services.Card).to(CardService);
+container.bind<IGameService>(Services.Game).to(GameServiceMock);
+container.bind<IUserService>(Services.User).to(UserService);
 
-export { diContainer as container };
+export { container };
