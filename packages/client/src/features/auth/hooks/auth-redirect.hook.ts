@@ -1,14 +1,15 @@
 import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { useRootStore } from '../../../core/root.store';
+import { authSelectors } from '../auth.selectors';
 
 export const useAuthRedirect = (path = '/') => {
   const navigate = useNavigate();
-  const { authStore } = useRootStore();
+  const isLoggedIn = useSelector(authSelectors.selectIsLoggedIn);
 
   useEffect(() => {
-    if (authStore.isAuthenticated) {
+    if (isLoggedIn) {
       navigate(path);
     }
-  }, [authStore.isAuthenticated, navigate, path]);
+  }, [isLoggedIn, navigate, path]);
 };
