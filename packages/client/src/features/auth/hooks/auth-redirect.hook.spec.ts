@@ -1,15 +1,14 @@
 import { renderHook } from '@testing-library/react';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { RootStore, useRootStore } from '../../../core/root.store';
 import { useAuthRedirect } from './auth-redirect.hook';
+
+jest.mock('react-redux', () => ({
+  useSelector: jest.fn(),
+}));
 
 jest.mock('react-router-dom', () => ({
   useNavigate: jest.fn(),
-}));
-
-jest.mock('../../../core/root.store', () => ({
-  ...jest.requireActual('../../../core/root.store'),
-  useRootStore: jest.fn(),
 }));
 
 describe('useAuthRedirect', () => {
@@ -21,9 +20,7 @@ describe('useAuthRedirect', () => {
   });
 
   it('redirects to the specified path when the user is logged in', () => {
-    const rootStore = new RootStore();
-    rootStore.authStore.isAuthenticated = true;
-    (useRootStore as jest.Mock).mockReturnValue(rootStore);
+    (useSelector as jest.Mock).mockReturnValue(true);
 
     renderHook(() => useAuthRedirect('/test'));
 
@@ -31,9 +28,7 @@ describe('useAuthRedirect', () => {
   });
 
   it('does not redirect when the user is not logged in', () => {
-    const rootStore = new RootStore();
-    rootStore.authStore.isAuthenticated = false;
-    (useRootStore as jest.Mock).mockReturnValue(rootStore);
+    (useSelector as jest.Mock).mockReturnValue(false);
 
     renderHook(() => useAuthRedirect('/test'));
 
