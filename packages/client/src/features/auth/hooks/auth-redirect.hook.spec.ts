@@ -1,8 +1,7 @@
 import { renderHook } from '@testing-library/react';
 import { useNavigate } from 'react-router-dom';
-import { useAuthRedirect } from './auth-redirect.hook';
 import { RootStore, useRootStore } from '../../../core/root.store';
-import { AuthStore } from '../auth.store';
+import { useAuthRedirect } from './auth-redirect.hook';
 
 jest.mock('react-router-dom', () => ({
   useNavigate: jest.fn(),
