@@ -13,7 +13,7 @@ export const cardApi = createApi({
         url: `/${id}`,
         method: 'get',
       }),
-      providesTags: ['card'],
+      providesTags: (result, error, id) => [{ type: 'card', id }],
     }),
     getAll: builder.query<CardDto[], void>({
       query: () => ({
@@ -28,7 +28,7 @@ export const cardApi = createApi({
         method: 'post',
         data: card,
       }),
-      invalidatesTags: ['card', 'cards'],
+      invalidatesTags: ['cards'],
     }),
     update: builder.mutation<void, CardDto>({
       query: (card) => ({
@@ -36,14 +36,17 @@ export const cardApi = createApi({
         method: 'put',
         data: card,
       }),
-      invalidatesTags: ['card', 'cards'],
+      invalidatesTags: (result, error, card) => [
+        'cards',
+        { type: 'card', id: card.id },
+      ],
     }),
     delete: builder.mutation<void, number>({
       query: (id) => ({
         url: `/${id}`,
         method: 'delete',
       }),
-      invalidatesTags: ['card', 'cards'],
+      invalidatesTags: (result, error, id) => ['cards', { type: 'card', id }],
     }),
   }),
 });
