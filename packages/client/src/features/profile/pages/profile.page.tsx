@@ -1,6 +1,5 @@
-import { observer } from 'mobx-react-lite';
 import { Page } from '../../../app/pages/page';
 
-export const ProfilePage: React.FC = observer(() => {
+export const ProfilePage: React.FC = () => {
   return <Page title="Profile" isAuthProtected></Page>;
-});
+};

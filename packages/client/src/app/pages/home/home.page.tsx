@@ -1,12 +1,11 @@
 import { Stack, Typography } from '@mui/material';
 import Button from '@mui/material/Button';
-import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useAuthRedirect } from '../../../features/auth/hooks/auth-redirect.hook';
 import { Page } from '../page';
 
-export const HomePage: React.FC = observer(() => {
+export const HomePage: React.FC = () => {
   useAuthRedirect('/card/all');
 
   return (
@@ -28,4 +27,4 @@ export const HomePage: React.FC = observer(() => {
       </Stack>
     </Page>
   );
-});
+};
