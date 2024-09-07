@@ -1,14 +1,11 @@
 import { Button, Grid, Stack, TextField } from '@mui/material';
 import { CardDto } from '@tspark/common';
-import { useInjection } from 'inversify-react';
-import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { Page } from '../../../app/pages/page';
-import { Stores } from '../../../core/inversify.identifiers';
-import { ICardStore } from '../card.store.type';
+import { cardApi } from '../card.api';
 
-export const AddCardPage: React.FC = observer(() => {
-  const cardStore = useInjection<ICardStore>(Stores.Card);
+export const AddCardPage: React.FC = () => {
+  const [createCard, { isLoading, error }] = cardApi.useCreateMutation();
 
   const [cardName, setCardName] = React.useState('');
 
@@ -16,7 +13,7 @@ export const AddCardPage: React.FC = observer(() => {
     e.preventDefault();
 
     try {
-      await cardStore.create({
+      await createCard({
         name: cardName,
       } as CardDto);
 
@@ -33,6 +30,7 @@ export const AddCardPage: React.FC = observer(() => {
               label="Name"
               variant="outlined"
               size="small"
+              disabled={isLoading}
               value={cardName}
               onChange={(e) => {
                 setCardName(e.target.value);
@@ -47,4 +45,4 @@ export const AddCardPage: React.FC = observer(() => {
       </Stack>
     </Page>
   );
-});
+};

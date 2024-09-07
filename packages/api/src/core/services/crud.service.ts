@@ -43,19 +43,19 @@ export abstract class CrudService<E extends IBaseEntity & ObjectLiteral, EDto>
     return entityDtos;
   }
 
-  async create(entityDto: EDto) {
+  create(entityDto: EDto) {
     const entity = mapper.map(entityDto, this.EDto, this.E);
 
-    return await this.repository.insert(entity);
+    return this.repository.insert(entity);
   }
 
-  async update(id: number, entityDto: EDto) {
+  update(id: number, entityDto: EDto) {
     const entity = mapper.map(entityDto, this.EDto, this.E);
 
-    return await this.repository.update(id, entity);
+    return this.repository.update(id, entity);
   }
 
-  async delete(id: number) {
-    return await this.repository.delete(id);
+  delete(id: number) {
+    return this.repository.delete(id);
   }
 }

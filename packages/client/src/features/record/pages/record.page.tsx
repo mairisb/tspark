@@ -1,5 +1,4 @@
 import { Button, List, ListItem, Stack, Typography } from '@mui/material';
-import { observer } from 'mobx-react-lite';
 import React, { useEffect, useState } from 'react';
 import { RecordRTCPromisesHandler, invokeSaveAsDialog } from 'recordrtc';
 import { Page } from '../../../app/pages/page';
@@ -30,7 +29,7 @@ const recordStream = async (stream: MediaStream) => {
   invokeSaveAsDialog(blob);
 };
 
-export const RecordPage: React.FC = observer(() => {
+export const RecordPage: React.FC = () => {
   const [micDevices, setMicDevices] = useState<MediaDeviceInfo[]>([]);
   const [streams, setStreams] = useState<MediaStream[]>([]);
 
@@ -101,4 +100,4 @@ export const RecordPage: React.FC = observer(() => {
       </Stack>
     </Page>
   );
-});
+};
