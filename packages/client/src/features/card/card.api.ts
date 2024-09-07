@@ -5,37 +5,37 @@ import { config } from '../../core/config';
 
 export const cardApi = createApi({
   reducerPath: 'cardApi',
-  baseQuery: axiosBaseQuery({ baseUrl: config.apiUrl }),
+  baseQuery: axiosBaseQuery({ baseUrl: `${config.apiUrl}/card` }),
   endpoints: (builder) => ({
     get: builder.query<CardDto, number>({
       query: (id: number) => ({
-        url: `/card/${id}`,
+        url: `/${id}`,
         method: 'get',
       }),
     }),
     getAll: builder.query<CardDto[], void>({
       query: () => ({
-        url: `/card`,
+        url: `/`,
         method: 'get',
       }),
     }),
     create: builder.mutation<void, CardDto>({
       query: (card) => ({
-        url: '/card',
+        url: '/',
         method: 'post',
         data: card,
       }),
     }),
     update: builder.mutation<void, CardDto>({
       query: (card) => ({
-        url: '/card',
+        url: '/',
         method: 'put',
         data: card,
       }),
     }),
     delete: builder.mutation<void, number>({
       query: (id) => ({
-        url: `/card/${id}`,
+        url: `/${id}`,
         method: 'delete',
       }),
     }),

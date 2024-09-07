@@ -22,10 +22,11 @@ export const setupStore = (preloadedState?: PreloadedState<RootState>) =>
     reducer: rootReducer,
     preloadedState,
     middleware: (getDefaultMiddleware) =>
-      getDefaultMiddleware()
-        .concat(api.middleware)
-        .concat(authApi.middleware)
-        .concat(cardApi.middleware),
+      getDefaultMiddleware().concat(
+        api.middleware,
+        authApi.middleware,
+        cardApi.middleware,
+      ),
   });
 
 export type RootState = ReturnType<typeof rootReducer>;

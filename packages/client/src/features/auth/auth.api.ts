@@ -10,31 +10,31 @@ import { config } from '../../core/config';
 
 export const authApi = createApi({
   reducerPath: 'authApi',
-  baseQuery: axiosBaseQuery({ baseUrl: config.apiUrl }),
+  baseQuery: axiosBaseQuery({ baseUrl: `${config.apiUrl}/auth` }),
   endpoints: (builder) => ({
     register: builder.mutation<UserDto, RegisterRequest>({
       query: (req) => ({
-        url: '/auth/register',
+        url: '/register',
         method: 'post',
         data: req,
       }),
     }),
     login: builder.mutation<UserDto, LoginRequest>({
       query: (req) => ({
-        url: '/auth/login',
+        url: '/login',
         method: 'post',
         data: req,
       }),
     }),
     logout: builder.mutation<void, void>({
       query: () => ({
-        url: '/auth/logout',
+        url: '/logout',
         method: 'post',
       }),
     }),
     authCheck: builder.query<AuthCheckResponse, void>({
       query: () => ({
-        url: '/auth/auth-check',
+        url: '/auth-check',
         method: 'get',
       }),
     }),
