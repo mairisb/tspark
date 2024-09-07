@@ -1,21 +1,20 @@
 import { Stack } from '@mui/material';
-import { observer } from 'mobx-react-lite';
 import { Link } from 'react-router-dom';
 import { Page } from '../../../../app/pages/page';
-import { useRootStore } from '../../../../core/root.store';
+import { useAppDispatch } from '../../../../core/hooks/app-dispatch.hook';
+import { authThunks } from '../../auth.thunks';
 import {
   LoginForm,
   LoginFormData,
 } from '../../components/login-form.component';
 import { useAuthRedirect } from '../../hooks/auth-redirect.hook';
 
-export const LoginPage: React.FC = observer(() => {
+export const LoginPage: React.FC = () => {
   useAuthRedirect();
-
-  const { authStore } = useRootStore();
+  const dispatch = useAppDispatch();
 
   const handleSubmit = (formData: LoginFormData) => {
-    authStore.login(formData);
+    dispatch(authThunks.loginUser(formData));
   };
 
   return (
@@ -26,4 +25,4 @@ export const LoginPage: React.FC = observer(() => {
       </Stack>
     </Page>
   );
-});
+};

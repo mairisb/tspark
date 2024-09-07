@@ -1,19 +1,18 @@
-import { observer } from 'mobx-react-lite';
 import { Page } from '../../../../app/pages/page';
-import { useRootStore } from '../../../../core/root.store';
+import { useAppDispatch } from '../../../../core/hooks/app-dispatch.hook';
+import { authThunks } from '../../auth.thunks';
 import {
   RegisterForm,
   RegisterFormData,
 } from '../../components/register-form.component';
 import { useAuthRedirect } from '../../hooks/auth-redirect.hook';
 
-export const RegisterPage: React.FC = observer(() => {
+export const RegisterPage: React.FC = () => {
   useAuthRedirect();
-
-  const { authStore } = useRootStore();
+  const dispatch = useAppDispatch();
 
   const handleSubmit = (formData: RegisterFormData) => {
-    authStore.register(formData);
+    dispatch(authThunks.registerUser(formData));
   };
 
   return (
@@ -21,4 +20,4 @@ export const RegisterPage: React.FC = observer(() => {
       <RegisterForm onSubmit={handleSubmit} />
     </Page>
   );
-});
+};

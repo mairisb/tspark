@@ -1,12 +1,16 @@
+import { createApi } from '@reduxjs/toolkit/query/react';
 import {
   AuthCheckResponse,
   LoginRequest,
   RegisterRequest,
   UserDto,
 } from '@tspark/common';
-import { api } from '../../core/api/api';
+import { axiosBaseQuery } from '../../core/api/axios-base-query';
+import { config } from '../../core/config';
 
-export const authApi = api.injectEndpoints({
+export const authApi = createApi({
+  reducerPath: 'authApi',
+  baseQuery: axiosBaseQuery({ baseUrl: config.apiUrl }),
   endpoints: (builder) => ({
     register: builder.mutation<UserDto, RegisterRequest>({
       query: (req) => ({

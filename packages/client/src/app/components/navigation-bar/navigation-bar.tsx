@@ -8,13 +8,16 @@ import {
   Toolbar,
   Typography,
 } from '@mui/material';
-import { observer } from 'mobx-react-lite';
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { useRootStore } from '../../../core/root.store';
+import { useAppDispatch } from '../../../core/hooks/app-dispatch.hook';
+import { authSelectors } from '../../../features/auth/auth.selectors';
+import { authThunks } from '../../../features/auth/auth.thunks';
 
-export const NavigationBar: React.FC = observer(() => {
-  const { authStore } = useRootStore();
+export const NavigationBar: React.FC = () => {
+  const dispatch = useAppDispatch();
+  const isLoggedIn = useSelector(authSelectors.selectIsLoggedIn);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
   const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -44,7 +47,13 @@ export const NavigationBar: React.FC = observer(() => {
       <MenuItem component={Link} to="/profile">
         Profile
       </MenuItem>
-      <MenuItem onClick={() => authStore.logout()}>Logout</MenuItem>
+      <MenuItem
+        onClick={() => {
+          dispatch(authThunks.logoutUser());
+        }}
+      >
+        Logout
+      </MenuItem>
     </Menu>
   );
 
@@ -61,7 +70,7 @@ export const NavigationBar: React.FC = observer(() => {
         >
           TSpark
         </Typography>
-        {authStore.isAuthenticated ? (
+        {isLoggedIn ? (
           <>
             <IconButton
               size="large"
@@ -83,4 +92,4 @@ export const NavigationBar: React.FC = observer(() => {
       </Toolbar>
     </AppBar>
   );
-});
+};
