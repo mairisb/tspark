@@ -6,18 +6,21 @@ import { config } from '../../core/config';
 export const cardApi = createApi({
   reducerPath: 'cardApi',
   baseQuery: axiosBaseQuery({ baseUrl: `${config.apiUrl}/card` }),
+  tagTypes: ['card', 'cards'],
   endpoints: (builder) => ({
     get: builder.query<CardDto, number>({
       query: (id: number) => ({
         url: `/${id}`,
         method: 'get',
       }),
+      providesTags: ['card'],
     }),
     getAll: builder.query<CardDto[], void>({
       query: () => ({
         url: `/`,
         method: 'get',
       }),
+      providesTags: ['cards'],
     }),
     create: builder.mutation<void, CardDto>({
       query: (card) => ({
@@ -25,6 +28,7 @@ export const cardApi = createApi({
         method: 'post',
         data: card,
       }),
+      invalidatesTags: ['card', 'cards'],
     }),
     update: builder.mutation<void, CardDto>({
       query: (card) => ({
@@ -32,12 +36,14 @@ export const cardApi = createApi({
         method: 'put',
         data: card,
       }),
+      invalidatesTags: ['card', 'cards'],
     }),
     delete: builder.mutation<void, number>({
       query: (id) => ({
         url: `/${id}`,
         method: 'delete',
       }),
+      invalidatesTags: ['card', 'cards'],
     }),
   }),
 });
