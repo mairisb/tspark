@@ -1,5 +1,6 @@
 import { Stack } from '@mui/material';
 import { Link } from 'react-router-dom';
+import { useNotification } from '../../../../app/hooks/notification.hook';
 import { Page } from '../../../../app/pages/page';
 import { useAppDispatch } from '../../../../core/hooks/app-dispatch.hook';
 import { authThunks } from '../../auth.thunks';
@@ -12,9 +13,17 @@ import { useAuthRedirect } from '../../hooks/auth-redirect.hook';
 export const LoginPage: React.FC = () => {
   useAuthRedirect();
   const dispatch = useAppDispatch();
+  const notification = useNotification();
 
   const handleSubmit = (formData: LoginFormData) => {
-    dispatch(authThunks.loginUser(formData));
+    dispatch(authThunks.loginUser(formData))
+      .unwrap()
+      .then(() => {
+        notification.success('Login successful');
+      })
+      .catch(() => {
+        notification.error('Login failed');
+      });
   };
 
   return (

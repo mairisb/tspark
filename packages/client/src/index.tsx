@@ -6,6 +6,7 @@ import * as ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import { App } from './app/app';
+import { NotificationProvider } from './app/components/notifications/NotificationProvider';
 import { setupStore } from './core/store';
 
 const root = ReactDOM.createRoot(
@@ -19,7 +20,9 @@ root.render(
     <CssBaseline />
     <BrowserRouter>
       <Provider store={store}>
-        <App />
+        <NotificationProvider>
+          <App />
+        </NotificationProvider>
       </Provider>
     </BrowserRouter>
   </StrictMode>,
