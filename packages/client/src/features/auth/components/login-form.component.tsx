@@ -41,7 +41,7 @@ export const LoginForm: React.FC<LoginFormProps> = (props) => {
         />
         <TextField
           type="password"
-          label="Passowrd"
+          label="Password"
           {...form.register('password')}
           error={!!errors.password}
           helperText={errors.password?.message}
