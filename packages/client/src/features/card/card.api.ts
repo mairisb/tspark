@@ -1,7 +1,7 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
 import { CardDto } from '@tspark/common';
-import { axiosBaseQuery } from '../../core/api/axios-base-query';
-import { config } from '../../core/config';
+import { axiosBaseQuery } from '../../app/api/axios-base-query';
+import { config } from '../../app/config';
 
 export const cardApi = createApi({
   reducerPath: 'cardApi',

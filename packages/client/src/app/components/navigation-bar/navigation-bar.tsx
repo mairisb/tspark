@@ -11,7 +11,7 @@ import {
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { useAppDispatch } from '../../../core/hooks/app-dispatch.hook';
+import { useAppDispatch } from '../../hooks/app-dispatch.hook';
 import { authSelectors } from '../../../features/auth/auth.selectors';
 import { authThunks } from '../../../features/auth/auth.thunks';
 

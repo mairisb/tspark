@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { config } from '../../core/config';
+import { config } from '../config';
 import { authSelectors } from '../../features/auth/auth.selectors';
 
 export interface PageProps extends React.PropsWithChildren {

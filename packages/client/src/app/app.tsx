@@ -2,7 +2,7 @@ import { ThemeProvider } from '@emotion/react';
 import { Container, useMediaQuery } from '@mui/material';
 import { useEffect } from 'react';
 import { useRoutes } from 'react-router-dom';
-import { useAppDispatch } from '../core/hooks/app-dispatch.hook';
+import { useAppDispatch } from './hooks/app-dispatch.hook';
 import { authThunks } from '../features/auth/auth.thunks';
 import { appRoutes } from './app.routes';
 import { NavigationBar } from './components/navigation-bar/navigation-bar';

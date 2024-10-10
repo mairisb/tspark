@@ -2,7 +2,7 @@ import { Stack } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { useNotification } from '../../../../app/hooks/notification.hook';
 import { Page } from '../../../../app/pages/page';
-import { useAppDispatch } from '../../../../core/hooks/app-dispatch.hook';
+import { useAppDispatch } from '../../../../app/hooks/app-dispatch.hook';
 import { authThunks } from '../../auth.thunks';
 import {
   LoginForm,

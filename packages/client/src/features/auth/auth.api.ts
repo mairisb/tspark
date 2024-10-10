@@ -5,8 +5,8 @@ import {
   RegisterRequest,
   UserDto,
 } from '@tspark/common';
-import { axiosBaseQuery } from '../../core/api/axios-base-query';
-import { config } from '../../core/config';
+import { axiosBaseQuery } from '../../app/api/axios-base-query';
+import { config } from '../../app/config';
 
 export const authApi = createApi({
   reducerPath: 'authApi',
