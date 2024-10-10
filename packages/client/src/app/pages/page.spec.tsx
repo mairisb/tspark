@@ -1,7 +1,7 @@
 import '@testing-library/jest-dom';
 import { screen } from '@testing-library/react';
 import { useNavigate } from 'react-router-dom';
-import { renderWithProviders } from '../../utils/test.utils';
+import { renderWithProviders } from '../utils/test.utils';
 import { Page } from './page';
 
 jest.mock('react-router-dom', () => ({

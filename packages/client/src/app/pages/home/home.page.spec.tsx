@@ -1,4 +1,4 @@
-import { renderWithProviders } from '../../../utils/test.utils';
+import { renderWithProviders } from '../../utils/test.utils';
 import { HomePage } from './home.page';
 
 describe('Home', () => {

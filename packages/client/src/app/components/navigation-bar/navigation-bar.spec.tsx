@@ -1,6 +1,6 @@
 import '@testing-library/jest-dom';
 import { screen } from '@testing-library/react';
-import { renderWithProviders } from '../../../utils/test.utils';
+import { renderWithProviders } from '../../utils/test.utils';
 import { NavigationBar } from './navigation-bar';
 import { UserDto } from '@tspark/common';
 

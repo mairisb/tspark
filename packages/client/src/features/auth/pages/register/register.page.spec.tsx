@@ -1,7 +1,7 @@
 import { act, fireEvent, screen } from '@testing-library/react';
 import { UserDto } from '@tspark/common';
 import { useNavigate } from 'react-router-dom';
-import { renderWithProviders } from '../../../../utils/test.utils';
+import { renderWithProviders } from '../../../../app/utils/test.utils';
 import { RegisterPage } from './register.page';
 
 jest.mock('react-router-dom', () => ({

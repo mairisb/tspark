@@ -1,4 +1,4 @@
-import { renderWithProviders } from '../../../utils/test.utils';
+import { renderWithProviders } from '../../../app/utils/test.utils';
 import { ProfilePage } from './profile.page';
 
 describe('Profile', () => {

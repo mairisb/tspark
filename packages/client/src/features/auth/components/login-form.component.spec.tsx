@@ -1,6 +1,6 @@
 import '@testing-library/jest-dom';
 import { act, fireEvent, screen } from '@testing-library/react';
-import { renderWithProviders } from '../../../utils/test.utils';
+import { renderWithProviders } from '../../../app/utils/test.utils';
 import { LoginForm } from './login-form.component';
 
 describe('LoginForm', () => {
