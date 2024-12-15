@@ -1,12 +1,14 @@
+import { AutoMap } from '@automapper/classes';
 import {
-  Entity,
   Column,
-  PrimaryGeneratedColumn,
-  OneToOne,
+  Entity,
   JoinColumn,
+  OneToMany,
+  OneToOne,
+  PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Auth } from '../auth/auth.entity';
-import { AutoMap } from '@automapper/classes';
+import { Card } from '../card/card.entity';
 
 @Entity()
 export class User {
@@ -25,4 +27,8 @@ export class User {
   @OneToOne(() => Auth, { cascade: true })
   @JoinColumn()
   auth: Auth;
+
+  @OneToMany(() => Card, (card) => card.user)
+  @AutoMap()
+  cards: Card[];
 }

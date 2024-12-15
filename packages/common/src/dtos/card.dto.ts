@@ -1,4 +1,5 @@
 import { AutoMap } from '@automapper/classes';
+import { UserDto } from './user.dto';
 
 export class CardDto {
   @AutoMap()
@@ -6,4 +7,7 @@ export class CardDto {
 
   @AutoMap()
   name: string;
+
+  @AutoMap()
+  user: UserDto;
 }

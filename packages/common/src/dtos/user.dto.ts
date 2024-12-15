@@ -1,4 +1,5 @@
 import { AutoMap } from '@automapper/classes';
+import { CardDto } from './card.dto';
 
 export class UserDto {
   @AutoMap()
@@ -9,4 +10,7 @@ export class UserDto {
 
   @AutoMap()
   email: string;
+
+  @AutoMap()
+  cards: CardDto[];
 }

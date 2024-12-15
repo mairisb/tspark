@@ -7,6 +7,7 @@ import {
 } from '@tspark/common';
 import { axiosBaseQuery } from '../../app/api/axios-base-query';
 import { config } from '../../app/config';
+import { cardApi } from '../card/card.api';
 
 export const authApi = createApi({
   reducerPath: 'authApi',
@@ -25,6 +26,10 @@ export const authApi = createApi({
         method: 'post',
         data: req,
       }),
+      onQueryStarted: async (arg, api) => {
+        console.log('invalidating cardApi cache from authApi');
+        api.dispatch(cardApi.util.invalidateTags(['cards']));
+      },
     }),
     logout: builder.mutation<void, void>({
       query: () => ({

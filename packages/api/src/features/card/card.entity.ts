@@ -1,5 +1,6 @@
 import { AutoMap } from '@automapper/classes';
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { User } from '../user/user.entity';
 
 @Entity()
 export class Card {
@@ -10,4 +11,8 @@ export class Card {
   @Column()
   @AutoMap()
   name: string;
+
+  @ManyToOne(() => User, (user) => user.cards)
+  @AutoMap()
+  user: User;
 }
