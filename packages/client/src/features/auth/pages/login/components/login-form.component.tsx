@@ -2,7 +2,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { Button, Stack, TextField } from '@mui/material';
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import * as yup from 'yup';
+import yup from 'yup';
 
 export interface LoginFormData {
   email: string;

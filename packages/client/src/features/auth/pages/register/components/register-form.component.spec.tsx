@@ -1,23 +1,23 @@
 import '@testing-library/jest-dom';
 import { act, fireEvent, screen } from '@testing-library/react';
-import { renderWithProviders } from '../../../app/utils/test.utils';
-import { LoginForm } from './login-form.component';
+import { renderWithProviders } from '../../../../../app/utils/test.utils';
+import { RegisterForm } from './register-form.component';
 
-describe('LoginForm', () => {
+describe('RegisterForm', () => {
   it('should render', () => {
-    const { baseElement } = renderWithProviders(<LoginForm />);
+    const { baseElement } = renderWithProviders(<RegisterForm />);
 
     expect(baseElement).toBeInTheDocument();
   });
 
   it('should not submit when email and password are not provided', async () => {
     let handleSubmitMock = jest.fn();
-    renderWithProviders(<LoginForm onSubmit={handleSubmitMock} />);
+    renderWithProviders(<RegisterForm onSubmit={handleSubmitMock} />);
 
-    const loginButton = screen.getByRole('button', { name: 'Log in' });
+    const registerButton = screen.getByRole('button', { name: 'Register' });
 
     await act(() => {
-      fireEvent.click(loginButton);
+      fireEvent.click(registerButton);
     });
 
     expect(handleSubmitMock).not.toBeCalled();
@@ -25,20 +25,24 @@ describe('LoginForm', () => {
 
   it('should submit when email and password are provided', async () => {
     let handleSubmitMock = jest.fn();
-    renderWithProviders(<LoginForm onSubmit={handleSubmitMock} />);
+    renderWithProviders(<RegisterForm onSubmit={handleSubmitMock} />);
 
+    const usernameInput = screen.getByLabelText('Username');
     const emailInput = screen.getByLabelText('E-mail');
     const passwordInput = screen.getByLabelText('Password');
-    const loginButton = screen.getByRole('button', { name: 'Log in' });
+    const registerButton = screen.getByRole('button', { name: 'Register' });
 
     await act(() => {
+      fireEvent.change(usernameInput, {
+        target: { value: 'johnd' },
+      });
       fireEvent.change(emailInput, {
         target: { value: 'john.doe@mail.com' },
       });
       fireEvent.change(passwordInput, {
         target: { value: 'verysafepassword' },
       });
-      fireEvent.click(loginButton);
+      fireEvent.click(registerButton);
     });
 
     expect(handleSubmitMock).toBeCalled();
