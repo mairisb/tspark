@@ -35,7 +35,7 @@ export class CardController extends BaseController {
     @response() res: Response,
   ) {
     try {
-      cardDto.user = this.httpContext.user.details;
+      cardDto.user = this.principal.details;
       await this.cardService.create(cardDto);
       return res.status(200).send();
     } catch (e) {
