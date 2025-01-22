@@ -3,9 +3,11 @@ import { Response } from 'express';
 import { inject } from 'inversify';
 import {
   controller,
+  httpDelete,
   httpGet,
   httpPost,
   requestBody,
+  requestParam,
   response,
 } from 'inversify-express-utils';
 import { BaseController } from '../../core/controllers/base.controller';
@@ -41,6 +43,20 @@ export class CardController extends BaseController {
     } catch (e) {
       console.error('Entity creation failed:', e);
       return res.status(400).json({ error: 'Entity creation failed' });
+    }
+  }
+
+  @httpDelete('/:id')
+  public async delete(
+    @requestParam('id') id: number,
+    @response() res: Response,
+  ) {
+    try {
+      await this.cardService.deleteByIdAndUserId(id, this.principal.details.id);
+      return res.status(200).send();
+    } catch (e) {
+      console.error('Entity deletion failed:', e);
+      return res.status(400).json({ error: 'Entity deletion failed' });
     }
   }
 }

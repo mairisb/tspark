@@ -1,4 +1,11 @@
-import { Card, CardContent, CardMedia, Stack, Typography } from '@mui/material';
+import {
+  Box,
+  Card,
+  CardContent,
+  CardMedia,
+  Stack,
+  Typography,
+} from '@mui/material';
 import Button from '@mui/material/Button';
 import React from 'react';
 import { Link } from 'react-router-dom';
@@ -7,6 +14,7 @@ import { cardApi } from '../card.api';
 
 export const CardsPage: React.FC = () => {
   const { data: cards, error, isLoading } = cardApi.useGetAllQuery();
+  const [deleteCard] = cardApi.useDeleteMutation();
 
   const renderCards = () => {
     if (isLoading) {
@@ -29,8 +37,19 @@ export const CardsPage: React.FC = () => {
               image="https://mui.com/static/images/cards/live-from-space.jpg"
               alt="Live from space album cover"
             />
-            <CardContent>
-              <Typography>{card.name}</Typography>
+            <CardContent sx={{ flexGrow: 1 }}>
+              <Box sx={{ display: 'flex' }}>
+                <Typography sx={{ flexGrow: 1 }}>{card.name}</Typography>
+                <Button
+                  variant="contained"
+                  color="error"
+                  onClick={() => {
+                    deleteCard(card.id);
+                  }}
+                >
+                  Delete
+                </Button>
+              </Box>
             </CardContent>
           </Card>
         ))}

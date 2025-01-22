@@ -35,4 +35,23 @@ export class CardService
 
     return entityDtos;
   }
+
+  async deleteByIdAndUserId(cardId: number, userId: number) {
+    const card = this.repository.findOne({
+      where: {
+        id: cardId,
+        user: {
+          id: userId,
+        },
+      },
+    });
+
+    if (!card) {
+      throw new Error(
+        `Cannot delete card. Card with ID '${cardId}' not found or does not belong to the user with ID '${userId}'`,
+      );
+    }
+
+    this.repository.delete(cardId);
+  }
 }
