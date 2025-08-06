@@ -1,12 +1,9 @@
 import { AutoMap } from '@automapper/classes';
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity } from 'typeorm';
+import { BaseEntity } from '../../core/db/base.entity';
 
 @Entity()
-export class Game {
-  @PrimaryGeneratedColumn()
-  @AutoMap()
-  id: number;
-
+export class Game extends BaseEntity {
   @Column()
   @AutoMap()
   name: string;

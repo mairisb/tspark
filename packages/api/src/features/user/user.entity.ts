@@ -1,21 +1,11 @@
 import { AutoMap } from '@automapper/classes';
-import {
-  Column,
-  Entity,
-  JoinColumn,
-  OneToMany,
-  OneToOne,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
+import { Column, Entity, JoinColumn, OneToMany, OneToOne } from 'typeorm';
+import { BaseEntity } from '../../core/db/base.entity';
 import { Auth } from '../auth/auth.entity';
 import { Card } from '../card/card.entity';
 
 @Entity()
-export class User {
-  @PrimaryGeneratedColumn()
-  @AutoMap()
-  id: number;
-
+export class User extends BaseEntity {
   @Column({ unique: true })
   @AutoMap()
   username: string;
