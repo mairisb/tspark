@@ -1,9 +1,7 @@
 import { AutoMap } from '@automapper/classes';
+import { BaseDto } from './dto.base';
 
-export class GameDto {
-  @AutoMap()
-  id: number;
-
+export class GameDto extends BaseDto {
   @AutoMap()
   name: string;
 

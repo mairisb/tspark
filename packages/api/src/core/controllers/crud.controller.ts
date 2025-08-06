@@ -21,7 +21,7 @@ export abstract class CrudController<EDto> extends BaseController {
 
   @httpGet('/:id')
   protected async find(
-    @requestParam('id') id: number,
+    @requestParam('id') id: string,
     @response() res: Response<EDto | null | ErrorResponse>,
   ) {
     const entity = await this.service.find(id);
@@ -56,7 +56,7 @@ export abstract class CrudController<EDto> extends BaseController {
 
   @httpPut('/:id')
   protected async update(
-    @requestParam('id') id: number,
+    @requestParam('id') id: string,
     @requestBody() dto: EDto,
     @response() res: Response<ErrorResponse>,
   ) {
@@ -79,7 +79,7 @@ export abstract class CrudController<EDto> extends BaseController {
 
   @httpDelete('/:id')
   protected async delete(
-    @requestParam('id') id: number,
+    @requestParam('id') id: string,
     @response() res: Response<ErrorResponse>,
   ) {
     try {

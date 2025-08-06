@@ -48,7 +48,7 @@ export class CardController extends BaseController {
 
   @httpDelete('/:id')
   public async delete(
-    @requestParam('id') id: number,
+    @requestParam('id') id: string,
     @response() res: Response,
   ) {
     try {

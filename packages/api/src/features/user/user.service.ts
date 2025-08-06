@@ -8,7 +8,7 @@ export class UserService implements IUserService {
     return userRepository.find();
   }
 
-  get(id: number) {
+  get(id: string) {
     return userRepository.findOneOrFail({ where: { id } });
   }
 

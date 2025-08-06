@@ -2,7 +2,7 @@ import { AutoMap } from '@automapper/classes';
 import { PrimaryGeneratedColumn } from 'typeorm';
 
 export abstract class BaseEntity {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn('uuid')
   @AutoMap()
-  id: number;
+  id: string;
 }

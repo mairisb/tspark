@@ -22,7 +22,7 @@ export class CardService
     return CardDto;
   }
 
-  async findAllByUserId(userId: number) {
+  async findAllByUserId(userId: string) {
     const entities = await this.repository.find({
       where: {
         user: {
@@ -36,7 +36,7 @@ export class CardService
     return entityDtos;
   }
 
-  async deleteByIdAndUserId(cardId: number, userId: number) {
+  async deleteByIdAndUserId(cardId: string, userId: string) {
     const card = this.repository.findOne({
       where: {
         id: cardId,

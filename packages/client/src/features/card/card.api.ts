@@ -8,8 +8,8 @@ export const cardApi = createApi({
   baseQuery: axiosBaseQuery({ baseUrl: `${config.apiUrl}/card` }),
   tagTypes: ['card', 'cards'],
   endpoints: (builder) => ({
-    get: builder.query<CardDto, number>({
-      query: (id: number) => ({
+    get: builder.query<CardDto, string>({
+      query: (id: string) => ({
         url: `/${id}`,
         method: 'get',
       }),
@@ -41,7 +41,7 @@ export const cardApi = createApi({
         { type: 'card', id: card.id },
       ],
     }),
-    delete: builder.mutation<void, number>({
+    delete: builder.mutation<void, string>({
       query: (id) => ({
         url: `/${id}`,
         method: 'delete',

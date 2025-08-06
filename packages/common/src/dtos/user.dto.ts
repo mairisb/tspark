@@ -1,10 +1,8 @@
 import { AutoMap } from '@automapper/classes';
 import { CardDto } from './card.dto';
+import { BaseDto } from './dto.base';
 
-export class UserDto {
-  @AutoMap()
-  id: number;
-
+export class UserDto extends BaseDto {
   @AutoMap()
   username: string;
 

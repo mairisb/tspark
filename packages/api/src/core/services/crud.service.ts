@@ -21,7 +21,7 @@ export abstract class CrudService<E extends IBaseEntity & ObjectLiteral, EDto>
     return this.getEntityDtoClass();
   }
 
-  async find(id: number) {
+  async find(id: string) {
     const entity = await this.repository.findOneBy({
       id,
     } as FindOptionsWhere<E>);
@@ -49,13 +49,13 @@ export abstract class CrudService<E extends IBaseEntity & ObjectLiteral, EDto>
     return this.repository.insert(entity);
   }
 
-  update(id: number, entityDto: EDto) {
+  update(id: string, entityDto: EDto) {
     const entity = mapper.map(entityDto, this.EDto, this.E);
 
     return this.repository.update(id, entity);
   }
 
-  delete(id: number) {
+  delete(id: string) {
     return this.repository.delete(id);
   }
 }
