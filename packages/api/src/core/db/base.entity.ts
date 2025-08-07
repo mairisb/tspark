@@ -4,8 +4,9 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { IBaseEntity } from './base.entity.type';
 
-export abstract class BaseEntity {
+export abstract class BaseEntity implements IBaseEntity {
   @PrimaryGeneratedColumn('uuid')
   @AutoMap()
   id: string;
