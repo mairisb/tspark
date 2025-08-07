@@ -19,6 +19,10 @@ export const authApi = createApi({
         method: 'post',
         data: req,
       }),
+      onQueryStarted: async (arg, api) => {
+        console.log('invalidating cardApi cache from authApi');
+        api.dispatch(cardApi.util.invalidateTags(['cards']));
+      },
     }),
     login: builder.mutation<UserDto, LoginRequest>({
       query: (req) => ({
