@@ -4,7 +4,7 @@ import { controller, httpGet, httpPost } from 'inversify-express-utils';
 import jwt from 'jsonwebtoken';
 import { mapper } from '../../core/auto-mapper/mapper';
 import { config } from '../../core/config/config';
-import { BaseController } from '../../core/controllers/base.controller';
+import { BaseController } from '../../core/controller/base.controller';
 import { Services } from '../../core/di/di.identifiers';
 import { User } from '../user/user.entity';
 import { IAuthService } from './auth.service.type';

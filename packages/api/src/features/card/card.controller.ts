@@ -10,7 +10,7 @@ import {
   requestParam,
   response,
 } from 'inversify-express-utils';
-import { BaseController } from '../../core/controllers/base.controller';
+import { BaseController } from '../../core/controller/base.controller';
 import { Middleware, Services } from '../../core/di/di.identifiers';
 import { ICardService } from './card.service.type';
 
