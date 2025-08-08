@@ -2,24 +2,50 @@ import { CardDto } from '@tspark/common';
 import { injectable } from 'inversify';
 import { Repository } from 'typeorm';
 import { mapper } from '../../core/auto-mapper/mapper';
-import { CrudService } from '../../core/services/crud.service';
 import { Card } from './card.entity';
 import { cardRepository } from './card.repository';
 import { ICardService } from './card.service.type';
 
 @injectable()
-export class CardService
-  extends CrudService<Card, CardDto>
-  implements ICardService
-{
+export class CardService implements ICardService {
   repository: Repository<Card> = cardRepository;
 
-  protected getEntityClass(): new () => Card {
-    return Card;
+  async find(id: string) {
+    const entity = await this.repository.findOneBy({
+      id,
+    });
+
+    if (!entity) {
+      return null;
+    }
+
+    const entityDto = mapper.map(entity, Card, CardDto);
+
+    return entityDto;
   }
 
-  protected getEntityDtoClass(): new () => CardDto {
-    return CardDto;
+  async findAll() {
+    const entities = await this.repository.find();
+
+    const entityDtos = mapper.mapArray(entities, Card, CardDto);
+
+    return entityDtos;
+  }
+
+  create(entityDto: CardDto) {
+    const entity = mapper.map(entityDto, CardDto, Card);
+
+    return this.repository.insert(entity);
+  }
+
+  update(id: string, entityDto: CardDto) {
+    const entity = mapper.map(entityDto, CardDto, Card);
+
+    return this.repository.update(id, entity);
+  }
+
+  delete(id: string) {
+    return this.repository.delete(id);
   }
 
   async findAllByUserId(userId: string) {
