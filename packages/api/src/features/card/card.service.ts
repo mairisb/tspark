@@ -1,18 +1,15 @@
 import { inject, injectable } from 'inversify';
-import { Repository as TypeOrmRepository } from 'typeorm';
 import { Repository } from '../../core/di/di.identifiers';
-import { User } from '../user/user.entity';
-import { userRepository } from '../user/user.repository';
+import { IUserRepository } from '../user/user.repository.type';
 import { Card } from './card.entity';
 import { ICardRepository } from './card.repository.type';
 import { ICardService } from './card.service.type';
 
 @injectable()
 export class CardService implements ICardService {
-  private readonly userRepository: TypeOrmRepository<User> = userRepository;
-
   constructor(
     @inject(Repository.Card) private readonly cardRepository: ICardRepository,
+    @inject(Repository.User) private readonly userRepository: IUserRepository,
   ) {}
 
   async getAllForUser(userId: string) {
@@ -20,7 +17,7 @@ export class CardService implements ICardService {
   }
 
   async createForUser(userId: string, card: Card) {
-    const user = await this.userRepository.findOne({ where: { id: userId } });
+    const user = await this.userRepository.find(userId);
     if (!user) {
       throw new Error('User not found');
     }

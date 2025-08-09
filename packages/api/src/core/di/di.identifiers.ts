@@ -4,6 +4,7 @@ export const Middleware = {
 
 export const Repository = {
   Card: Symbol.for('ICardRepository'),
+  User: Symbol.for('IUserRepository'),
 };
 
 export const Services = {
