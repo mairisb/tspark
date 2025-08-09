@@ -1,6 +1,5 @@
 import '../../features/auth/auth.controller';
 import '../../features/card/card.controller';
-import '../../features/game/game.controller';
 import '../../features/user/user.controller';
 
 import { Container } from 'inversify';
@@ -15,8 +14,6 @@ import { CardRepository } from '../../features/card/card.repository';
 import { ICardRepository } from '../../features/card/card.repository.type';
 import { CardService } from '../../features/card/card.service';
 import { ICardService } from '../../features/card/card.service.type';
-import { GameServiceMock } from '../../features/game/game.service.mock';
-import { IGameService } from '../../features/game/game.service.type';
 import { UserService } from '../../features/user/user.service';
 import { IUserService } from '../../features/user/user.service.type';
 
@@ -28,7 +25,6 @@ container.bind<ICardRepository>(Repository.Card).to(CardRepository);
 
 container.bind<IAuthService>(Services.Auth).to(AuthService);
 container.bind<ICardService>(Services.Card).to(CardService);
-container.bind<IGameService>(Services.Game).to(GameServiceMock);
 container.bind<IUserService>(Services.User).to(UserService);
 
 export { container };
