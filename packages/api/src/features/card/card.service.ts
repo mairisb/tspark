@@ -31,7 +31,7 @@ export class CardService implements ICardService {
 
     card.user = user;
 
-    return this.cardRepository.insert(card).then(() => {});
+    this.cardRepository.insert(card);
   }
 
   async deleteForUser(userId: string, cardId: string) {
