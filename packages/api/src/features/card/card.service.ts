@@ -1,26 +1,22 @@
-import { injectable } from 'inversify';
-import { Repository } from 'typeorm';
+import { inject, injectable } from 'inversify';
+import { Repository as TypeOrmRepository } from 'typeorm';
+import { Repository } from '../../core/di/di.identifiers';
 import { User } from '../user/user.entity';
 import { userRepository } from '../user/user.repository';
 import { Card } from './card.entity';
-import { cardRepository } from './card.repository';
+import { ICardRepository } from './card.repository.type';
 import { ICardService } from './card.service.type';
 
 @injectable()
 export class CardService implements ICardService {
-  private readonly cardRepository: Repository<Card> = cardRepository;
-  private readonly userRepository: Repository<User> = userRepository;
+  private readonly userRepository: TypeOrmRepository<User> = userRepository;
+
+  constructor(
+    @inject(Repository.Card) private readonly cardRepository: ICardRepository,
+  ) {}
 
   async getAllForUser(userId: string) {
-    const entities = await this.cardRepository.find({
-      where: {
-        user: {
-          id: userId,
-        },
-      },
-    });
-
-    return entities;
+    return this.cardRepository.findAllForUser(userId);
   }
 
   async createForUser(userId: string, card: Card) {
@@ -31,25 +27,15 @@ export class CardService implements ICardService {
 
     card.user = user;
 
-    this.cardRepository.insert(card);
+    this.cardRepository.save(card);
   }
 
   async deleteForUser(userId: string, cardId: string) {
-    const card = this.cardRepository.findOne({
-      where: {
-        id: cardId,
-        user: {
-          id: userId,
-        },
-      },
-    });
-
+    const card = this.cardRepository.findForUser(userId, cardId);
     if (!card) {
-      throw new Error(
-        `Cannot delete card. Card with ID '${cardId}' not found or does not belong to the user with ID '${userId}'`,
-      );
+      throw new Error(`Card not found`);
     }
 
-    this.cardRepository.delete(cardId);
+    this.cardRepository.deleteForUser(userId, cardId);
   }
 }
