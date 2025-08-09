@@ -1,7 +1,7 @@
-import { CardDto } from '@tspark/common';
-import { ICrudService } from '../../core/services/crud.service.type';
+import { Card } from './card.entity';
 
-export interface ICardService extends ICrudService<CardDto> {
-  findAllByUserId: (userId: string) => Promise<CardDto[]>;
-  deleteByIdAndUserId: (cardId: string, userId: string) => Promise<void>;
+export interface ICardService {
+  getAllForUser: (userId: string) => Promise<Card[]>;
+  createForUser(userId: string, dto: Card): Promise<void>;
+  deleteForUser: (userId: string, cardId: string) => Promise<void>;
 }

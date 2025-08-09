@@ -10,8 +10,10 @@ import {
   requestParam,
   response,
 } from 'inversify-express-utils';
+import { mapper } from '../../core/auto-mapper/mapper';
 import { BaseController } from '../../core/controller/base.controller';
 import { Middleware, Services } from '../../core/di/di.identifiers';
+import { Card } from './card.entity';
 import { ICardService } from './card.service.type';
 
 @controller('/card', Middleware.Auth)
@@ -23,23 +25,24 @@ export class CardController extends BaseController {
     return this.cardService;
   }
 
-  @httpGet('/')
-  protected async getAll(@response() res: Response<CardDto[]>) {
-    const entities = await this.cardService.findAllByUserId(
+  @httpGet('')
+  public async getAll(@response() res: Response<CardDto[]>) {
+    const cards = await this.cardService.getAllForUser(
       this.principal.details.id,
     );
-    return res.status(200).json(entities);
+    const cardDtos = mapper.mapArray(cards, Card, CardDto);
+    return res.status(200).json(cardDtos);
   }
 
-  @httpPost('/')
+  @httpPost('')
   public async create(
     @requestBody() cardDto: CardDto,
     @response() res: Response,
   ) {
     try {
-      cardDto.user = this.principal.details;
-      await this.cardService.create(cardDto);
-      return res.status(200).send();
+      const card = mapper.map(cardDto, CardDto, Card);
+      await this.cardService.createForUser(this.principal.details.id, card);
+      return res.status(201).send();
     } catch (e) {
       console.error('Entity creation failed:', e);
       return res.status(400).json({ error: 'Entity creation failed' });
@@ -52,8 +55,8 @@ export class CardController extends BaseController {
     @response() res: Response,
   ) {
     try {
-      await this.cardService.deleteByIdAndUserId(id, this.principal.details.id);
-      return res.status(200).send();
+      await this.cardService.deleteForUser(this.principal.details.id, id);
+      return res.status(204).send();
     } catch (e) {
       console.error('Entity deletion failed:', e);
       return res.status(400).json({ error: 'Entity deletion failed' });

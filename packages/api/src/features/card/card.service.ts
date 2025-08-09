@@ -1,55 +1,18 @@
-import { CardDto } from '@tspark/common';
 import { injectable } from 'inversify';
 import { Repository } from 'typeorm';
-import { mapper } from '../../core/auto-mapper/mapper';
+import { User } from '../user/user.entity';
+import { userRepository } from '../user/user.repository';
 import { Card } from './card.entity';
 import { cardRepository } from './card.repository';
 import { ICardService } from './card.service.type';
 
 @injectable()
 export class CardService implements ICardService {
-  repository: Repository<Card> = cardRepository;
+  private readonly cardRepository: Repository<Card> = cardRepository;
+  private readonly userRepository: Repository<User> = userRepository;
 
-  async find(id: string) {
-    const entity = await this.repository.findOneBy({
-      id,
-    });
-
-    if (!entity) {
-      return null;
-    }
-
-    const entityDto = mapper.map(entity, Card, CardDto);
-
-    return entityDto;
-  }
-
-  async findAll() {
-    const entities = await this.repository.find();
-
-    const entityDtos = mapper.mapArray(entities, Card, CardDto);
-
-    return entityDtos;
-  }
-
-  create(entityDto: CardDto) {
-    const entity = mapper.map(entityDto, CardDto, Card);
-
-    return this.repository.insert(entity);
-  }
-
-  update(id: string, entityDto: CardDto) {
-    const entity = mapper.map(entityDto, CardDto, Card);
-
-    return this.repository.update(id, entity);
-  }
-
-  delete(id: string) {
-    return this.repository.delete(id);
-  }
-
-  async findAllByUserId(userId: string) {
-    const entities = await this.repository.find({
+  async getAllForUser(userId: string) {
+    const entities = await this.cardRepository.find({
       where: {
         user: {
           id: userId,
@@ -57,13 +20,22 @@ export class CardService implements ICardService {
       },
     });
 
-    const entityDtos = mapper.mapArray(entities, Card, CardDto);
-
-    return entityDtos;
+    return entities;
   }
 
-  async deleteByIdAndUserId(cardId: string, userId: string) {
-    const card = this.repository.findOne({
+  async createForUser(userId: string, card: Card) {
+    const user = await this.userRepository.findOne({ where: { id: userId } });
+    if (!user) {
+      throw new Error('User not found');
+    }
+
+    card.user = user;
+
+    return this.cardRepository.insert(card).then(() => {});
+  }
+
+  async deleteForUser(userId: string, cardId: string) {
+    const card = this.cardRepository.findOne({
       where: {
         id: cardId,
         user: {
@@ -78,6 +50,6 @@ export class CardService implements ICardService {
       );
     }
 
-    this.repository.delete(cardId);
+    this.cardRepository.delete(cardId);
   }
 }
