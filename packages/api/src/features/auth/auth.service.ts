@@ -52,12 +52,12 @@ export class AuthService implements IAuthService {
     try {
       const tokenPayload = this._getTokenPayload(token);
 
-      const email = tokenPayload?.sub;
-      if (!email) {
+      const userId = tokenPayload?.sub;
+      if (!userId) {
         return null;
       }
 
-      const user = await this.userService.getByEmail(email);
+      const user = await this.userService.get(userId);
 
       return user;
     } catch (err) {
