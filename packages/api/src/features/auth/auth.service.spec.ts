@@ -1,7 +1,7 @@
 import { LoginRequest, RegisterRequest } from '@tspark/common';
 import bcrypt from 'bcrypt';
 import { User } from '../user/user.entity';
-import { userRepository } from '../user/user.repository';
+import { UserRepository, userRepository } from '../user/user.repository';
 import { UserService } from '../user/user.service';
 import { AuthService } from './auth.service';
 
@@ -9,7 +9,8 @@ jest.mock('../user/user.repository');
 jest.mock('bcrypt');
 
 describe('authService', () => {
-  const userService = new UserService();
+  const userRepository = new UserRepository();
+  const userService = new UserService(userRepository);
   const authService = new AuthService(userService);
 
   beforeEach(() => {
@@ -61,7 +62,7 @@ describe('authService', () => {
     } as User;
 
     it('should log in', async () => {
-      (userRepository.findOneOrFail as jest.Mock).mockResolvedValue(user);
+      (userRepository.find as jest.Mock).mockResolvedValue(user);
       (bcrypt.compare as jest.Mock).mockResolvedValue(true);
 
       const result = await authService.login(loginRequest);
@@ -70,7 +71,7 @@ describe('authService', () => {
     });
 
     it('should throw error for incorrect password', async () => {
-      (userRepository.findOneOrFail as jest.Mock).mockResolvedValue(user);
+      (userRepository.find as jest.Mock).mockResolvedValue(user);
       (bcrypt.compare as jest.Mock).mockResolvedValue(false);
 
       await expect(authService.login(loginRequest)).rejects.toThrow(

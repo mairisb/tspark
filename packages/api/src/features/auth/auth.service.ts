@@ -13,15 +13,6 @@ import { IAuthService } from './auth.service.type';
 export class AuthService implements IAuthService {
   constructor(@inject(Services.User) private userService: IUserService) {}
 
-  public decodeToken(token: string): JwtPayload | null {
-    const isTokenValid = jwt.verify(token, config.jwtSecret);
-    if (!isTokenValid) {
-      throw new Error('Invalid authentication token.');
-    }
-
-    return jwt.decode(token, { json: true });
-  }
-
   public async register(registerRequest: RegisterRequest) {
     const userAlreadyExists = await this.userService.existsByEmail(
       registerRequest.email,
@@ -34,7 +25,7 @@ export class AuthService implements IAuthService {
       registerRequest.password,
       config.saltRounds,
     );
-    const user = this.createUser(registerRequest, hashedPassword);
+    const user = this._createUser(registerRequest, hashedPassword);
 
     return this.userService.save(user);
   }
@@ -59,14 +50,9 @@ export class AuthService implements IAuthService {
     }
 
     try {
-      const isTokenValid = jwt.verify(token, config.jwtSecret);
-      if (!isTokenValid) {
-        return null;
-      }
+      const tokenPayload = this._getTokenPayload(token);
 
-      const decodedToken = jwt.decode(token, { json: true });
-
-      const email = decodedToken?.sub;
+      const email = tokenPayload?.sub;
       if (!email) {
         return null;
       }
@@ -79,7 +65,16 @@ export class AuthService implements IAuthService {
     }
   }
 
-  private createUser(request: RegisterRequest, hashedPassword: string): User {
+  private _getTokenPayload(token: string): JwtPayload {
+    const payload = jwt.verify(token, config.jwtSecret);
+    if (typeof payload === 'string') {
+      throw new Error('Invalid token payload');
+    }
+
+    return payload;
+  }
+
+  private _createUser(request: RegisterRequest, hashedPassword: string): User {
     const auth = new Auth();
     auth.hashedPassword = hashedPassword;
 
