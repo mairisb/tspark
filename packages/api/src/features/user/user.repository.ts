@@ -19,7 +19,18 @@ export class UserRepository implements IUserRepository {
     return userRepository.findOne({ where: { email } });
   }
 
-  existsByEmail(email: string): Promise<boolean> {
+  async findByEmailWithAuth(email: string) {
+    return userRepository.findOneOrFail({
+      where: { email },
+      relations: { auth: true },
+    });
+  }
+
+  existsByEmail(email: string) {
     return userRepository.exist({ where: { email } });
+  }
+
+  save(user: User) {
+    return userRepository.save(user);
   }
 }

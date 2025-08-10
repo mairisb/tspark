@@ -5,7 +5,6 @@ import jwt, { JwtPayload } from 'jsonwebtoken';
 import { config } from '../../core/config/config';
 import { Services } from '../../core/di/di.identifiers';
 import { User } from '../user/user.entity';
-import { userRepository } from '../user/user.repository';
 import { IUserService } from '../user/user.service.type';
 import { Auth } from './auth.entity';
 import { IAuthService } from './auth.service.type';
@@ -37,14 +36,11 @@ export class AuthService implements IAuthService {
     );
     const user = this.createUser(registerRequest, hashedPassword);
 
-    return userRepository.save(user);
+    return this.userService.save(user);
   }
 
   public async login(loginRequest: LoginRequest) {
-    const user = await userRepository.findOneOrFail({
-      relations: { auth: true },
-      where: { email: loginRequest.email },
-    });
+    const user = await this.userService.getByEmailWithAuth(loginRequest.email);
 
     const isMatch = await bcrypt.compare(
       loginRequest.password,
