@@ -86,6 +86,7 @@ export class AuthController extends BaseController {
 
   private clearJwtCookie() {
     this.httpContext.response.clearCookie(CookieKeys.AuthToken, {
+      httpOnly: true,
       sameSite: 'none',
       secure: true,
     });
