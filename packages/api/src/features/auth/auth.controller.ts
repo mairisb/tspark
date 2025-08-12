@@ -75,6 +75,8 @@ export class AuthController extends BaseController {
     const token = jwt.sign({ sub: userDto.id }, config.jwtSecret, {
       expiresIn: '1h',
       algorithm: 'HS256',
+      issuer: config.jwtIssuer,
+      audience: config.jwtAudience,
     });
 
     this.httpContext.response.cookie(CookieKeys.AuthToken, token, {

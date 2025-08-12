@@ -68,6 +68,8 @@ export class AuthService implements IAuthService {
   private _getTokenPayload(token: string): JwtPayload {
     const payload = jwt.verify(token, config.jwtSecret, {
       algorithms: ['HS256'],
+      issuer: config.jwtIssuer,
+      audience: config.jwtAudience,
     });
     if (typeof payload === 'string') {
       throw new Error('Invalid token payload');

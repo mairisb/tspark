@@ -5,4 +5,6 @@ export const config = {
   port: parseInt(getEnvVar('PORT')),
   saltRounds: parseInt(getEnvVar('SALT_ROUNDS')),
   jwtSecret: getEnvVar('JWT_SECRET'),
+  jwtIssuer: 'tspark-api',
+  jwtAudience: 'tspark-web',
 };
