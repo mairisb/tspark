@@ -1,14 +1,14 @@
 import { LoginRequest, RegisterRequest } from '@tspark/common';
 import bcrypt from 'bcrypt';
 import { inject, injectable } from 'inversify';
-import jwt, { JwtPayload } from 'jsonwebtoken';
+import jwt from 'jsonwebtoken';
 import { config } from '../../core/config/config';
 import { Services } from '../../core/di/di.identifiers';
 import { User } from '../user/user.entity';
 import { IUserService } from '../user/user.service.type';
+import { IAccessTokenPayload } from './access-token-payload.type';
 import { Auth } from './auth.entity';
 import { IAuthService } from './auth.service.type';
-import { IAccessTokenPayload } from './access-token-payload.type';
 
 @injectable()
 export class AuthService implements IAuthService {
