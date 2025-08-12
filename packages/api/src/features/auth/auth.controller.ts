@@ -1,9 +1,7 @@
 import { AuthCheckResponse, CookieKeys, UserDto } from '@tspark/common';
 import { inject } from 'inversify';
 import { controller, httpGet, httpPost } from 'inversify-express-utils';
-import jwt from 'jsonwebtoken';
 import { mapper } from '../../core/auto-mapper/mapper';
-import { config } from '../../core/config/config';
 import { BaseController } from '../../core/controller/base.controller';
 import { Services } from '../../core/di/di.identifiers';
 import { User } from '../user/user.entity';
@@ -72,13 +70,7 @@ export class AuthController extends BaseController {
   }
 
   private setJwtCookie(userDto: UserDto) {
-    const token = jwt.sign({ sub: userDto.id }, config.jwtSecret, {
-      expiresIn: '1h',
-      algorithm: 'HS256',
-      issuer: config.jwtIssuer,
-      audience: config.jwtAudience,
-    });
-
+    const token = this.authService.issueAccessToken(userDto.id);
     this.httpContext.response.cookie(CookieKeys.AuthToken, token, {
       httpOnly: true,
       sameSite: 'none',

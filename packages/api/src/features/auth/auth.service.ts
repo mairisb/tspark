@@ -14,6 +14,15 @@ import { IAccessTokenPayload } from './access-token-payload.type';
 export class AuthService implements IAuthService {
   constructor(@inject(Services.User) private userService: IUserService) {}
 
+  public issueAccessToken(userId: string): string {
+    return jwt.sign({ sub: userId }, config.jwtSecret, {
+      expiresIn: '1h',
+      algorithm: 'HS256',
+      issuer: config.jwtIssuer,
+      audience: config.jwtAudience,
+    });
+  }
+
   public async register(registerRequest: RegisterRequest) {
     const userAlreadyExists = await this.userService.existsByEmail(
       registerRequest.email,
