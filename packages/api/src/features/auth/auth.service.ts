@@ -8,6 +8,7 @@ import { User } from '../user/user.entity';
 import { IUserService } from '../user/user.service.type';
 import { Auth } from './auth.entity';
 import { IAuthService } from './auth.service.type';
+import { IAccessTokenPayload } from './access-token-payload.type';
 
 @injectable()
 export class AuthService implements IAuthService {
@@ -51,13 +52,7 @@ export class AuthService implements IAuthService {
 
     try {
       const tokenPayload = this._getTokenPayload(token);
-
-      const userId = tokenPayload?.sub;
-      if (!userId || typeof userId !== 'string') {
-        return null;
-      }
-
-      const user = await this.userService.get(userId);
+      const user = await this.userService.get(tokenPayload?.sub);
 
       return user;
     } catch (err) {
@@ -65,17 +60,21 @@ export class AuthService implements IAuthService {
     }
   }
 
-  private _getTokenPayload(token: string): JwtPayload {
+  private _getTokenPayload(token: string): IAccessTokenPayload {
     const payload = jwt.verify(token, config.jwtSecret, {
       algorithms: ['HS256'],
       issuer: config.jwtIssuer,
       audience: config.jwtAudience,
     });
-    if (typeof payload === 'string') {
+    if (
+      typeof payload === 'string' ||
+      !payload.sub ||
+      typeof payload.sub !== 'string'
+    ) {
       throw new Error('Invalid token payload');
     }
 
-    return payload;
+    return payload as IAccessTokenPayload;
   }
 
   private _createUser(request: RegisterRequest, hashedPassword: string): User {
