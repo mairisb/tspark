@@ -53,7 +53,7 @@ export class AuthService implements IAuthService {
       const tokenPayload = this._getTokenPayload(token);
 
       const userId = tokenPayload?.sub;
-      if (!userId) {
+      if (!userId || typeof userId !== 'string') {
         return null;
       }
 
