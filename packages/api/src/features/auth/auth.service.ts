@@ -65,6 +65,7 @@ export class AuthService implements IAuthService {
       algorithms: ['HS256'],
       issuer: config.jwtIssuer,
       audience: config.jwtAudience,
+      clockTolerance: 5,
     });
     if (
       typeof payload === 'string' ||
