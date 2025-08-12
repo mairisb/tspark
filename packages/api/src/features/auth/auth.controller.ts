@@ -84,6 +84,7 @@ export class AuthController extends BaseController {
       sameSite: 'none',
       secure: true,
       maxAge: 3600000,
+      path: '/',
     });
   }
 
@@ -92,6 +93,7 @@ export class AuthController extends BaseController {
       httpOnly: true,
       sameSite: 'none',
       secure: true,
+      path: '/',
     });
   }
 }
