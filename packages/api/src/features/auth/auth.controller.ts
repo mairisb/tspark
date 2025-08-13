@@ -73,8 +73,6 @@ export class AuthController extends BaseController {
     const token = this.authService.issueAccessToken(userDto.id);
     this.httpContext.response.cookie(CookieKeys.AuthToken, token, {
       httpOnly: true,
-      sameSite: 'none',
-      secure: true,
       maxAge: 3600000,
       path: '/',
     });
@@ -83,8 +81,6 @@ export class AuthController extends BaseController {
   private clearJwtCookie() {
     this.httpContext.response.clearCookie(CookieKeys.AuthToken, {
       httpOnly: true,
-      sameSite: 'none',
-      secure: true,
       path: '/',
     });
   }

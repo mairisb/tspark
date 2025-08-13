@@ -3,7 +3,6 @@ import 'reflect-metadata';
 
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
-import cors from 'cors';
 import express from 'express';
 import { InversifyExpressServer } from 'inversify-express-utils';
 import { createMaps } from './core/auto-mapper/mapper';
@@ -20,20 +19,6 @@ const port = config.port;
 const rootPath = '/api';
 
 const app = express();
-app.use(
-  cors({
-    origin: [
-      'http://localhost:4200',
-      'http://localhost:8080',
-      'http://192.168.0.4:4200',
-      'http://192.168.0.4:8080',
-      'https://192.168.0.4:8443',
-      'http://host.docker.internal:8080',
-      'https://host.docker.internal:8443',
-    ],
-    credentials: true,
-  }),
-);
 app.use(bodyParser.json());
 app.use(cookieParser());
 

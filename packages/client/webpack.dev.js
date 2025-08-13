@@ -14,6 +14,16 @@ module.exports = merge(common, {
   },
   devServer: {
     port: 4200,
+    host: '0.0.0.0',
+    allowedHosts: 'all',
     historyApiFallback: true,
+    hot: true,
+    proxy: {
+      '/api': {
+        target: 'http://localhost:3333',
+        changeOrigin: true,
+        secure: false,
+      },
+    },
   },
 });
